@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAwCA,IAAK,GACH,UAAU,EAAE,IAAI",
+"sources": ["../../Private/Stylesheets/WMDB.Forger.scss"],
+"names": [],
+"file": "WMDB.Forger.css"
+}

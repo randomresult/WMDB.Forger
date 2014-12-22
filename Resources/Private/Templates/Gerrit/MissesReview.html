@@ -1,0 +1,12 @@
+{namespace wmdb=WMDB\Forger\ViewHelpers}
+<f:layout name="Default" />
+
+<f:section name="Title">Misses Review</f:section>
+<f:section name="Javascripts">
+</f:section>
+
+<f:section name="Content">
+	<form action="/gerrit/missesReview"  method="get">
+		<f:render partial="ReviewView" arguments="{results: results, aggregations: aggregations, total:total}" />
+	</form>
+</f:section>

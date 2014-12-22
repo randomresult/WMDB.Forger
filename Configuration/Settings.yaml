@@ -1,0 +1,149 @@
+WMDB:
+  Forger:
+    Elasticsearch:
+      Credentials:
+        host : 127.0.0.1
+        port : 9200
+        path : /
+        transport : Http
+        index : forger
+      Mapping:
+        review:
+          id:
+            type: integer
+          change_id:
+            type: string
+            index: not_analyzed
+            store: true
+          status:
+            type: string
+            index: not_analyzed
+            store: true
+          subject:
+            type: string
+          branch:
+            type: string
+            index: not_analyzed
+            store: true
+          topic:
+            type: string
+            index: not_analyzed
+            store: true
+          releases:
+            type: string
+            store: true
+            index_name: tag
+          mergeable:
+            type: string
+          affected_files:
+            type: integer
+          insertions:
+            type: integer
+          deletions:
+            type: integer
+          positive_reviews:
+            type: integer
+          negative_reviews:
+            type: integer
+          positive_verifications:
+            type: integer
+          negative_verifications:
+            type: integer
+          patchsets:
+            type: integer
+          created_on:
+            type: date
+            format: yyyy/MM/dd HH:mm:ss
+          updated_on:
+            type: date
+            format: yyyy/MM/dd HH:mm:ss
+        issue:
+          project:
+            properties:
+              name:
+                type: string
+                index: not_analyzed
+                store: true
+          tracker:
+            properties:
+              name:
+                type: string
+                index: not_analyzed
+                store: true
+          status:
+            properties:
+              name:
+                type: string
+                index: not_analyzed
+                store: true
+          priority:
+            properties:
+              name:
+                type: string
+                index: not_analyzed
+                store: true
+          fixed_version:
+            properties:
+              name:
+                type: string
+                index: not_analyzed
+                store: true
+          author:
+            properties:
+              name:
+                type: string
+                index: not_analyzed
+                store: true
+          category:
+            properties:
+              name:
+                type: string
+                index: not_analyzed
+                store: true
+          start_date:
+            type: date
+            format: yyyy/MM/dd
+          created_on:
+            type: date
+            format: yyyy/MM/dd HH:mm:ss
+          updated_on:
+            type: date
+            format: yyyy/MM/dd HH:mm:ss
+          complexity:
+            type: string
+            index: not_analyzed
+            store: true
+          typo3_version:
+            type: string
+            index: not_analyzed
+            store: true
+          php_version:
+            type: string
+            index: not_analyzed
+            store: true
+          target_version:
+            type: string
+            index: not_analyzed
+            store: true
+          isregression:
+            type: boolean
+            index: not_analyzed
+            store: true
+      Settings:
+        analysis:
+          tokenizer:
+            slashTokenizer:
+              type: pattern
+              pattern: '(\/+)'
+          analyzer:
+            slashAnalyser:
+              filter: standard
+              type: custom
+              tokenizer: slashTokenizer
+    SearchTermMapping:
+      subject: should
+      description: should
+      id: must_not
+    Redmine:
+      url: https://forge.typo3.org
+      apiKey: REDMINE_API_KEY

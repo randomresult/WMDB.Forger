@@ -1,0 +1,65 @@
+{namespace wmdb=WMDB\Forger\ViewHelpers}
+<f:layout name="Default" />
+
+<f:section name="Title">Search Forge</f:section>
+<f:section name="Javascripts">
+	<script type="text/javascript" src="<f:uri.resource package='WMDB.Forger' path='js/WMDB.Forger.js' />"></script>
+</f:section>
+
+<f:section name="Content">
+	<form action="/standard/search" method="get">
+		<div class="large-12 columns"><f:render partial="SearchBox" arguments="{query: query}" /></div>
+		<f:if condition="{0: mode} == {0: 'query'}">
+			<f:then>
+				<div class="large-2 column">
+					<h4>Aggregations</h4>
+					<f:for each="{result.aggs}" as="buckets" key="title">
+						<h6>{title}</h6>
+						<f:for each="{buckets.buckets}" as="bucket" key="index">
+							<div class="row">
+								<wmdb:lowercase category="{title}" index="{index}" bucket="{bucket.key}" docCount="{bucket.doc_count}" />
+							</div>
+						</f:for>
+					</f:for>
+				</div>
+				<div class="large-10 column">
+					<h4>Showing hits <strong>{result.startingAtItem} </strong>to <strong>{result.endingAtItem}</strong> of <strong>{result.totalResults}</strong></h4>
+					<f:if condition="{result.results}">
+						<ul class="pagination">
+							<f:for each="{result.pagesToLinkTo}" as="page" key="pageDesc">
+								<f:if condition="{result.currentPage} == {page}">
+									<f:then>
+										<li class="current"><f:link.action action="search" controller="standard" arguments="{query: query, page: page, filters: filters}">{page}</f:link.action></li>
+									</f:then>
+									<f:else>
+										<li><f:link.action action="search" controller="standard" arguments="{query: query, page: page, filters: filters}">{page}</f:link.action></li>
+									</f:else>
+								</f:if>
+							</f:for>
+						</ul>
+					</f:if>
+					<table>
+						<f:for each="{result.results}" as="results">
+							<f:render partial="Issue" arguments="{issue: results}" />
+						</f:for>
+					</table>
+				</div>
+			</f:then>
+			<f:else>
+				<div class="large-4 column">
+					<table>
+						<f:render partial="Issue" arguments="{issue: issue.data}" />
+					</table>
+				</div>
+				<div class="large-8 column">
+					<h4>{result.totalResults} dupes?</h4>
+					<table>
+						<f:for each="{result.results}" as="results">
+							<f:render partial="Issue" arguments="{issue: results}" />
+						</f:for>
+					</table>
+				</div>
+			</f:else>
+		</f:if>
+	</form>
+</f:section>

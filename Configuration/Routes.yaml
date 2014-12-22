@@ -1,0 +1,16 @@
+-
+  name: 'default standard'
+  uriPattern: ''
+  defaults:
+    '@controller': 'Standard'
+    '@action': 'index'
+    '@package': 'WMDB.Forger'
+  appendExceedingArguments: true
+
+-
+  name: 'default with controller and action'
+  uriPattern: '{@controller}(/{@action})'
+  defaults:
+    '@action': 'index'
+    '@package': 'WMDB.Forger'
+  appendExceedingArguments: true

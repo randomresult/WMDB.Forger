@@ -1,0 +1,56 @@
+<tr>
+	<th>{review._source.subject}</th>
+</tr>
+<tr>
+	<td>
+		<table>
+			<tr>
+				<td>Topic</td>
+				<td><span class="label radius">{review._source.topic}</span></td>
+				<td>Target Release</td>
+				<td colspan="3">
+					<f:for each="{review._source.releases}" as="release">
+						<f:switch expression="{release}">
+							<f:case value="master"><span class="label radius">master</span></f:case>
+							<f:case value="6.2"><span class="label radius success">{release}</span></f:case>
+							<f:case value="4.5"><span class="label radius success">{release}</span></f:case>
+							<f:defaultCase><span class="label radius alert">{release}</span></f:defaultCase>
+						</f:switch>
+					</f:for>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">Affected Files: <span class="label radius">{review._source.affected_files}</span></td>
+				<td colspan="3">Patchsets: <span class="label radius">{review._source.patchsets}</span></td>
+			</tr>
+			<tr>
+				<td>Reviews</td>
+				<td>Verifies</td>
+				<td colspan="4">
+					<f:if condition="{0: review._source.mergeable} == {0: 'no'}">
+						<span class="label radius alert">CODE CANNOT BE MERGED</span>
+					</f:if>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<f:if condition="{review._source.positive_reviews}">
+						<span class="label success radius">{review._source.positive_reviews}</span>
+					</f:if>
+					<f:if condition="{review._source.negative_reviews}">
+						<span class="label alert radius">{review._source.negative_reviews}</span>
+					</f:if>
+				</td>
+				<td>
+					<f:if condition="{review._source.positive_verifications}">
+						<span class="label success radius">{review._source.positive_verifications}</span>
+					</f:if>
+					<f:if condition="{review._source.negative_verifications}">
+						<span class="label alert radius">{review._source.negative_verifications}</span>
+					</f:if>
+				</td>
+				<td colspan="4"><a href="https://review.typo3.org/#/c/{review._source.id}/" target="forger"><span class="button success radius tiny">Open in Gerrit</span></a></td>
+			</tr>
+		</table>
+	</td>
+</tr>

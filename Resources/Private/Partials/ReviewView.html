@@ -1,0 +1,26 @@
+{namespace wmdb=WMDB\Forger\ViewHelpers}
+<div class="small-2 column">
+	<h4>Aggregations</h4>
+	<div class="">
+		<input type="submit" class="button success radius tiny" value="Filter" />
+	</div>
+	<f:for each="{aggregations}" as="buckets" key="title">
+		<h6>{title}</h6>
+		<f:for each="{buckets.buckets}" as="bucket" key="index">
+			<div class="row">
+				<wmdb:lowercase category="{title}" index="{index}" bucket="{bucket.key}" docCount="{bucket.doc_count}" />
+			</div>
+		</f:for>
+	</f:for>
+	<div class="">
+		<input type="submit" class="button success radius tiny" value="Filter" />
+	</div>
+</div>
+<div class="small-10 column">
+	<h4>{total} Results</h4>
+	<table>
+		<f:for each="{results}" as="result">
+			<f:render partial="Review" arguments="{review: result.hit}" />
+		</f:for>
+	</table>
+</div>

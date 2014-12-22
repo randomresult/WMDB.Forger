@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>[{context}] <f:render section="Title" /> :: Forger</title>
+		<link rel="stylesheet" href="<f:uri.resource package='WMDB.Forger' path='foundation-5.4.7/css/foundation.min.css' />" />
+		<script type="application/javascript" src="<f:uri.resource package='WMDB.Forger' path='foundation-5.4.7/js/vendor/jquery.js' />"></script>
+		<script type="application/javascript" src="<f:uri.resource package='WMDB.Forger' path='foundation-5.4.7/js/foundation.min.js' />"></script>
+		<script type="application/javascript" src="<f:uri.resource package='WMDB.Forger' path='foundation-5.4.7/js/foundation/foundation.reveal.js' />"></script>
+		<script type="application/javascript" src="<f:uri.resource package='WMDB.Forger' path='foundation-5.4.7/js/foundation/foundation.offcanvas.js' />"></script>
+		<f:render section="Javascripts" />
+		<f:base />
+	</head>
+	<body>
+	<div class="off-canvas-wrap docs-wrap" data-offcanvas="">
+		<div class="inner-wrap">
+			<nav class="tab-bar">
+				<section class="left-small">
+					<a class="left-off-canvas-toggle menu-icon" aria-expanded="false"><span></span></a>
+				</section>
+				<section class="right tab-bar-section">
+					<h1 class="title">TYPO3 CMS FORGER :: <f:render section="Title" /></h1>
+				</section>
+				<section class="middle tab-bar-section">
+					<div class="small-12 column text-center">
+						Proudly coded by
+						<a href="http://www.wmdb.de" target="_blank">
+							<img src="<f:uri.resource package='WMDB.Forger' path='images/logo_wmdb.png' />" alt="wmdb Systems - TYPO3, Consulting, Mobile Solutions and Coaching from Düsseldorf, Germany" title="wmdb Systems - TYPO3, Consulting, Mobile Solutions and Coaching from Düsseldorf, Germany">
+						</a>
+						and hosted insanely fast by
+						<a href="http://www.network-publishing.de/">
+							<img src="<f:uri.resource package='WMDB.Forger' path='images/logo_network.publishing.png' />" alt="network.publishing - TYPO3, Webdesign and Hosting from Cologne, Germany" title="network.publishing - TYPO3, Webdesign and Hosting from Cologne, Germany">
+						</a>
+					</div>
+				</section>
+			</nav>
+			<aside class="left-off-canvas-menu">
+				<ul class="off-canvas-list">
+					<f:render partial="Menu" />
+				</ul>
+			</aside>
+			<section class="main-section">
+				<div class="row">
+					<div class="large-12 columns">
+						<f:flashMessages class="flashmessages" />
+						<f:render section="Content" />
+					</div>
+				</div>
+			</section>
+			<a class="exit-off-canvas"></a>
+		</div>
+	</div>
+	<div id="helpModal" class="reveal-modal" data-reveal>
+		<h2>Search Help</h2>
+		<div class="small-12 column">Using <span class="label radius secondary">searchword</span> will add a should have. </div>
+		<div class="small-12 column">Using <span class="label radius secondary">+searchword</span> will add a must have. </div>
+		<div class="small-12 column">Using <span class="label radius secondary">-searchword</span> will add a must not have. </div>
+		<a class="close-reveal-modal">&#215;</a>
+	</div>
+	<script type="application/javascript">
+		$(document).foundation();
+	</script>
+	</body>
+</html>

@@ -368,6 +368,7 @@ $(document).ready(function () {
 				"labelRadius": -40,
 				//"radius": "42%",
 				//"innerRadius": "60%",
+				"pullOutRadius": 0,
 				"colors": [
 					'#43ac6a',
 					'#f04124'

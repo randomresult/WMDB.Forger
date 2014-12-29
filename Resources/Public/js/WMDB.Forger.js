@@ -279,7 +279,9 @@ $(document).ready(function () {
 					"showBalloon": true,
 					"valueField": index,
 					"fillAlphas": 0.5,
-					"title": data.title
+					"title": data.title,
+					"bullet": "round",
+					"bulletSize": 6
 				};
 				graphs.push(singleLine);
 			});
@@ -343,6 +345,19 @@ $(document).ready(function () {
 						format: 'YYYY'
 					}]
 				}
+			});
+			chart.addListener("clickGraphItem", function(clickedItem) {
+				var bulletPoint = clickedItem.event.srcElement.outerHTML;
+				if(bulletPoint.indexOf('#ff0000') > -1) {
+					//new tickets
+					window.open("https://forge.typo3.org/projects/typo3cms-core/issues?set_filter=1&f[]=status_id&op[status_id]=*&f[]=created_on&op[created_on]==&v[created_on][]="+clickedItem.item.dataContext.date, "_blank");
+				} else if(bulletPoint.indexOf('#43ac6a') > -1) {
+					//closed tickets
+					window.open("https://forge.typo3.org/projects/typo3cms-core/issues?set_filter=1&f[]=status_id&op[status_id]=c&f[]=updated_on&op[updated_on]==&v[updated_on][]="+clickedItem.item.dataContext.date, "_blank")
+				}
+				//console.log(clickedItem.event.srcElement.outerHTML);
+				//window.open("https://forge.typo3.org/projects/typo3cms-core/issues?set_filter=1&v[updated_on][]="+clickedItem.item.dataContext.date+"&op[status_id]=*&f[]=updated_on&op[updated_on]==", "_blank");
+				//
 			});
 		});
 	}

@@ -32,3 +32,10 @@
 		<span class="label radius tiny success moreBtn">more...</span>
 	</td>
 </tr>
+<tr>
+	<td>Author: <strong>{issue.hit._source.author.name}</strong></td>
+	<td>
+		Created: <strong><time is="time-ago" datetime="{issue.hit._source.created_on}">{issue.hit._source.created_on}</time></strong> -
+		Updated: <strong><time is="time-ago" datetime="{issue.hit._source.updated_on}">{issue.hit._source.updated_on}</time></strong>
+	</td>
+</tr>

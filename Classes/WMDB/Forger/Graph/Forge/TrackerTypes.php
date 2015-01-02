@@ -31,19 +31,54 @@ class TrackerTypes extends AbstractGraph {
 				'trackertype' => [
 					'terms' => [
 						'field' => 'tracker.name'
+					],
+					'aggregations' => [
+						'status' => [
+							'terms' => [
+								'field' => 'status.name'
+							]
+						]
 					]
-				]
+				],
 			]
 		];
 		$search = $this->connection->getIndex()->createSearch($fullRequest);
 		$search->addType('issue');
 		$resultSet = $search->search();
 		$data = $resultSet->getAggregations();
+		$i = 0;
 		foreach ($data['trackertype']['buckets'] as $frame) {
-			$this->chartData[] = [
-				'name' => $frame['key'],
-				'value' => $frame['doc_count']
-			];
+			foreach ($frame['status']['buckets'] as $issueType) {
+				$this->chartData['bars'][$i][$this->fixKey($issueType['key'])] = $issueType['doc_count'];
+			}
+			$this->chartData['bars'][$i]['panel'] = $frame['key'];
+			$i++;
 		}
+	}
+
+	/**
+	 * Makes the array keys lowercase and removes spaces
+	 * @param string $in
+	 * @return string
+	 */
+	protected function fixKey($in) {
+		$fixedString = strtolower(str_replace(' ', '', $in));
+		/**
+		 * Fixed Lookup colors
+		 */
+		$colors = [
+			'new' => '#fb7e7e',
+			'accepted' => '#fbee99',
+			'needsfeedback' => '#FBC3C3',
+			'onhold' => '#D1F412',
+			'underreview' => '#aeff91',
+
+		];
+		$this->chartData['lookup'][$fixedString] = [
+			'lookup' => $fixedString,
+			'title' => $in,
+			'color' => $colors[$fixedString]
+		];
+		return $fixedString;
 	}
 }

@@ -230,6 +230,20 @@ $(document).ready(function () {
 
 	function drawBarHorizontalChart(docType, view, divId, charttitle) {
 		getData(docType, view, function(chartData) {
+			var graphs = [];
+			$.each(chartData.lookup, function(index, data) {
+				var singleBar = {
+					"balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
+					"fillAlphas": 0.8,
+					"labelText": "[[value]]",
+					"lineAlpha": 0.3,
+					"title": data.title,
+					"type": "column",
+					"lineColor": data.color,
+					"valueField": data.lookup
+				};
+				graphs.push(singleBar);
+			});
 			var chart = AmCharts.makeChart(divId, {
 				"type": "serial",
 				"theme": "none",
@@ -238,7 +252,7 @@ $(document).ready(function () {
 				"marginBottom": 40,
 				"rotate": true,
 				"pathToImages": imagePath,
-				"dataProvider": chartData,
+				"dataProvider": chartData.bars,
 				"titles": [
 					{
 						"text": charttitle,
@@ -246,18 +260,13 @@ $(document).ready(function () {
 					}
 				],
 				"valueAxes": [{
+					"stackType": "regular",
 					"gridColor":"#FFFFFF",
 					"gridAlpha": 0.2,
 					"dashLength": 0
 				}],
-				"graphs": [{
-					"labelText": "[[name]]:[[value]]",
-					"fillAlphas": 0.8,
-					"lineAlpha": 1,
-					"type": "column",
-					"valueField": "value"
-				}],
-				"categoryField": "name",
+				"graphs": graphs,
+				"categoryField": "panel",
 				"categoryAxis": {
 					"gridPosition": "start",
 					"gridAlpha": 0,

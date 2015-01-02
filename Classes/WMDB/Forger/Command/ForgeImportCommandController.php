@@ -322,7 +322,7 @@ class ForgeImportCommandController extends Cli\CommandController {
 			foreach ($subrow as $reviewType => $amount) {
 				switch($reviewType) {
 					case 'approved':
-						$out['positive_ac' . $key] = $out['positive' . $key] + (count($amount) * 2);
+						$out['positive' . $key] = $out['positive' . $key] + (count($amount) * 2);
 						break;
 					case 'recommended':
 						$out['positive' . $key] = $out['positive' . $key] + (count($amount) * 1);

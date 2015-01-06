@@ -372,6 +372,9 @@ class ForgeImportCommandController extends Cli\CommandController {
 							case 15:
 								$document['isregression'] = (isset($customField['value'])? true : false);
 								break;
+							case 18:
+								$document['focus']['name'] = (isset($customField['value'])?$customField['value']:'-');
+								break;
 							default:
 						}
 					}

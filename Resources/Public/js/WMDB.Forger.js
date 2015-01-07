@@ -261,17 +261,18 @@ $(document).ready(function () {
 				],
 				"valueAxes": [{
 					"stackType": "regular",
-					"gridColor":"#FFFFFF",
-					"gridAlpha": 0.2,
-					"dashLength": 0
+					"gridColor":"#000000",
+					"gridAlpha": 0.15,
+					"dashLength": 1
 				}],
 				"graphs": graphs,
 				"categoryField": "panel",
 				"categoryAxis": {
 					"gridPosition": "start",
-					"gridAlpha": 0,
+					"gridAlpha": 0.15,
 					"tickPosition":"start",
-					"tickLength":20
+					"tickLength":20,
+					"dashLength": 1
 				}
 			});
 		});

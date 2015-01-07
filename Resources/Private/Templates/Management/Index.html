@@ -1,0 +1,36 @@
+{namespace wmdb=WMDB\Forger\ViewHelpers}
+<f:layout name="Default" />
+
+<f:section name="Title">Management View</f:section>
+<f:section name="Javascripts"></f:section>
+
+<f:section name="Content">
+
+	<h3>Issue Management View</h3>
+	<f:for each="{aggs}" as="year" key="yearString">
+		<h2>{yearString}</h2>
+		<table>
+			<tr>
+				<f:for each="{year}" as="month" key="monthString">
+					<th>
+						<wmdb:forgelink linkText="{monthString}" year="{yearString}" month="{monthString}" />
+					</th>
+				</f:for>
+			</tr>
+			<tr>
+				<f:for each="{year}" as="month" key="monthString">
+					<td valign="top">
+						<table>
+							<f:for each="{month}" as="status">
+								<tr>
+									<td>{status.name}</td>
+									<td>{status.count}</td>
+								</tr>
+							</f:for>
+						</table>
+					</td>
+				</f:for>
+			</tr>
+		</table>
+	</f:for>
+</f:section>

@@ -13,7 +13,8 @@
 			<tr>
 				<f:for each="{year}" as="month" key="monthString">
 					<th>
-						<wmdb:forgelink linkText="{monthString}" year="{yearString}" month="{monthString}" />
+						{monthString}
+						<span class="label secondary radius"><wmdb:forgelink linkText="Show Issues" year="{yearString}" month="{monthString}" /></span>
 					</th>
 				</f:for>
 			</tr>

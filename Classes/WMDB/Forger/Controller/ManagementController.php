@@ -63,6 +63,13 @@ class ManagementController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 									'Resolved'
 								]
 							],
+						],
+						[
+							'terms' => [
+								'project.id' => [
+									'78'
+								]
+							],
 						]
 					]
 				],

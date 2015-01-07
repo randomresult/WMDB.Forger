@@ -1,0 +1,44 @@
+<f:layout name="Default" />
+
+<f:section name="Title">Sprint View</f:section>
+<f:section name="Javascripts">
+	<script type="text/javascript" src="<f:uri.resource package='WMDB.Forger' path='js/amcharts/amcharts.js' />"></script>
+	<script type="text/javascript" src="<f:uri.resource package='WMDB.Forger' path='js/amcharts/serial.js' />"></script>
+	<script type="text/javascript" src="<f:uri.resource package='WMDB.Forger' path='js/amcharts/pie.js' />"></script>
+	<script type="text/javascript" src="<f:uri.resource package='WMDB.Forger' path='js/WMDB.Forger.js' />"></script>
+</f:section>
+
+<f:section name="Content">
+
+	<h3>Sprint Tasks</h3>
+	<table>
+		<tr>
+			<f:for each="{board}" as="metacols" key="metacolname">
+				<th>{metacolname}</th>
+			</f:for>
+		</tr>
+		<tr>
+			<f:for each="{board}" as="metacols" key="metacolname">
+				<td valign="top">
+					<!--<table>-->
+						<!--<tr>-->
+							<!--<f:for each="{metacols}" as="cols" key="colname">-->
+								<!--<th>{colname}</th>-->
+							<!--</f:for>-->
+						<!--</tr>-->
+						<!--<tr>-->
+							<f:for each="{metacols}" as="cols" key="colname">
+								<!--<td valign="top">-->
+									<f:for each="{cols}" as="card">
+										<f:render partial="BoardCard" arguments="{card: card}" />
+									</f:for>
+								<!--</td>-->
+							</f:for>
+						<!--</tr>-->
+					<!--</table>-->
+				</td>
+			</f:for>
+		</tr>
+	</table>
+
+</f:section>

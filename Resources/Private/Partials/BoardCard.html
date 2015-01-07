@@ -1,0 +1,21 @@
+{namespace wmdb=WMDB\Forger\ViewHelpers}
+<table>
+	<tr>
+		<td>
+			<f:switch expression="{card.tracker.name}">
+				<f:case value="Bug"><span class="label alert radius">BUG</span></f:case>
+				<f:case value="Feature"><span class="label success radius">FEATURE</span></f:case>
+				<f:case value="Task"><span class="label radius">TASK</span></f:case>
+				<f:defaultCase><span class="label secondary radius">{card.tracker.name}</span> </f:defaultCase>
+			</f:switch>
+			<f:switch expression="{card.status.name}">
+				<f:case value="Rejected"><span class="label alert radius">{card.status.name}</span></f:case>
+				<f:defaultCase><span class="label secondary radius">{card.status.name}</span> </f:defaultCase>
+			</f:switch>
+			<a href="https://forge.typo3.org/issues/{card.id}" target="_blank">#{card.id}</a>
+		</td>
+	</tr>
+	<tr>
+		<td>{card.subject}</td>
+	</tr>
+</table>

@@ -7,6 +7,7 @@ namespace WMDB\Forger\Controller;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
+use TYPO3\Flow\Exception;
 use WMDB\Forger\Utilities\ElasticSearch as Es;
 use Elastica as El;
 
@@ -23,6 +24,18 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	protected $env;
 
 	/**
+	 * Settings from the YAML files
+	 * @var array
+	 */
+	protected $settings;
+
+	/**
+	 * Board settings
+	 * @var array
+	 */
+	protected $sprintConfig;
+
+	/**
 	 * @var string
 	 */
 	protected $context;
@@ -31,6 +44,12 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	 * @var Es\ElasticSearchConnection
 	 */
 	private $connection;
+
+	/**
+	 * @var \TYPO3\Flow\Configuration\ConfigurationManager
+	 * @Flow\Inject
+	 */
+	protected $ConfigurationManager;
 
 	/**
 	 * Initializes the controller
@@ -44,12 +63,48 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 		}
 		$this->connection = new Es\ElasticSearchConnection();
 		$this->connection->init();
+		$this->sprintConfig = $this->ConfigurationManager->getConfiguration('Sprints');
 	}
 
 	/**
-	 * @return void
+	 * @param string $boardId
 	 */
-	public function indexAction() {
+	public function indexAction($boardId = '') {
+		if ($boardId !== '' && isset($this->sprintConfig['WMDB']['Forger']['Boards'][$boardId])) {
+			$this->view->assign('board', $this->getBoardData($boardId));
+		}
+		$this->view->assignMultiple([
+			'boardMenu' => $this->makeBoardMenu($boardId),
+			'context' => $this->context
+		]);
+	}
+
+	/**
+	 * Generates a list of boards to link to
+	 * @param string $active
+	 * @return array
+	 */
+	protected function makeBoardMenu($active = '') {
+		$out = [];
+		foreach ($this->sprintConfig['WMDB']['Forger']['Boards'] as $boardId => $boardSetup) {
+			$out[] = [
+				'id' => $boardId,
+				'name' => $boardSetup['Name'],
+				'active' => ($boardId === $active) ? true : false,
+			];
+		}
+		return $out;
+	}
+
+	/**
+	 * @param string $boardId
+	 * @return array
+	 * @throws Exception
+	 */
+	protected function getBoardData($boardId) {
+		if (!isset($this->sprintConfig['WMDB']['Forger']['Boards'][$boardId]['Query'])) {
+			throw new Exception('No sprint query found');
+		}
 		$out = [
 			'Open' => [],
 			'WIP' => [],
@@ -57,32 +112,18 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 			'BLOCKED' => []
 		];
 		$fullRequest = [
-			'query' => [
-				'bool' => [
-					'must' => [
-						'term' => [
-							'focus.name' => 'On Location Sprint'
-						],
-					],
-					'must_not' => [
-						'term' => [
-							'subject' => 'wip'
-						]
-					]
-				],
-			],
+			'query' => $this->sprintConfig['WMDB']['Forger']['Boards'][$boardId]['Query'],
 			'filter' => $this->queryFilters(),
 		];
-		$query = new El\Query($fullRequest);
-		$resultSet = $this->connection->getIndex()->search($query);
+		#\TYPO3\Flow\var_dump($fullRequest);
+		$search = $this->connection->getIndex()->createSearch($fullRequest);
+		$search->addType('issue');
+		$resultSet = $search->search();
 		foreach ($resultSet->getResults() as $ticket) {
 			$status = $ticket->__get('status');
 			$out[$this->defineBoardGroup($status['name'])][$status['name']][] = $ticket->getData('id');
 		}
-		$this->view->assignMultiple([
-			'board' => $out,
-			'context' => $this->context
-		]);
+		return $out;
 	}
 
 	/**
@@ -135,5 +176,13 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 				$metaStatus = 'Open';
 		}
 		return $metaStatus;
+	}
+
+	/**
+	 * Injects the settings from the yaml file into
+	 * @param array $settings
+	 */
+	public function injectSettings(array $settings) {
+		$this->settings = $settings;
 	}
 }

@@ -10,6 +10,24 @@
 
 <f:section name="Content">
 
+	<dl class="sub-nav">
+		<dt>Available Boards</dt>
+		<f:for each="{boardMenu}" as="boardNav">
+			<f:if condition="{boardNav.active}">
+				<f:then>
+					<dd class="active">
+						<f:link.action controller="Sprint" action="Index" arguments="{boardId:boardNav.id}">{boardNav.name}</f:link.action>
+					</dd>
+				</f:then>
+				<f:else>
+					<dd>
+						<f:link.action controller="Sprint" action="Index" arguments="{boardId:boardNav.id}">{boardNav.name}</f:link.action>
+					</dd>
+				</f:else>
+			</f:if>
+		</f:for>
+	</dl>
+
 	<h3>Sprint Tasks</h3>
 	<table>
 		<tr>

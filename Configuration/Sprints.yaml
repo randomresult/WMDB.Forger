@@ -1,0 +1,27 @@
+WMDB:
+  Forger:
+    Boards:
+      Essen_2015:
+        Name: FAL Sprint Essen 2015
+        Query:
+          bool:
+            must:
+              term:
+                focus.name: On Location Sprint
+              term:
+                category.name: File Abstraction Layer (FAL)
+            must_not:
+              term:
+                subject: wip
+      Berlin_2015:
+        Name: 7.1 Sprint Berlin 2015
+        Query:
+          bool:
+            must:
+              term:
+                focus.name: On Location Sprint
+            must_not:
+              term:
+                subject: wip
+              term:
+                category.name: File Abstraction Layer (FAL)

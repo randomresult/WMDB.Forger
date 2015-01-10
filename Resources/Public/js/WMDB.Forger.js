@@ -263,7 +263,11 @@ $(document).ready(function () {
 					"stackType": "regular",
 					"gridColor":"#000000",
 					"gridAlpha": 0.15,
-					"dashLength": 1
+					"dashLength": 1,
+					"autoGridCount": false,
+					"labelFrequency": 3,
+					"labelRotation": 45,
+					"gridCount": 25
 				}],
 				"graphs": graphs,
 				"categoryField": "panel",

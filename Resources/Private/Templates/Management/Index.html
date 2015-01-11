@@ -2,13 +2,39 @@
 <f:layout name="Default" />
 
 <f:section name="Title">Management View</f:section>
-<f:section name="Javascripts"></f:section>
+<f:section name="Javascripts">
+	<style>
+		.status_new {
+			background-color: #fb7e7e;
+			color: black;
+		}
+		.status_accepted {
+			background-color: #fbee99;
+			color: black;
+		}
+		.status_review {
+			background-color: #aeff91;
+			color: black;
+		}
+		.status_onhold {
+			background-color: #D1F412;
+			color: black;
+		}
+		.status_feedback {
+			background-color: #FBC3C3;
+			color: black;
+		}
+		td.issuetype span {
+			color: black;
+		}
+	</style>
+</f:section>
 
 <f:section name="Content">
 
 	<h3>Issue Management View</h3>
 	<f:for each="{aggs}" as="year" key="yearString">
-		<h2>{yearString}</h2>
+		<h4>{yearString}</h4>
 		<table>
 			<tr>
 				<f:for each="{year}" as="month" key="monthString">
@@ -21,14 +47,16 @@
 			<tr>
 				<f:for each="{year}" as="month" key="monthString">
 					<td valign="top">
-						<table>
-							<f:for each="{month}" as="status">
-								<tr>
-									<td>{status.name}</td>
-									<td>{status.count}</td>
-								</tr>
-							</f:for>
-						</table>
+						<f:for each="{month}" as="status">
+							<f:switch expression="{status.name}">
+								<f:case value="New"><span class="label radius status_new">{status.name}: {status.count}</span></f:case>
+								<f:case value="Accepted"><span class="label radius status_accepted">{status.name}: {status.count}</span></f:case>
+								<f:case value="Under Review"><span class="label radius status_review">{status.name}: {status.count}</span></f:case>
+								<f:case value="On Hold"><span class="label radius status_onhold">{status.name}: {status.count}</span></f:case>
+								<f:case value="Needs Feedback"><span class="label radius status_feedback">{status.name}: {status.count}</span></f:case>
+								<f:defaultCase><span class="label radius">{status.name}: {status.count}</span> </f:defaultCase>
+							</f:switch><br>
+						</f:for>
 					</td>
 				</f:for>
 			</tr>

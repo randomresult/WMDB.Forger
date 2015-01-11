@@ -49,12 +49,12 @@
 					<td valign="top">
 						<f:for each="{month}" as="status">
 							<f:switch expression="{status.name}">
-								<f:case value="New"><span class="label radius status_new">{status.name}: {status.count}</span></f:case>
-								<f:case value="Accepted"><span class="label radius status_accepted">{status.name}: {status.count}</span></f:case>
-								<f:case value="Under Review"><span class="label radius status_review">{status.name}: {status.count}</span></f:case>
-								<f:case value="On Hold"><span class="label radius status_onhold">{status.name}: {status.count}</span></f:case>
-								<f:case value="Needs Feedback"><span class="label radius status_feedback">{status.name}: {status.count}</span></f:case>
-								<f:defaultCase><span class="label radius">{status.name}: {status.count}</span> </f:defaultCase>
+								<f:case value="New"><span class="label radius status_new"><b>{status.count}</b> {status.name}</span></f:case>
+								<f:case value="Accepted"><span class="label radius status_accepted"><b>{status.count}</b> {status.name}</span></f:case>
+								<f:case value="Under Review"><span class="label radius status_review"><b>{status.count}</b> {status.name}</span></f:case>
+								<f:case value="On Hold"><span class="label radius status_onhold"><b>{status.count}</b> {status.name}</span></f:case>
+								<f:case value="Needs Feedback"><span class="label radius status_feedback"><b>{status.count}</b> {status.name}</span></f:case>
+								<f:defaultCase><span class="label radius"><b>{status.count}</b> {status.name}</span> </f:defaultCase>
 							</f:switch><br>
 						</f:for>
 					</td>

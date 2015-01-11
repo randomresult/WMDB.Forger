@@ -2,10 +2,6 @@
 
 <f:section name="Title">Sprint View</f:section>
 <f:section name="Javascripts">
-	<script type="text/javascript" src="<f:uri.resource package='WMDB.Forger' path='js/amcharts/amcharts.js' />"></script>
-	<script type="text/javascript" src="<f:uri.resource package='WMDB.Forger' path='js/amcharts/serial.js' />"></script>
-	<script type="text/javascript" src="<f:uri.resource package='WMDB.Forger' path='js/amcharts/pie.js' />"></script>
-	<script type="text/javascript" src="<f:uri.resource package='WMDB.Forger' path='js/WMDB.Forger.js' />"></script>
 </f:section>
 
 <f:section name="Content">
@@ -29,21 +25,23 @@
 	</dl>
 
 	<h3>Sprint Tasks</h3>
-	<table>
-		<tr>
-			<f:for each="{board}" as="cards" key="metacolname">
-				<th>{metacolname} (<f:count subject="{cards}" />)</th>
-			</f:for>
-		</tr>
-		<tr>
-			<f:for each="{board}" as="cards">
-				<td valign="top">
-					<f:for each="{cards}" as="card">
-						<f:render partial="BoardCard" arguments="{card: card}" />
-					</f:for>
-				</td>
-			</f:for>
-		</tr>
-	</table>
-
+	<f:if condition="{board}">
+		<table>
+			<tr>
+				<f:for each="{board}" as="cards" key="metacolname">
+					<th>{metacolname} (<f:count subject="{cards}" />)</th>
+				</f:for>
+			</tr>
+			<tr>
+				<f:for each="{board}" as="cards">
+					<td valign="top">
+						<f:for each="{cards}" as="card">
+							<f:render partial="BoardCard" arguments="{card: card}" />
+						</f:for>
+					</td>
+				</f:for>
+			</tr>
+		</table>
+		<p>Don't try to drag & drop cards, it's not working and won't be for a <b>looooong</b> time</p>
+	</f:if>
 </f:section>

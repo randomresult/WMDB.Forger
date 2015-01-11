@@ -27,7 +27,11 @@ class GerritController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	 */
 	protected $context;
 
-	protected $perPage = 200;
+	private $perPage = 25;
+
+	private $currentPage = 1;
+
+	private $totalHits;
 
 	/**
 	 * @var Es\ElasticSearchConnection
@@ -50,6 +54,39 @@ class GerritController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 		} else {
 			$this->context = 'PRD';
 		}
+		if(isset($_GET['page'])) {
+			$this->currentPage = intval($_GET['page']);
+		}
+	}
+
+	/**
+	 * @param array $fullRequest
+	 */
+	protected function search(array $fullRequest) {
+		$query = new El\Query($fullRequest);
+		$usedFilters = $this->addFilters();
+		if ($usedFilters !== false) {
+			$query->setPostFilter($usedFilters);
+		}
+		$resultSet = $this->connection->getIndex()->search($query);
+		$this->totalHits = $resultSet->getTotalHits();
+		if(intval($this->totalHits) <=  intval(($this->currentPage * $this->perPage))) {
+			$this->view->assign('endingAtItem',intval($this->totalHits));
+		} else {
+			$this->view->assign('endingAtItem',($this->currentPage * $this->perPage));
+		}
+		$this->view->assignMultiple([
+			'results' => $resultSet->getResults(),
+			'pagesToLinkTo'		=> $this->getPages(),
+			'currentPage'		=> $this->currentPage,
+			'prev'              => $this->currentPage - 1,
+			'next'              => $this->currentPage < ceil($this->totalHits / $this->perPage) ? $this->currentPage + 1 : 0,
+			'totalResults'		=> $this->totalHits,
+			'startingAtItem'	=> ($this->currentPage * $this->perPage) - ($this->perPage - 1),
+			'aggregations' => $resultSet->getAggregations(),
+			'context' => $this->context
+
+		]);
 	}
 
 	/**
@@ -65,21 +102,10 @@ class GerritController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 			'filter' => $this->queryFilters(),
 			'sort' => $this->querySort(),
 			'size' => $this->perPage,
+			'from' => (($this->currentPage * $this->perPage) - $this->perPage),
 			'aggregations' => $this->queryAggregations()
 		];
-		$query = new El\Query($fullRequest);
-		$usedFilters = $this->addFilters();
-		if ($usedFilters !== false) {
-			$query->setPostFilter($usedFilters);
-		}
-		$resultSet = $this->connection->getIndex()->search($query);
-		$this->view->assignMultiple([
-			'results' => $resultSet->getResults(),
-			'total' => $resultSet->getTotalHits(),
-			'aggregations' => $resultSet->getAggregations(),
-			'context' => $this->context
-
-		]);
+		$this->search($fullRequest);
 	}
 	/**
 	 * @return string
@@ -118,18 +144,7 @@ class GerritController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 			'size' => $this->perPage,
 			'aggregations' => $this->queryAggregations()
 		];
-		$query = new El\Query($fullRequest);
-		$usedFilters = $this->addFilters();
-		if ($usedFilters !== false) {
-			$query->setPostFilter($usedFilters);
-		}
-		$resultSet = $this->connection->getIndex()->search($query);
-		$this->view->assignMultiple([
-			'results' => $resultSet->getResults(),
-			'total' => $resultSet->getTotalHits(),
-			'aggregations' => $resultSet->getAggregations(),
-			'context' => $this->context
-		]);
+		$this->search($fullRequest);
 	}
 	/**
 	 * @return string
@@ -171,18 +186,7 @@ class GerritController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 			'size' => $this->perPage,
 			'aggregations' => $aggs
 		];
-		$query = new El\Query($fullRequest);
-		$usedFilters = $this->addFilters();
-		if ($usedFilters !== false) {
-			$query->setPostFilter($usedFilters);
-		}
-		$resultSet = $this->connection->getIndex()->search($query);
-		$this->view->assignMultiple([
-			'results' => $resultSet->getResults(),
-			'total' => $resultSet->getTotalHits(),
-			'aggregations' => $resultSet->getAggregations(),
-			'context' => $this->context
-		]);
+		$this->search($fullRequest);
 	}
 	/**
 	 * @return string
@@ -221,18 +225,7 @@ class GerritController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 			'size' => $this->perPage,
 			'aggregations' => $this->queryAggregations()
 		];
-		$query = new El\Query($fullRequest);
-		$usedFilters = $this->addFilters();
-		if ($usedFilters !== false) {
-			$query->setPostFilter($usedFilters);
-		}
-		$resultSet = $this->connection->getIndex()->search($query);
-		$this->view->assignMultiple([
-			'results' => $resultSet->getResults(),
-			'total' => $resultSet->getTotalHits(),
-			'aggregations' => $resultSet->getAggregations(),
-			'context' => $this->context
-		]);
+		$this->search($fullRequest);
 	}
 	/**
 	 * @return string
@@ -271,18 +264,7 @@ class GerritController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 			'size' => $this->perPage,
 			'aggregations' => $this->queryAggregations()
 		];
-		$query = new El\Query($fullRequest);
-		$usedFilters = $this->addFilters();
-		if ($usedFilters !== false) {
-			$query->setPostFilter($usedFilters);
-		}
-		$resultSet = $this->connection->getIndex()->search($query);
-		$this->view->assignMultiple([
-			'results' => $resultSet->getResults(),
-			'total' => $resultSet->getTotalHits(),
-			'aggregations' => $resultSet->getAggregations(),
-			'context' => $this->context
-		]);
+		$this->search($fullRequest);
 	}
 
 	/**
@@ -393,6 +375,40 @@ class GerritController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 			'deletions' => 'asc',
 			'patchsets' => 'desc'
 		];
+	}
+
+	/**
+	 * @return array
+	 */
+	protected function getPages() {
+		$numPages = ceil($this->totalHits / $this->perPage);
+		$i = 0;
+		/**
+		 *
+		 */
+		$maxPages = $numPages;
+		if ($numPages > 15 && $this->currentPage <= 7) {
+			$numPages = 15;
+		}
+		if ($this->currentPage > 7) {
+			$i = $this->currentPage - 7;
+			$numPages = $this->currentPage + 6;
+		}
+		if ($numPages > $maxPages) {
+			$numPages = $maxPages;
+			$i = $maxPages - 15;
+		}
+
+		if($i < 0) {
+			$i = 0;
+		}
+
+		$out = array();
+		while($i < $numPages) {
+			$out[$i] = ($i+1);
+			$i++;
+		}
+		return $out;
 	}
 
 }

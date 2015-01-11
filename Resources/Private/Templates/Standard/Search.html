@@ -43,6 +43,20 @@
 							<f:render partial="Issue" arguments="{issue: results}" />
 						</f:for>
 					</table>
+					<f:if condition="{result.results}">
+						<ul class="pagination">
+							<f:for each="{result.pagesToLinkTo}" as="page" key="pageDesc">
+								<f:if condition="{result.currentPage} == {page}">
+									<f:then>
+										<li class="current"><f:link.action action="search" controller="standard" arguments="{query: query, page: page, filters: filters}">{page}</f:link.action></li>
+									</f:then>
+									<f:else>
+										<li><f:link.action action="search" controller="standard" arguments="{query: query, page: page, filters: filters}">{page}</f:link.action></li>
+									</f:else>
+								</f:if>
+							</f:for>
+						</ul>
+					</f:if>
 				</div>
 			</f:then>
 			<f:else>

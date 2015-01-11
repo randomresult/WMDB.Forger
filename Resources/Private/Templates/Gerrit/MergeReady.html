@@ -7,6 +7,17 @@
 
 <f:section name="Content">
 	<form action="/gerrit/mergeReady" method="get">
-		<f:render partial="ReviewView" arguments="{results: results, aggregations: aggregations, total:total}" />
+		<f:render partial="ReviewView" arguments="{
+		results: results,
+		aggregations: aggregations,
+		pagesToLinkTo: pagesToLinkTo,
+		currentPage: currentPage,
+		prev: prev,
+		next: next,
+		totalResults: totalResults,
+		startingAtItem: startingAtItem,
+		endingAtItem: endingAtItem
+		action: 'mergeReady'
+		}" />
 	<form>
 </f:section>

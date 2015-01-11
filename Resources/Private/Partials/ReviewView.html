@@ -17,10 +17,38 @@
 	</div>
 </div>
 <div class="small-10 column">
-	<h4>{total} Results</h4>
+	<h4>Showing hits <strong>{startingAtItem} </strong>to <strong>{endingAtItem}</strong> of <strong>{totalResults}</strong></h4>
+	<f:if condition="{results}">
+		<ul class="pagination">
+			<f:for each="{pagesToLinkTo}" as="page" key="pageDesc">
+				<f:if condition="{currentPage} == {page}">
+					<f:then>
+						<li class="current"><f:link.action action="{action}" arguments="{query: query, page: page, filters: filters}">{page}</f:link.action></li>
+					</f:then>
+					<f:else>
+						<li><f:link.action action="{action}" arguments="{query: query, page: page, filters: filters}">{page}</f:link.action></li>
+					</f:else>
+				</f:if>
+			</f:for>
+		</ul>
+	</f:if>
 	<table>
 		<f:for each="{results}" as="result">
 			<f:render partial="Review" arguments="{review: result.hit}" />
 		</f:for>
 	</table>
+	<f:if condition="{results}">
+		<ul class="pagination">
+			<f:for each="{pagesToLinkTo}" as="page" key="pageDesc">
+				<f:if condition="{currentPage} == {page}">
+					<f:then>
+						<li class="current"><f:link.action action="{action}" arguments="{query: query, page: page, filters: filters}">{page}</f:link.action></li>
+					</f:then>
+					<f:else>
+						<li><f:link.action action="{action}" arguments="{query: query, page: page, filters: filters}">{page}</f:link.action></li>
+					</f:else>
+				</f:if>
+			</f:for>
+		</ul>
+	</f:if>
 </div>

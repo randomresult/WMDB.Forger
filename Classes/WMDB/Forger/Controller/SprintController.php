@@ -121,7 +121,8 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 		$resultSet = $search->search();
 		foreach ($resultSet->getResults() as $ticket) {
 			$status = $ticket->__get('status');
-			$out[$this->defineBoardGroup($status['name'])][$status['name']][] = $ticket->getData('id');
+//			$out[$this->defineBoardGroup($status['name'])][$status['name']][] = $ticket->getData('id');
+			$out[$this->defineBoardGroup($status['name'])][] = $ticket->getData('id');
 		}
 		return $out;
 	}

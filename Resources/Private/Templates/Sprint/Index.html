@@ -31,29 +31,16 @@
 	<h3>Sprint Tasks</h3>
 	<table>
 		<tr>
-			<f:for each="{board}" as="metacols" key="metacolname">
-				<th>{metacolname}</th>
+			<f:for each="{board}" as="cards" key="metacolname">
+				<th>{metacolname} (<f:count subject="{cards}" />)</th>
 			</f:for>
 		</tr>
 		<tr>
-			<f:for each="{board}" as="metacols" key="metacolname">
+			<f:for each="{board}" as="cards">
 				<td valign="top">
-					<!--<table>-->
-						<!--<tr>-->
-							<!--<f:for each="{metacols}" as="cols" key="colname">-->
-								<!--<th>{colname}</th>-->
-							<!--</f:for>-->
-						<!--</tr>-->
-						<!--<tr>-->
-							<f:for each="{metacols}" as="cols" key="colname">
-								<!--<td valign="top">-->
-									<f:for each="{cols}" as="card">
-										<f:render partial="BoardCard" arguments="{card: card}" />
-									</f:for>
-								<!--</td>-->
-							</f:for>
-						<!--</tr>-->
-					<!--</table>-->
+					<f:for each="{cards}" as="card">
+						<f:render partial="BoardCard" arguments="{card: card}" />
+					</f:for>
 				</td>
 			</f:for>
 		</tr>

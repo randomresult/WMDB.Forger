@@ -36,3 +36,23 @@ div.expandable {
 	overflow: hidden;
 	margin-bottom: 9px;
 }
+.status_new {
+	background-color: #fb7e7e;
+	color: black;
+}
+.status_accepted {
+	background-color: #fbee99;
+	color: black;
+}
+.status_review {
+	background-color: #aeff91;
+	color: black;
+}
+.status_onhold {
+	background-color: #D1F412;
+	color: black;
+}
+.status_feedback {
+	background-color: #FBC3C3;
+	color: black;
+}

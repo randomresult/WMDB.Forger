@@ -6,22 +6,17 @@ WMDB:
         Query:
           bool:
             must:
-              term:
-                focus.name: On Location Sprint
-              term:
-                category.name: File Abstraction Layer (FAL)
+              - term: {focus.name: On Location Sprint}
+              - term: {category.name: File Abstraction Layer (FAL)}
             must_not:
-              term:
-                subject: wip
+              - term: {subject: wip}
+
       Berlin_2015:
         Name: 7.1 Sprint Berlin 2015
         Query:
           bool:
             must:
-              term:
-                focus.name: On Location Sprint
+              - term: {focus.name: On Location Sprint}
             must_not:
-              term:
-                subject: wip
-              term:
-                category.name: File Abstraction Layer (FAL)
+              - term: {subject: wip}
+              - term: {category.name: File Abstraction Layer (FAL)}

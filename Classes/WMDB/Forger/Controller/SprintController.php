@@ -105,6 +105,7 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 		if (!isset($this->sprintConfig['WMDB']['Forger']['Boards'][$boardId]['Query'])) {
 			throw new Exception('No sprint query found');
 		}
+//		\TYPO3\Flow\var_dump(json_encode($this->sprintConfig['WMDB']['Forger']['Boards'][$boardId]['Query'], JSON_PRETTY_PRINT));
 		$out = [
 			'Open' => [],
 			'WIP' => [],
@@ -114,14 +115,13 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 		$fullRequest = [
 			'query' => $this->sprintConfig['WMDB']['Forger']['Boards'][$boardId]['Query'],
 			'filter' => $this->queryFilters(),
+			'size' => 100
 		];
-		#\TYPO3\Flow\var_dump($fullRequest);
 		$search = $this->connection->getIndex()->createSearch($fullRequest);
 		$search->addType('issue');
 		$resultSet = $search->search();
 		foreach ($resultSet->getResults() as $ticket) {
 			$status = $ticket->__get('status');
-//			$out[$this->defineBoardGroup($status['name'])][$status['name']][] = $ticket->getData('id');
 			$out[$this->defineBoardGroup($status['name'])][] = $ticket->getData('id');
 		}
 		return $out;
@@ -133,16 +133,8 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	protected function queryFilters() {
 		return [
 			'bool' => [
-				'must' => [
-					'type' => [
-						'value' => 'issue'
-					],
-				],
-				'must_not' => [
-//					'term' => [
-//						'subject' => 'wip'
-//					]
-				]
+				'must' => [],
+				'must_not' => []
 			],
 		];
 	}
@@ -164,8 +156,9 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 				break;
 
 			case 'Under Review':
-				$metaStatus = 'WIP';
+				$metaStatus = 'Review';
 				break;
+
 			case 'Accepted':
 				$metaStatus = 'WIP';
 				break;

@@ -23,11 +23,11 @@
 					<td valign="top">
 						<f:for each="{month}" as="status">
 							<f:switch expression="{status.name}">
-								<f:case value="New"><span class="label radius status_new"><b>{status.count}</b> {status.name}</span></f:case>
-								<f:case value="Accepted"><span class="label radius status_accepted"><b>{status.count}</b> {status.name}</span></f:case>
-								<f:case value="Under Review"><span class="label radius status_review"><b>{status.count}</b> {status.name}</span></f:case>
-								<f:case value="On Hold"><span class="label radius status_onhold"><b>{status.count}</b> {status.name}</span></f:case>
-								<f:case value="Needs Feedback"><span class="label radius status_feedback"><b>{status.count}</b> {status.name}</span></f:case>
+								<f:case value="New"><span class="label radius status_new"><wmdb:forgelink linkText="<b>{status.count}</b> {status.name}" year="{yearString}" month="{monthString}" statusId="1" /></span></f:case>
+								<f:case value="Accepted"><span class="label radius status_accepted"><wmdb:forgelink linkText="<b>{status.count}</b> {status.name}" year="{yearString}" month="{monthString}" statusId="2" /></span></span></f:case>
+								<f:case value="Under Review"><span class="label radius status_review"><wmdb:forgelink linkText="<b>{status.count}</b> {status.name}" year="{yearString}" month="{monthString}" statusId="8" /></span></span></f:case>
+								<f:case value="On Hold"><span class="label radius status_onhold"><wmdb:forgelink linkText="<b>{status.count}</b> {status.name}" year="{yearString}" month="{monthString}" statusId="7" /></span></span></f:case>
+								<f:case value="Needs Feedback"><span class="label radius status_feedback"><wmdb:forgelink linkText="<b>{status.count}</b> {status.name}" year="{yearString}" month="{monthString}" statusId="4" /></span></span></f:case>
 								<f:defaultCase><span class="label radius"><b>{status.count}</b> {status.name}</span> </f:defaultCase>
 							</f:switch><br>
 						</f:for>
@@ -37,3 +37,15 @@
 		</table>
 	</f:for>
 </f:section>
+<f:comment>
+	<option value="1" selected="selected">New</option>
+	<option value="2">Accepted</option>
+	<option value="4">Needs Feedback</option>
+	<option value="7">On Hold</option>
+	<option value="8">Under Review</option>
+	<option value="3">Resolved</option>
+	<option value="10">Ready for Deployment</option>
+	<option value="5">Closed</option>
+	<option value="6">Rejected</option>
+	<option value="9">Postponed</option></select>
+</f:comment>

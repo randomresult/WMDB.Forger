@@ -142,6 +142,7 @@ class GerritController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 			'filter' => $this->queryFilters(),
 			'sort' => $this->querySort(),
 			'size' => $this->perPage,
+			'from' => (($this->currentPage * $this->perPage) - $this->perPage),
 			'aggregations' => $this->queryAggregations()
 		];
 		$this->search($fullRequest);
@@ -184,6 +185,7 @@ class GerritController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 			'filter' => $this->queryFilters(),
 			'sort' => $this->querySort(),
 			'size' => $this->perPage,
+			'from' => (($this->currentPage * $this->perPage) - $this->perPage),
 			'aggregations' => $aggs
 		];
 		$this->search($fullRequest);
@@ -223,6 +225,7 @@ class GerritController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 			'filter' => $this->queryFilters(),
 			'sort' => $this->querySort(),
 			'size' => $this->perPage,
+			'from' => (($this->currentPage * $this->perPage) - $this->perPage),
 			'aggregations' => $this->queryAggregations()
 		];
 		$this->search($fullRequest);
@@ -262,6 +265,7 @@ class GerritController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 			'filter' => $this->queryFilters(),
 			'sort' => $this->querySort(),
 			'size' => $this->perPage,
+			'from' => (($this->currentPage * $this->perPage) - $this->perPage),
 			'aggregations' => $this->queryAggregations()
 		];
 		$this->search($fullRequest);

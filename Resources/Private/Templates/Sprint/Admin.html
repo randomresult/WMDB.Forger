@@ -1,0 +1,25 @@
+<f:layout name="Default" />
+
+<f:section name="Title">Sprint View</f:section>
+<f:section name="Javascripts"></f:section>
+
+<f:section name="Content">
+	<h3>Board Admin</h3>
+	<dl class="sub-nav">
+		<dt>Available Boards</dt>
+		<f:for each="{boardMenu}" as="boardNav">
+			<f:if condition="{boardNav.active}">
+				<f:then>
+					<dd class="active">
+						<f:link.action controller="Sprint" action="Index" arguments="{boardId:boardNav.id}">{boardNav.name}</f:link.action>
+					</dd>
+				</f:then>
+				<f:else>
+					<dd>
+						<f:link.action controller="Sprint" action="Index" arguments="{boardId:boardNav.id}">{boardNav.name}</f:link.action>
+					</dd>
+				</f:else>
+			</f:if>
+		</f:for>
+	</dl>
+</f:section>

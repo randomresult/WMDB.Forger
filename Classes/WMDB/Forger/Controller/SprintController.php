@@ -52,6 +52,12 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	protected $ConfigurationManager;
 
 	/**
+	 * @var \WMDB\Forger\Domain\Repository\BoardConfigRepository
+	 * @Flow\Inject
+	 */
+	protected $sprintBoardRepo;
+
+	/**
 	 * Initializes the controller
 	 */
 	protected function initializeAction() {
@@ -77,6 +83,11 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 			'boardMenu' => $this->makeBoardMenu($boardId),
 			'context' => $this->context
 		]);
+	}
+
+	public function adminAction() {
+		$boards = $this->sprintBoardRepo->findAll();
+		$this->view->assign('boards', $boards);
 	}
 
 	/**

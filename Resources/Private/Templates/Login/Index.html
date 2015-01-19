@@ -1,0 +1,25 @@
+<f:layout name="Default" />
+
+<f:section name="Title">Login</f:section>
+<f:section name="Javascripts"></f:section>
+
+<f:section name="Content">
+	<h1>Login</h1>
+
+	<f:flashMessages />
+
+	<f:security.ifHasRole role="BoardAdmin">
+		<f:then>
+			<f:link.action action="logout" controller="Login">Logout</f:link.action>
+		</f:then>
+		<f:else>
+			<f:form action="authenticate" method="post" name="loginform" class="loginform">
+				<label>User:</label><f:form.textfield name="__authentication[TYPO3][Flow][Security][Authentication][Token][UsernamePassword][username]" /><br />
+				<label>Pass:</label><f:form.password name="__authentication[TYPO3][Flow][Security][Authentication][Token][UsernamePassword][password]" /><br />
+				<f:form.submit value="Login" />
+			</f:form>
+		</f:else>
+	</f:security.ifHasRole>
+
+
+</f:section>

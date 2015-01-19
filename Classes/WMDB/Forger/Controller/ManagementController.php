@@ -77,15 +77,23 @@ class ManagementController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 			'size' => 0,
 			'filter' => $this->queryFilters(),
 			'aggregations' => [
-				'over_time' => [
+				'year' => [
 					'date_histogram' => [
 						'field' => 'updated_on',
-						'interval' => 'month'
+						'interval' => 'year'
 					],
 					'aggregations' => [
-						'status' => [
-							'terms' => [
-								'field' => 'status.name'
+						'month' => [
+							'date_histogram' => [
+								'field' => 'updated_on',
+								'interval' => 'month'
+							],
+							'aggregations' => [
+								'status' => [
+									'terms' => [
+										'field' => 'status.name'
+									]
+								]
 							]
 						]
 					]
@@ -97,16 +105,31 @@ class ManagementController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 		$resultSet = $search->search();
 		foreach ($resultSet->getAggregations() as $aggregation) {
 			foreach ($aggregation['buckets'] as $bucket) {
-				$date = $bucket['key_as_string'];
-				$dateParts = explode('/', $date);
-				foreach ($bucket['status']['buckets'] as $status) {
-					$out[$dateParts[0]][$dateParts[1]][] = [
-						'name' => $status['key'],
-						'count' => $status['doc_count']
+				$dateParts = explode('/', $bucket['key_as_string']);
+				$yearName = $dateParts[0];
+				$months = [];
+				foreach ($bucket['month']['buckets'] as $month) {
+					$dateParts = explode('/', $month['key_as_string']);
+					$monthName = $dateParts[1];
+					$stati = [];
+					foreach ($month['status']['buckets'] as $status) {
+						$stati[] = [
+							'name' => $status['key'],
+							'total' => $status['doc_count']
+						];
+					}
+					$months[] = [
+						'month' => $monthName,
+						'total' => $month['doc_count'],
+						'stati' => $stati
 					];
 				}
+				$out[] = [
+					'year' => $yearName,
+					'total' => $bucket['doc_count'],
+					'months' => $months
+				];
 			}
-
 		}
 		$this->view->assignMultiple([
 			'aggs' => $out,

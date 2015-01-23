@@ -382,6 +382,12 @@ class ForgeImportCommandController extends Cli\CommandController {
 				$document['updated_on'] = $this->fixDateFormat($document['updated_on']);
 				$document['created_on'] = $this->fixDateFormat($document['created_on']);
 				$type = new Elastica\Type($this->elasticIndex, 'issue');
+				try {
+					$testIfDocExists = $type->getDocument($document['id']);
+				} catch (\Exception $e) {
+					$message = new \WMDB\Forger\Utilities\Slack\Message();
+					$message->sendMessage($document);
+				}
 				break;
 			case 'review':
 				$type = new Elastica\Type($this->elasticIndex, 'review');

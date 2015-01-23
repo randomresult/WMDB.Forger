@@ -24,7 +24,7 @@ class Message {
 		$browser = new \TYPO3\Flow\Http\Client\Browser();
 		$engine = new \TYPO3\Flow\Http\Client\CurlEngine();
 		$browser->setRequestEngine($engine);
-		if($issue['issue']['tracker']['name'] === 'Bug') {
+		if($issue['tracker']['name'] === 'Bug') {
 			$color = 'danger';
 		} else {
 			$color = 'good';
@@ -35,21 +35,21 @@ class Message {
 			'icon_url' => 'https://typo3.slack.com/services/B02KBL9GG',
 			'attachments' => [
 				[
-					'title' => $issue['issue']['subject'],
-					'title_link' => 'https://forge.typo3.org/issues/'.$issue['issue']['id'],
-					'text' => $issue['issue']['description'],
-					'fallback' => $issue['issue']['subject'],
-					'author_name' => $issue['issue']['author']['name'],
+					'title' => $issue['subject'],
+					'title_link' => 'https://forge.typo3.org/issues/'.$issue['id'],
+					'text' => $issue['description'],
+					'fallback' => $issue['subject'],
+					'author_name' => $issue['author']['name'],
 					'color' => $color,
 					'fields' => [
 						[
 							'title' => 'Status',
-							'value' => $issue['issue']['status']['name'],
+							'value' => $issue['status']['name'],
 							'short' => TRUE
 						],
 						[
 							'title' => 'Tracker',
-							'value' => $issue['issue']['tracker']['name'],
+							'value' => $issue['tracker']['name'],
 							'short' => TRUE
 						]
 					]

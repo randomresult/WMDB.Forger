@@ -2,10 +2,14 @@
 
 <f:section name="Title">Sprint View</f:section>
 <f:section name="Javascripts">
+	<script type="text/javascript" src="<f:uri.resource package='WMDB.Forger' path='js/amcharts/amcharts.js' />"></script>
+	<script type="text/javascript" src="<f:uri.resource package='WMDB.Forger' path='js/amcharts/serial.js' />"></script>
+	<f:if condition="{ticketCount}">
+			<f:format.raw>{ticketCount}</f:format.raw>
+	</f:if>
 </f:section>
 
 <f:section name="Content">
-
 	<dl class="sub-nav">
 		<dt>Available Boards</dt>
 		<f:for each="{boardMenu}" as="boardNav">
@@ -23,9 +27,9 @@
 			</f:if>
 		</f:for>
 	</dl>
-
 	<h3>Sprint Tasks</h3>
 	<f:if condition="{board}">
+		<div id="stackedBoardChart" style="height: 80px; width: 100%"></div>
 		<table>
 			<tr>
 				<f:for each="{board}" as="cards" key="metacolname">

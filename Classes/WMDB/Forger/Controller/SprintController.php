@@ -77,7 +77,13 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	 */
 	public function indexAction($boardId = '') {
 		if ($boardId !== '' && isset($this->sprintConfig['WMDB']['Forger']['Boards'][$boardId])) {
-			$this->view->assign('board', $this->getBoardData($boardId));
+			$boardData = $this->getBoardData($boardId);
+			$ticketCount = [];
+			foreach ($boardData as $status => $tickets) {
+				$ticketCount[$status] = count($tickets);
+			}
+			$this->view->assign('ticketCount', $this->renderJsForGraph($ticketCount));
+			$this->view->assign('board', $boardData);
 		}
 		$this->view->assignMultiple([
 			'boardMenu' => $this->makeBoardMenu($boardId),
@@ -190,5 +196,70 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	 */
 	public function injectSettings(array $settings) {
 		$this->settings = $settings;
+	}
+
+	/**
+	 * @param array $data
+	 * @return string
+	 */
+	protected function renderJsForGraph(array $data) {
+		$fullCount = 0;
+		$chartConfig = [
+			'type' => 'serial',
+			'theme' => 'none',
+			'rotate' => true,
+			'marginTop' => 0,
+			'dataProvider' => [$data],
+			'valueAxes' => [
+				[
+					'stackType' => 'regular',
+					'axisAlpha' => 0,
+					'gridAlpha' => 0,
+					'inside' => true,
+					'offset' => -200
+				]
+			],
+			'categoryAxis' => [
+				'inside' => true,
+				'offset' => -1000000
+			]
+		];
+		foreach ($data as $key => $count) {
+			switch($key) {
+				case 'Open':
+					$lineColor = '#fb7e7e';
+					break;
+				case 'WIP':
+					$lineColor = '#fbee99';
+					break;
+				case 'Review':
+					$lineColor = '#aeff91';
+					break;
+				case 'BLOCKED':
+					$lineColor = '#D1F412';
+					break;
+				default:
+					$lineColor = '#CECDCC';
+			}
+			$fullCount += $count;
+			$chartConfig['graphs'][] = [
+//				'balloonText' => '<b>[[title]]</b> => <b>[[value]]</b></span>',
+				'fillAlphas' => 1,
+				'labelText' => $key.': [[value]]',
+//				'lineAlpha' => 0.3,
+//				'title' => ucwords($key),
+				'type' => 'column',
+				'color' => '#000000',
+				'valueField' => $key,
+				'lineColor' => $lineColor
+			];
+		}
+		$chartConfig['valueAxes'][0]['maximum'] = $fullCount;
+		$content = '
+		<script type="application/javascript">
+		var chart = AmCharts.makeChart("stackedBoardChart", '.json_encode($chartConfig).');
+		</script>
+		';
+		return $content;
 	}
 }

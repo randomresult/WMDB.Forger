@@ -177,7 +177,7 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 				$metaStatus = 'Review';
 				break;
 
-			case 'Accepted':
+			case 'In Progress':
 				$metaStatus = 'WIP';
 				break;
 
@@ -230,7 +230,7 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 					$lineColor = '#fb7e7e';
 					break;
 				case 'WIP':
-					$lineColor = '#fbee99';
+					$lineColor = '#A9E2FF';
 					break;
 				case 'Review':
 					$lineColor = '#aeff91';

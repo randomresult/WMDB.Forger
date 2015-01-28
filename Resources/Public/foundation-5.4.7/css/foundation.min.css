@@ -56,3 +56,7 @@ div.expandable {
 	background-color: #FBC3C3;
 	color: black;
 }
+.status_wip {
+	background-color: #A9E2FF;
+	color: black;
+}

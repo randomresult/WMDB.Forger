@@ -70,6 +70,7 @@ class TrackerTypes extends AbstractGraph {
 			'new' => '#fb7e7e',
 			'accepted' => '#fbee99',
 			'needsfeedback' => '#FBC3C3',
+			'inprogress' => '#A9E2FF',
 			'onhold' => '#D1F412',
 			'underreview' => '#aeff91',
 

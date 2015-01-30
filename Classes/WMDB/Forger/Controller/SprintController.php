@@ -236,7 +236,7 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 					$lineColor = '#aeff91';
 					break;
 				case 'BLOCKED':
-					$lineColor = '#D1F412';
+					$lineColor = '#FBC3C3';
 					break;
 				default:
 					$lineColor = '#CECDCC';

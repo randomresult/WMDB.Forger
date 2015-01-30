@@ -252,7 +252,7 @@ class ForgeImportCommandController extends Cli\CommandController {
 				'created_on' => $this->fixDateFormat(str_replace('-', '/', $change['created'])),
 				'updated_on' => $this->fixDateFormat(str_replace('-', '/', $change['updated'])),
 				'releases' => $this->extractReleases($change['revisions'][$change['current_revision']]['commit']['message']),
-				'owner' => $change['owner']['name']
+				'owner' => (isset($change['owner']['name'])) ? $change['owner']['name'] : 'no one',
 			];
 			if(isset($change['_more_changes'])) {
 				$moreChanges = true;

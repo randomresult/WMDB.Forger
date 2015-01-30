@@ -22,11 +22,11 @@
 			<f:for each="{card.custom_fields}" as="customfield">
 				<f:if condition="{customfield.name} == 'Complexity'">
 					<f:switch expression="{customfield.value}">
-						<f:case value="easy"><span class="label radius success right">Complexity: {customfield.value}</span></f:case>
-						<f:case value="no-brainer"><span class="label radius success right">Complexity: {customfield.value}</span></f:case>
-						<f:case value="medium"><span class="label radius status_accepted right">Complexity: {customfield.value}</span></f:case>
-						<f:case value="hard"><span class="label radius status_new right">Complexity: {customfield.value}</span></f:case>
-						<f:case value="nightmare"><span class="label radius alert right">Complexity: {customfield.value}</span></f:case>
+						<f:case value="easy"><span class="label radius success right">{customfield.value}</span></f:case>
+						<f:case value="no-brainer"><span class="label radius success right">{customfield.value}</span></f:case>
+						<f:case value="medium"><span class="label radius status_accepted right">{customfield.value}</span></f:case>
+						<f:case value="hard"><span class="label radius status_new right">{customfield.value}</span></f:case>
+						<f:case value="nightmare"><span class="label radius alert right">{customfield.value}</span></f:case>
 						<f:defaultCase></f:defaultCase>
 					</f:switch>
 				</f:if>

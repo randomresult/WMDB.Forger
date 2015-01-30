@@ -34,24 +34,24 @@
 			<tr>
 				<f:for each="{board}" as="cards" key="metacolname">
 					<f:switch expression="{metacolname}">
-						<f:case value="Open"><th class="status_new">{metacolname} (<f:count subject="{cards}" />)</th></f:case>
-						<f:case value="WIP"><th class="status_wip">{metacolname} (<f:count subject="{cards}" />)</th></f:case>
-						<f:case value="Review"><th class="status_review">{metacolname} (<f:count subject="{cards}" />)</th></f:case>
-						<f:case value="Done"><th>{metacolname} (<f:count subject="{cards}" />)</th></f:case>
-						<f:case value="BLOCKED"><th class="status_feedback">{metacolname} (<f:count subject="{cards}" />)</th></f:case>
+						<f:case value="Open"><th style="width:20%" class="status_new">{metacolname} (<f:count subject="{cards}" />)</th></f:case>
+						<f:case value="WIP"><th style="width:20%" class="status_wip">{metacolname} (<f:count subject="{cards}" />)</th></f:case>
+						<f:case value="Review"><th style="width:20%" class="status_review">{metacolname} (<f:count subject="{cards}" />)</th></f:case>
+						<f:case value="Done"><th style="width:20%">{metacolname} (<f:count subject="{cards}" />)</th></f:case>
+						<f:case value="BLOCKED"><th style="width:20%" class="status_feedback">{metacolname} (<f:count subject="{cards}" />)</th></f:case>
 					</f:switch>
 				</f:for>
 			</tr>
 			<tr>
 				<f:for each="{board}" as="cards" key="metacolname">
-					<td valign="top">
+					<td style="width:20%;padding: 0" valign="top">
 						<f:for each="{cards}" as="card">
 							<f:if condition="{metacolname} == 'Review'">
 								<f:then>
-									<f:render partial="ReviewCard" arguments="{card: card}" />
+									<f:render partial="ReviewCard" arguments="{card: card, coltype: metacolname}" />
 								</f:then>
 								<f:else>
-									<f:render partial="BoardCard" arguments="{card: card}" />
+									<f:render partial="BoardCard" arguments="{card: card, coltype: metacolname}" />
 								</f:else>
 							</f:if>
 						</f:for>

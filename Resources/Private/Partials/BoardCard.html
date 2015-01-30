@@ -19,6 +19,18 @@
 				<f:defaultCase><span class="label secondary radius">{card.status.name}</span> </f:defaultCase>
 			</f:switch>
 			<a href="https://forge.typo3.org/issues/{card.id}" target="_blank">#{card.id}</a>
+			<f:for each="{card.custom_fields}" as="customfield">
+				<f:if condition="{customfield.name} == 'Complexity'">
+					<f:switch expression="{customfield.value}">
+						<f:case value="easy"><span class="label radius success right">Complexity: {customfield.value}</span></f:case>
+						<f:case value="no-brainer"><span class="label radius success right">Complexity: {customfield.value}</span></f:case>
+						<f:case value="medium"><span class="label radius status_accepted right">Complexity: {customfield.value}</span></f:case>
+						<f:case value="hard"><span class="label radius status_new right">Complexity: {customfield.value}</span></f:case>
+						<f:case value="nightmare"><span class="label radius alert right">Complexity: {customfield.value}</span></f:case>
+						<f:defaultCase></f:defaultCase>
+					</f:switch>
+				</f:if>
+			</f:for>
 		</td>
 	</tr>
 	<tr>

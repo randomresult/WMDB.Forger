@@ -33,7 +33,13 @@
 		<table>
 			<tr>
 				<f:for each="{board}" as="cards" key="metacolname">
-					<th>{metacolname} (<f:count subject="{cards}" />)</th>
+					<f:switch expression="{metacolname}">
+						<f:case value="Open"><th class="status_new">{metacolname} (<f:count subject="{cards}" />)</th></f:case>
+						<f:case value="WIP"><th class="status_wip">{metacolname} (<f:count subject="{cards}" />)</th></f:case>
+						<f:case value="Review"><th class="status_review">{metacolname} (<f:count subject="{cards}" />)</th></f:case>
+						<f:case value="Done"><th>{metacolname} (<f:count subject="{cards}" />)</th></f:case>
+						<f:case value="BLOCKED"><th class="status_feedback">{metacolname} (<f:count subject="{cards}" />)</th></f:case>
+					</f:switch>
 				</f:for>
 			</tr>
 			<tr>

@@ -133,7 +133,7 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 		$fullRequest = [
 			'query' => $this->sprintConfig['WMDB']['Forger']['Boards'][$boardId]['Query'],
 			'filter' => $this->queryFilters(),
-			'size' => 100
+			'size' => 1000
 		];
 		$search = $this->connection->getIndex()->createSearch($fullRequest);
 		$search->addType('issue');

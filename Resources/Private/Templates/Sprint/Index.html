@@ -43,10 +43,17 @@
 				</f:for>
 			</tr>
 			<tr>
-				<f:for each="{board}" as="cards">
+				<f:for each="{board}" as="cards" key="metacolname">
 					<td valign="top">
 						<f:for each="{cards}" as="card">
-							<f:render partial="BoardCard" arguments="{card: card}" />
+							<f:if condition="{metacolname} == 'Review'">
+								<f:then>
+									<f:render partial="ReviewCard" arguments="{card: card}" />
+								</f:then>
+								<f:else>
+									<f:render partial="BoardCard" arguments="{card: card}" />
+								</f:else>
+							</f:if>
 						</f:for>
 					</td>
 				</f:for>

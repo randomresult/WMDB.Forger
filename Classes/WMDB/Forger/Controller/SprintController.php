@@ -140,9 +140,43 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 		$resultSet = $search->search();
 		foreach ($resultSet->getResults() as $ticket) {
 			$status = $ticket->__get('status');
-			$out[$this->defineBoardGroup($status['name'])][] = $ticket->getData('id');
+			$getBoardGroup = $this->defineBoardGroup($status['name']);
+			if ($getBoardGroup !== 'Review') {
+				$out[$getBoardGroup][] = $ticket->getData('id');
+			} else {
+				$out[$getBoardGroup][] = $this->getReviewCard($ticket->getData('id'));
+			}
 		}
 		return $out;
+	}
+
+	/**
+	 * Special handling for review cards
+	 *
+	 * @param array $ticket
+	 * @return array
+	 * @throws Exception
+	 */
+	protected function getReviewCard(array $ticket) {
+		$notes = '';
+		if (isset($ticket['journals'])) {
+			foreach ($ticket['journals'] as $journalEntry) {
+				if (isset($journalEntry['notes']) && strstr($journalEntry['notes'], 'It is available at http://review.typo3.org/')) {
+					$notes = $journalEntry['notes'];
+				}
+			}
+			if ($notes === '') {
+				return $ticket;
+			}
+			$pattern = '/.*http:\/\/review.typo3.org\/(?<reviewId>[0-9]{1,6})/';
+			preg_match($pattern, $notes, $matches);
+			if (!isset($matches['reviewId'])) {
+				throw new Exception('There should be a review id in '.$notes);
+			}
+			$reviewType = $this->connection->getIndex()->getType('review');
+			$item = $reviewType->getDocument($matches['reviewId']);
+			return $item->getData();
+		}
 	}
 
 	/**

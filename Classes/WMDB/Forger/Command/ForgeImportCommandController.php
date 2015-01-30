@@ -69,8 +69,10 @@ class ForgeImportCommandController extends Cli\CommandController {
 	 */
 	public function testCommand() {
 		$this->startUp();
-		$res = $this->redmineClient->api('issue')->show(63618, array('include' => 'journals'));
-		$this->addDocumentToElastic($res['issue']);
+		#$res = $this->redmineClient->api('issue')->show(63618, array('include' => 'journals'));
+		#$this->addDocumentToElastic($res['issue']);
+		$res = $this->getReviewBlock(1,1);
+		\TYPO3\Flow\var_dump($res);
 	}
 
 	/**
@@ -224,7 +226,7 @@ class ForgeImportCommandController extends Cli\CommandController {
 		#$json = file_get_contents('https://review.typo3.org/changes/?q=project:Packages/TYPO3.CMS%20AND%20change:35104&n='.$perRun.'&start='.$current.'&o=LABELS&o=CURRENT_REVISION&o=ALL_FILES');
 		#$json = file_get_contents('https://review.typo3.org/changes/?q=project:Packages/TYPO3.CMS%20AND%20change:35412&n='.$perRun.'&start='.$current.'&o=LABELS&o=CURRENT_REVISION&o=ALL_FILES&o=CURRENT_COMMIT');
 		$data = json_decode(str_replace(")]}'", '', $json), true);
-		#\TYPO3\Flow\var_dump($data);
+//		\TYPO3\Flow\var_dump($data);
 		foreach ($data as $change) {
 			$labels = $this->extractLabels($change['labels']);
 			if(!isset($change['mergeable'])) {
@@ -249,7 +251,8 @@ class ForgeImportCommandController extends Cli\CommandController {
 				'patchsets' => $change['revisions'][$change['current_revision']]['_number'],
 				'created_on' => $this->fixDateFormat(str_replace('-', '/', $change['created'])),
 				'updated_on' => $this->fixDateFormat(str_replace('-', '/', $change['updated'])),
-				'releases' => $this->extractReleases($change['revisions'][$change['current_revision']]['commit']['message'])
+				'releases' => $this->extractReleases($change['revisions'][$change['current_revision']]['commit']['message']),
+				'owner' => $change['owner']['name']
 			];
 			if(isset($change['_more_changes'])) {
 				$moreChanges = true;

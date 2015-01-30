@@ -31,11 +31,11 @@ class SetupCommandController extends Cli\CommandController {
 		$this->index = $this->connectToElastic();
 		$this->applySettings($this->settings['Elasticsearch']['Settings']);
 		foreach ($this->settings['Elasticsearch']['Mapping'] as $typeName => $mappingInstructions) {
-//			if($typeName === 'review') {
+			if($typeName === 'review') {
 				$type = $this->deleteMapping($typeName);
-//			} else {
+			} else {
 				$type = new Elastica\Type($this->index, $typeName);
-//			}
+			}
 			$this->setMapping($mappingInstructions, $type);
 		}
 	}

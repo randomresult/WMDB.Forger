@@ -4,16 +4,13 @@
 		<td colspan="4"><a href="https://review.typo3.org/#/c/{card.id}/" target="_blank">{card.subject}</a></td>
 	</tr>
 	<tr>
+		<td colspan="4">By <strong>{card.owner}</strong></a> <span class="right"> added <strong><time is="time-ago" datetime="{card.updated_on}">{issue.hit._source.updated_on}</time></strong></span></td>
+	</tr>
+	<tr>
 		<td>Affected Files:</td>
 		<td><span class="label radius">{card.affected_files}</span></td>
 		<td>Patchsets: </td>
 		<td><span class="label radius">{card.patchsets}</span></td>
-	</tr>
-	<tr>
-		<td valign="top">Created:</td>
-		<td valign="top"><strong><time is="time-ago" datetime="{card.created_on}">{issue.hit._source.created_on}</time></strong></td>
-		<td valign="top">Updated:</td>
-		<td valign="top"><strong><time is="time-ago" datetime="{card.updated_on}">{issue.hit._source.updated_on}</time></strong></td>
 	</tr>
 	<tr>
 		<td>Reviews</td>

@@ -57,6 +57,10 @@ WMDB:
           updated_on:
             type: date
             format: yyyy/MM/dd HH:mm:ss
+          owner:
+            type: string
+            index: not_analyzed
+            store: true
         issue:
           project:
             properties:

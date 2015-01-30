@@ -42,11 +42,11 @@ class ElasticSearch {
 	 */
 	private $divider = ' ';
 
-	private $perPage = 25;
+	protected $perPage = 25;
 
-	private $currentPage = 1;
+	protected $currentPage = 1;
 
-	private $totalHits;
+	protected $totalHits;
 
 	/**
 	 * @param array $searchTerms
@@ -66,6 +66,13 @@ class ElasticSearch {
 	 * @throws Exception
 	 */
 	function __construct() {
+
+	}
+
+	/**
+	 * @return \Elastica\ResultSet
+	 */
+	public function doSearch() {
 		$this->connection = new ElasticSearchConnection();
 		$this->connection->init();
 		$this->whereClause = new \Elastica\Query\Bool();
@@ -73,13 +80,6 @@ class ElasticSearch {
 		if(isset($_GET['page'])) {
 			$this->currentPage = intval($_GET['page']);
 		}
-	}
-
-	/**
-	 * @return \Elastica\ResultSet
-	 */
-	public function doSearch() {
-
 		$this->fieldMapping = $this->configurationManager->getConfiguration( \TYPO3\Flow\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'WMDB.Forger.SearchTermMapping');
 		$this->buildQueryString($this->searchTerms);
 

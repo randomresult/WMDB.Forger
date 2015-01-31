@@ -249,21 +249,22 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 			'theme' => 'none',
 			'rotate' => true,
 			'marginTop' => 0,
-			'marginLeft' => 50,
+//			'marginLeft' => 50,
 			'marginRight' => 80,
+			'fontSize' => 16,
 			'dataProvider' => [$data],
 			'valueAxes' => [
 				[
-					'stackType' => 'regular',
+					'stackType' => '100%',
 					'axisAlpha' => 0,
-					'gridAlpha' => 0.3,
+					'gridAlpha' => 0,
 					'autoGridCount' => false,
-					'labelFrequency' => 10,
-					'showFirstLabel' => true,
-//					'inside' => true
-//					'offset' => -200
-					'totalText' => 'Total: [[total]]',
-					'totalTextOffset' => 20,
+					'labelFrequency' => 1,
+//					'showFirstLabel' => true,
+					'inside' => true,
+					'offset' => -200,
+					'totalText' => 'Σ: [[total]]',
+//					'totalTextOffset' => 20,
 //					'position' => 'top',
 				]
 			],

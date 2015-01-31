@@ -21,6 +21,9 @@ class Message {
 	 */
 	public function sendMessage(array $issue) {
 		$slackConfig = $this->configurationManager->getConfiguration( \TYPO3\Flow\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'WMDB.Forger.Slack');
+		if ($slackConfig['Url'] == 'void') {
+			return true;
+		}
 		$browser = new \TYPO3\Flow\Http\Client\Browser();
 		$engine = new \TYPO3\Flow\Http\Client\CurlEngine();
 		$browser->setRequestEngine($engine);

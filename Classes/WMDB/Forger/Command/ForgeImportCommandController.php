@@ -178,7 +178,8 @@ class ForgeImportCommandController extends Cli\CommandController {
 					'limit' => $perRun,
 					'offset' => ($currentSlot + $perRun),
 					'project_id' => 27,
-					'status_id' => '*'
+					'status_id' => '*',
+					'sort' => 'updated_on:desc'
 				]
 			);
 			foreach ($result['issues'] as $doc) {
@@ -402,6 +403,7 @@ class ForgeImportCommandController extends Cli\CommandController {
 		#\TYPO3\Flow\var_dump($doc);
 		$type->addDocument($doc);
 		GeneralUtility::writeLine('+'.$type->getName().':'.$document['id'].' ', 'green', false);
+		sleep(1);
 	}
 
 	/**

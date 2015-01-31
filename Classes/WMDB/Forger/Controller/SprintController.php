@@ -161,14 +161,19 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 		$notes = '';
 		if (isset($ticket['journals'])) {
 			foreach ($ticket['journals'] as $journalEntry) {
-				if (isset($journalEntry['notes']) && strstr($journalEntry['notes'], 'It is available at http://review.typo3.org/')) {
+				if (isset($journalEntry['notes']) && (
+					strstr($journalEntry['notes'], 'It is available at http://review.typo3.org/')
+					||
+					strstr($journalEntry['notes'], 'It is available at https://review.typo3.org/')
+				)
+				) {
 					$notes = $journalEntry['notes'];
 				}
 			}
 			if ($notes === '') {
 				return $ticket;
 			}
-			$pattern = '/.*http:\/\/review.typo3.org\/(?<reviewId>[0-9]{1,6})/';
+			$pattern = '/.*\/\/review.typo3.org\/(?<reviewId>[0-9]{1,6})/';
 			preg_match($pattern, $notes, $matches);
 			if (!isset($matches['reviewId'])) {
 				throw new Exception('There should be a review id in '.$notes);

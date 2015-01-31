@@ -13,16 +13,7 @@
 		<td><span class="label radius">{card.patchsets}</span></td>
 	</tr>
 	<tr>
-		<td>Reviews</td>
-		<td>Verifies</td>
-		<td colspan="2">
-			<f:if condition="{0: card.mergeable} == {0: 'no'}">
-				<span class="label radius alert">CODE CANNOT BE MERGED</span>
-			</f:if>
-		</td>
-	</tr>
-	<tr>
-		<td>
+		<td>Review
 			<f:if condition="{card.positive_reviews}">
 				<span class="label success radius">{card.positive_reviews}</span>
 			</f:if>
@@ -30,12 +21,17 @@
 				<span class="label alert radius">{card.negative_reviews}</span>
 			</f:if>
 		</td>
-		<td>
+		<td>Verify
 			<f:if condition="{card.positive_verifications}">
 				<span class="label success radius">{card.positive_verifications}</span>
 			</f:if>
 			<f:if condition="{card.negative_verifications}">
 				<span class="label alert radius">{card.negative_verifications}</span>
+			</f:if>
+		</td>
+		<td colspan="2">
+			<f:if condition="{0: card.mergeable} == {0: 'no'}">
+				<span class="label radius alert">CAN'T MERGE</span>
 			</f:if>
 		</td>
 	</tr>

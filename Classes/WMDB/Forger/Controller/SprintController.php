@@ -173,7 +173,7 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 			if ($notes === '') {
 				return $ticket;
 			}
-			$pattern = '/.*\/\/review.typo3.org\/(?<reviewId>[0-9]{1,6})/';
+			$pattern = '|.*\/\/review.typo3.org\/(?<reviewId>[0-9]{1,6})|';
 			preg_match($pattern, $notes, $matches);
 			if (!isset($matches['reviewId'])) {
 				throw new Exception('There should be a review id in '.$notes);
@@ -182,6 +182,7 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 			$item = $reviewType->getDocument($matches['reviewId']);
 			return $item->getData();
 		}
+		return [];
 	}
 
 	/**
@@ -248,14 +249,22 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 			'theme' => 'none',
 			'rotate' => true,
 			'marginTop' => 0,
+			'marginLeft' => 50,
+			'marginRight' => 80,
 			'dataProvider' => [$data],
 			'valueAxes' => [
 				[
 					'stackType' => 'regular',
 					'axisAlpha' => 0,
-					'gridAlpha' => 0,
-					'inside' => true,
-					'offset' => -200
+					'gridAlpha' => 0.3,
+					'autoGridCount' => false,
+					'labelFrequency' => 10,
+					'showFirstLabel' => true,
+//					'inside' => true
+//					'offset' => -200
+					'totalText' => 'Total: [[total]]',
+					'totalTextOffset' => 20,
+//					'position' => 'top',
 				]
 			],
 			'categoryAxis' => [
@@ -294,6 +303,7 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 			];
 		}
 		$chartConfig['valueAxes'][0]['maximum'] = $fullCount;
+		$chartConfig['valueAxes'][0]['gridCount'] = $fullCount;
 		$content = '
 		<script type="application/javascript">
 		var chart = AmCharts.makeChart("stackedBoardChart", '.json_encode($chartConfig).');

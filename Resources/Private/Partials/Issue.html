@@ -1,6 +1,6 @@
 {namespace wmdb=WMDB\Forger\ViewHelpers}
 <tr>
-	<th>
+	<th colspan="2">
 		<f:switch expression="{issue.hit._source.status.name}">
 			<f:case value="Closed">  <span class="label secondary radius">Closed</span></f:case>
 			<f:case value="Resolved"><span class="label secondary radius">Resolved</span></f:case>
@@ -17,7 +17,9 @@
 		<f:if condition="{issue.hit._source.category.name}"> in <span class="label secondary radius">{issue.hit._source.category.name}</span></f:if>
 		<f:if condition="{issue.hit._source.typo3_version}"> for <span class="label secondary radius">TYPO3 CMS {issue.hit._source.typo3_version}</span></f:if>
 	</th>
-	<th>{issue.hit._source.subject}</th>
+</tr>
+<tr>
+	<th colspan="2">{issue.hit._source.subject}</th>
 </tr>
 <f:if condition="{issue.score}">
 	<tr>

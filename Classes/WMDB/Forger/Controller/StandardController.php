@@ -94,14 +94,10 @@ class StandardController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	private function findDupes(array $issueData) {
 		$search = new ElasticSearch();
 
-		$testData = array(
-			'description' => $issueData['description'],
-			'subject' => $issueData['subject'],
-			'id' => $issueData['id']
-		);
+		$searchWords = $this->splitSearchwords('-'.$issueData['id']. ' '.$issueData['subject']. ' ' . $issueData['description']);
 
 
-		$search->setSearchTerms($testData);
+		$search->setSearchTerms($searchWords);
 		$results = $search->doSearch();
 
 		$this->view->assignMultiple([
@@ -120,7 +116,14 @@ class StandardController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 		$index = $con->getIndex();
 		$forger = $index->getType('issue');
 		$res = $forger->getDocument($issueId);
-		$this->view->assign('issue', $res);
+		// Need to use an ugly hack
+		// funny noone found that one earlier
+//		\TYPO3\Flow\var_dump($res);
+		$this->view->assign('issue', [
+			'hit' => [
+				'_source' => $res->getData()
+			]
+		]);
 		return $res->getData();
 	}
 

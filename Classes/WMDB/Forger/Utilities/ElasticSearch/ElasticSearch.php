@@ -2,7 +2,16 @@
 
 namespace WMDB\Forger\Utilities\ElasticSearch;
 
+use Elastica\Aggregation\Terms;
+use Elastica\Filter\Bool;
+use Elastica\Filter\BoolOr;
+use Elastica\Filter\Term;
+use Elastica\Filter\Type;
+use Elastica\Query;
+use Elastica\Query\QueryString;
+use Elastica\Util;
 use TYPO3\Flow\Annotations as Flow;
+use TYPO3\Flow\Configuration\ConfigurationManager;
 use TYPO3\Flow\Exception;
 
 /**
@@ -17,7 +26,7 @@ class ElasticSearch {
 	private $connection;
 
 	/**
-	 * @var \Elastica\Query\Bool
+	 * @var Query\Bool
 	 */
 	private $whereClause;
 
@@ -33,7 +42,7 @@ class ElasticSearch {
 
 	/**
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Configuration\ConfigurationManager
+	 * @var ConfigurationManager
 	 */
 	protected $configurationManager;
 
@@ -49,6 +58,11 @@ class ElasticSearch {
 	protected $totalHits;
 
 	/**
+	 * @var Util
+	 */
+	protected $utility;
+
+	/**
 	 * @param array $searchTerms
 	 */
 	public function setSearchTerms($searchTerms) {
@@ -61,6 +75,8 @@ class ElasticSearch {
 	public function getSearchTerms() {
 		return $this->searchTerms;
 	}
+
+
 
 	/**
 	 * @throws Exception
@@ -75,15 +91,15 @@ class ElasticSearch {
 	public function doSearch() {
 		$this->connection = new ElasticSearchConnection();
 		$this->connection->init();
-		$this->whereClause = new \Elastica\Query\Bool();
-		$this->utility = new \Elastica\Util;
+		$this->whereClause = new Query\Bool();
+		$this->utility = new Util;
 		if(isset($_GET['page'])) {
 			$this->currentPage = intval($_GET['page']);
 		}
-		$this->fieldMapping = $this->configurationManager->getConfiguration( \TYPO3\Flow\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'WMDB.Forger.SearchTermMapping');
+		$this->fieldMapping = $this->configurationManager->getConfiguration( ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'WMDB.Forger.SearchTermMapping');
 		$this->buildQueryString($this->searchTerms);
 
-		$elasticaQuery = new \Elastica\Query();
+		$elasticaQuery = new Query();
 		$elasticaQuery->setQuery($this->whereClause);
 		$elasticaQuery->setSize($this->perPage);
 		$elasticaQuery->setFrom(($this->currentPage * $this->perPage) - $this->perPage);
@@ -121,7 +137,7 @@ class ElasticSearch {
 	/**
 	 * @param $searchTerms
 	 * @throws \TYPO3\Flow\Exception
-	 * @return \Elastica\Query\Bool $whereClause
+	 * @return Query\Bool $whereClause
 	 */
 	public function buildQueryString($searchTerms) {
 		/**
@@ -147,7 +163,7 @@ class ElasticSearch {
 			/**
 			 * Hide closed by default
 			 */
-			$searchTerm = new \Elastica\Query\QueryString();
+			$searchTerm = new QueryString();
 			$searchTerm->setDefaultField('status.name');
 			$searchTerm->setQuery('Closed Resolved Rejected');
 			$this->whereClause->addMustNot($searchTerm);
@@ -181,7 +197,7 @@ class ElasticSearch {
 	 * @param $term
 	 */
 	private function addMustQuery($term) {
-		$searchTerm = new \Elastica\Query\QueryString();
+		$searchTerm = new QueryString();
 		$searchWordArray = explode($this->divider, $term);
 		for($iterator = 0; count($searchWordArray); $iterator++) {
 			$tmp = implode($this->divider, $searchWordArray);
@@ -196,7 +212,7 @@ class ElasticSearch {
 	 * @param string $term
 	 */
 	private function addShouldQuery($term) {
-		$searchTerm = new \Elastica\Query\QueryString();
+		$searchTerm = new QueryString();
 		$searchWordArray = explode($this->divider, $term);
 		for($iterator = 0; count($searchWordArray); $iterator++) {
 			$tmp = implode($this->divider, $searchWordArray);
@@ -212,7 +228,7 @@ class ElasticSearch {
 	 * @param string $term
 	 */
 	private function addMustNotQuery($term) {
-		$searchTerm = new \Elastica\Query\QueryString();
+		$searchTerm = new QueryString();
 		$searchWordArray = explode($this->divider, $term);
 		for($iterator = 0; count($searchWordArray); $iterator++) {
 			$tmp = implode($this->divider, $searchWordArray);
@@ -224,14 +240,14 @@ class ElasticSearch {
 	}
 
 	/**
-	 * @return \Elastica\Filter\BoolOr
+	 * @return BoolOr
 	 */
 	private function addFilters() {
 
 //		$filterCount = 0;
-		$filters = new \Elastica\Filter\Bool();
+		$filters = new Bool();
 
-		$typeFilter = new \Elastica\Filter\Type('issue');
+		$typeFilter = new Type('issue');
 
 		$filters->addMust($typeFilter);
 
@@ -241,11 +257,11 @@ class ElasticSearch {
 		}
 		foreach ($_GET['filters'] as $key => $filterValue) {
 			$filterCatCount = 0;
-			$filterPart = new \Elastica\Filter\BoolOr();
+			$filterPart = new BoolOr();
 			foreach ($filterValue as $term => $enabled) {
 				if($enabled == 'true') {
 					$term = str_replace('_', ' ', $term);
-					$filter = new \Elastica\Filter\Term();
+					$filter = new Term();
 					if (
 						$key == 'tracker'
 						|| $key == 'project'
@@ -275,34 +291,34 @@ class ElasticSearch {
 	}
 
 	/**
-	 * @param \Elastica\Query $elasticaQuery
+	 * @param Query $elasticaQuery
 	 */
 	private function addAggregations($elasticaQuery) {
-		$catAggregation = new \Elastica\Aggregation\Terms('Category');
+		$catAggregation = new Terms('Category');
 		$catAggregation->setField('category.name');
 		$elasticaQuery->addAggregation($catAggregation);
 
-		$trackerAggregation = new \Elastica\Aggregation\Terms('Tracker');
+		$trackerAggregation = new Terms('Tracker');
 		$trackerAggregation->setField('tracker.name');
 		$elasticaQuery->addAggregation($trackerAggregation);
 
-		$status = new \Elastica\Aggregation\Terms('Status');
+		$status = new Terms('Status');
 		$status->setField('status.name');
 		$elasticaQuery->addAggregation($status);
 
-		$priority = new \Elastica\Aggregation\Terms('Priority');
+		$priority = new Terms('Priority');
 		$priority->setField('priority.name');
 		$elasticaQuery->addAggregation($priority);
 
-		$t3ver = new \Elastica\Aggregation\Terms('TYPO3 Version');
+		$t3ver = new Terms('TYPO3 Version');
 		$t3ver->setField('typo3_version');
 		$elasticaQuery->addAggregation($t3ver);
 
-		$targetver = new \Elastica\Aggregation\Terms('Target Version');
+		$targetver = new Terms('Target Version');
 		$targetver->setField('fixed_version.name');
 		$elasticaQuery->addAggregation($targetver);
 
-		$phpVer = new \Elastica\Aggregation\Terms('PHP Version');
+		$phpVer = new Terms('PHP Version');
 		$phpVer->setField('php_version');
 		$elasticaQuery->addAggregation($phpVer);
 

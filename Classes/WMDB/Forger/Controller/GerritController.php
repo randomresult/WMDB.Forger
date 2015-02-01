@@ -334,7 +334,10 @@ class GerritController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 			'Topic' => [
 				'terms' => [
 					'field' => 'topic',
-					'size' => 0
+					'size' => 0,
+					'order' => [
+						'_term' => 'asc'
+					]
 				]
 			],
 			'Patchsets' => [

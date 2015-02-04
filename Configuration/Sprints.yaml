@@ -20,3 +20,11 @@ WMDB:
             must_not:
               - term: {subject: wip}
               - term: {category.name: File Abstraction Layer (FAL)}
+      SP_71:
+        Name: 7.1 Stabilization Sprint
+        Query:
+          bool:
+            must:
+              - term: {focus.name: Stabilization Sprint}
+            must_not:
+              - term: {subject: wip}

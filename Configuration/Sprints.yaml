@@ -26,5 +26,3 @@ WMDB:
           bool:
             must:
               - term: {focus.name: Stabilization Sprint}
-            must_not:
-              - term: {subject: wip}

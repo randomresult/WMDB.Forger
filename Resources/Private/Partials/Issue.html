@@ -19,7 +19,7 @@
 	</th>
 </tr>
 <tr>
-	<th colspan="2">{issue.hit._source.subject}</th>
+	<th colspan="2"><a href="http://forge.typo3.org/issues/{issue.hit._source.id}" target="forgeWindow">{issue.hit._source.subject}</a></th>
 </tr>
 <f:if condition="{issue.score}">
 	<tr>
@@ -40,4 +40,7 @@
 		Created: <strong><time is="time-ago" datetime="{issue.hit._source.created_on}">{issue.hit._source.created_on}</time></strong> -
 		Updated: <strong><time is="time-ago" datetime="{issue.hit._source.updated_on}">{issue.hit._source.updated_on}</time></strong>
 	</td>
+</tr>
+<tr>
+	<td colspan="2"><hr></td>
 </tr>

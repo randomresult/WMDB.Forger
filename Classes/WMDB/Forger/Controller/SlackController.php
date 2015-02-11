@@ -13,13 +13,37 @@ use TYPO3\Flow\Mvc\Controller\ActionController;
  */
 class SlackController extends ActionController {
 
+	/**
+	 * @var \TYPO3\Flow\Utility\Environment
+	 * @Flow\Inject
+	 */
+	protected $env;
+
+	/**
+	 * @var string
+	 */
+	protected $context;
+
+	/**
+	 * Initializes the controller
+	 */
+	protected function initializeAction() {
+		$context = $this->env->getContext();
+		if($context == 'Development') {
+			$this->context = 'DEV';
+		} else {
+			$this->context = 'PRD';
+		}
+	}
 
 	/**
 	 * Index action
 	 *
 	 * @return void
 	 */
-	public function indexAction() {}
+	public function indexAction() {
+		$this->view->assign('context', $this->context);
+	}
 
 	/**
 	 * @param string $email
@@ -31,6 +55,7 @@ class SlackController extends ActionController {
 			$this->redirect('index');
 		}
 		$this->sendApiRequest($email, $firstName, $lastName);
+		$this->view->assign('context', $this->context);
 		$this->view->assignMultiple(
 			[
 				'email' => $email,

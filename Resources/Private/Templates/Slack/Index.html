@@ -1,0 +1,30 @@
+<f:layout name="Default" />
+
+<f:section name="Title">Dashboard</f:section>
+<f:section name="Javascripts">
+</f:section>
+
+<f:section name="Content">
+<f:form action="sendInvite">
+	<div class="row">
+		<div class="small-12 medium-6 column">
+			<div class="row">
+				<img src="<f:uri.resource package='WMDB.Forger' path='images/slack-logo.jpg' />" />
+			</div>
+			<div class="row">
+			    <label for="email">Email:</label>
+			    <input type="text" id="email" name="email" value="" placeholder="Email" class="form-control" />
+			</div>
+			<div class="row">
+			    <label for="firstName">FirstName:</label>
+			    <input type="text" id="firstName" name="firstName" value="" placeholder="FirstName" class="form-control" />
+			</div>
+			<div class="row">
+			    <label for="lastName">LastName:</label>
+			    <input type="text" id="lastName" name="lastName" value="" placeholder="LastName" class="form-control" />
+			</div>
+			<f:form.submit value="send request" class="button success"  />
+		</div>
+	</div>
+</f:form>
+</f:section>

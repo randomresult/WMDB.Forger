@@ -77,7 +77,7 @@ class SlackController extends ActionController {
 		$engine = new CurlEngine();
 		$browser->setRequestEngine($engine);
 
-		$jsonString = 'email='.$email.'&first_name='.$firstName.'&last_name='.$lastName.'&token='.$this->settings['Slack']['token'].'&set_active=true';
+		$jsonString = 'email='.urlencode($email).'&first_name='.urlencode($firstName).'&last_name='.urlencode($lastName).'&token='.$this->settings['Slack']['token'].'&set_active=true';
 		return $browser->request($this->settings['Slack']['TeamUrl'] . '/api/users.admin.invite?t=' . time(), 'POST', [], [], [], $jsonString);
 	}
 

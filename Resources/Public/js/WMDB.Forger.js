@@ -140,7 +140,8 @@ $(document).ready(function () {
 	function drawOverviewChart(docType, view, divId, charttitle) {
 		getData(docType, view, function(chartData) {
 			chart2 = AmCharts.makeChart(divId, {
-				"dataProvider": chartData,
+				"dataProvider": chartData.chartData,
+				"guides": chartData.guides,
 				"type": "serial",
 				"theme": "none",
 				"legend": {
@@ -311,6 +312,7 @@ $(document).ready(function () {
 				"marginRight": settings.marginRight,
 				"pathToImages": imagePath,
 				"dataProvider": chartData.chartData,
+				"guides": chartData.guides,
 				"titles": [
 					{
 						"text": charttitle,

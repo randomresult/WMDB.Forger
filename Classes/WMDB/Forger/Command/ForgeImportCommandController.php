@@ -403,7 +403,7 @@ class ForgeImportCommandController extends Cli\CommandController {
 		#\TYPO3\Flow\var_dump($doc);
 		$type->addDocument($doc);
 		GeneralUtility::writeLine('+'.$type->getName().':'.$document['id'].' ', 'green', false);
-		sleep(1);
+		#sleep(1);
 	}
 
 	/**

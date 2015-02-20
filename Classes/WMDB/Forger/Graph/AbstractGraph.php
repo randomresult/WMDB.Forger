@@ -1,8 +1,10 @@
 <?php
 namespace WMDB\Forger\Graph;
 
+use TYPO3\Flow\Configuration\ConfigurationManager;
 use WMDB\Forger\Utilities\ElasticSearch as Es;
 use Elastica as El;
+use TYPO3\Flow\Annotations as Flow;
 /**
  * Class AbstractGraph
  * @package WMDB\Forger\Graph
@@ -14,6 +16,11 @@ class AbstractGraph {
 	protected $connection;
 
 	protected $chartData = [];
+	/**
+	 * @Flow\Inject
+	 * @var ConfigurationManager
+	 */
+	protected $configurationManager;
 
 	/**
 	 * @throws \TYPO3\Flow\Exception
@@ -47,5 +54,30 @@ class AbstractGraph {
 	 */
 	protected function getData() {
 		return [];
+	}
+
+	/**
+	 * @return array
+	 */
+	protected function getGuides() {
+		$out = [];
+		$chartSettings =
+			$this->configurationManager->getConfiguration(ConfigurationManager::CONFIGURATION_TYPE_SETTINGS,
+			                                              'WMDB.Forger.Charts');
+		foreach ($chartSettings['Phases'] as $version => $phases) {
+			foreach ($phases as $phaseName => $dates) {
+				$out[] = [
+					'fillAlpha' => 0.5,
+					'date' => $dates['start'],
+					'toDate' => $dates['end'],
+					'label' => $phaseName,
+					'position' => 'top',
+					'inside' => TRUE,
+					'fillColor' => $chartSettings['Colors'][$phaseName]
+				];
+			}
+		}
+
+		return $out;
 	}
 }

@@ -4,6 +4,7 @@ namespace WMDB\Forger\Graph\Forge;
 use WMDB\Forger\Graph\AbstractGraph;
 use WMDB\Forger\Utilities\ElasticSearch as Es;
 use Elastica as El;
+use TYPO3\Flow\Annotations as Flow;
 
 /**
  * Class OpenVsClosed
@@ -11,11 +12,13 @@ use Elastica as El;
  */
 class OpenVsClosed extends AbstractGraph {
 
+
 	/**
 	 * Get's the data
 	 */
 	protected function getData() {
 		$this->chartData = [
+			'guides' => $this->getGuides(),
 			'chartData' => $this->getClosed(),
 			'lines' => [
 				'open' => [
@@ -129,4 +132,6 @@ class OpenVsClosed extends AbstractGraph {
 		}
 		return $chartData;
 	}
+
+
 }

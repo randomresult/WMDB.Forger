@@ -12,7 +12,10 @@ use Elastica as El;
 class Overview extends AbstractGraph {
 
 	protected function getData() {
-		$this->chartData = $this->gerritOpenVsClosedAction();
+		$this->chartData = [
+			'chartData' => $this->gerritOpenVsClosedAction(),
+			'guides' => $this->getGuides(),
+		];
 	}
 
 	/**********************************************

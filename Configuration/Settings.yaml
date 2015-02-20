@@ -157,3 +157,15 @@ WMDB:
     Redmine:
       url: https://forge.typo3.org
       apiKey: REDMINE_API_KEY
+    Charts:
+      Colors:
+        Stabilization: '#dedede'
+        Release: '#999999'
+      Phases:
+        7.1:
+          Stabilization:
+            start: 2015-02-03
+            end: 2015-02-23
+          Release:
+            start: 2015-02-24
+            end: 2015-02-24

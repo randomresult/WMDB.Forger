@@ -164,8 +164,8 @@ WMDB:
       Phases:
         7.1:
           Stabilization:
-            start: 2015-02-03
-            end: 2015-02-23
+            start: '2015-02-03'
+            end: '2015-02-23'
           Release:
-            start: 2015-02-24
-            end: 2015-02-24
+            start: '2015-02-24'
+            end: '2015-02-24'

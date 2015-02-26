@@ -363,17 +363,13 @@ $(document).ready(function () {
 				}
 			});
 			chart.addListener("clickGraphItem", function(clickedItem) {
-				var bulletPoint = clickedItem.event.srcElement.outerHTML;
-				if(bulletPoint.indexOf('#ff0000') > -1) {
+				if(clickedItem.target.bulletColorR == '#ff0000') {
 					//new tickets
 					window.open("https://forge.typo3.org/projects/typo3cms-core/issues?set_filter=1&f[]=status_id&op[status_id]=*&f[]=created_on&op[created_on]==&v[created_on][]="+clickedItem.item.dataContext.date, "_blank");
-				} else if(bulletPoint.indexOf('#43ac6a') > -1) {
+				} else if(clickedItem.target.bulletColorR == '#43ac6a') {
 					//closed tickets
 					window.open("https://forge.typo3.org/projects/typo3cms-core/issues?set_filter=1&f[]=status_id&op[status_id]=c&f[]=updated_on&op[updated_on]==&v[updated_on][]="+clickedItem.item.dataContext.date, "_blank")
 				}
-				//console.log(clickedItem.event.srcElement.outerHTML);
-				//window.open("https://forge.typo3.org/projects/typo3cms-core/issues?set_filter=1&v[updated_on][]="+clickedItem.item.dataContext.date+"&op[status_id]=*&f[]=updated_on&op[updated_on]==", "_blank");
-				//
 			});
 		});
 	}

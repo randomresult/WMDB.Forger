@@ -122,7 +122,7 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 		if (!isset($this->sprintConfig['WMDB']['Forger']['Boards'][$boardId]['Query'])) {
 			throw new Exception('No sprint query found');
 		}
-//		\TYPO3\Flow\var_dump(json_encode($this->sprintConfig['WMDB']['Forger']['Boards'][$boardId]['Query'], JSON_PRETTY_PRINT));
+		$this->view->assign('boardConfig' ,json_encode($this->sprintConfig['WMDB']['Forger']['Boards'][$boardId]['Query'], JSON_PRETTY_PRINT));
 		$out = [
 			'Open' => [],
 			'WIP' => [],

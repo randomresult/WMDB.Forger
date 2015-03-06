@@ -7,6 +7,9 @@ namespace WMDB\Forger\Controller;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
+use TYPO3\Flow\Mvc\Controller\ActionController;
+use WMDB\Forger\Graph\Forge\Full as IssueFull;
+use WMDB\Forger\Graph\Gerrit\Full as GerritFull;
 use WMDB\Forger\Utilities\ElasticSearch\ElasticSearch;
 use WMDB\Utilities\Utility\GeneralUtility;
 
@@ -14,7 +17,7 @@ use WMDB\Utilities\Utility\GeneralUtility;
  * Class StandardController
  * @package WMDB\Forger\Controller
  */
-class StandardController extends \TYPO3\Flow\Mvc\Controller\ActionController {
+class StandardController extends ActionController {
 
 	/**
 	 * @var \TYPO3\Flow\Utility\Environment
@@ -37,7 +40,6 @@ class StandardController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 		} else {
 			$this->context = 'PRD';
 		}
-		//$this->context = $context;
 	}
 
 	public function helpAction() {
@@ -50,8 +52,8 @@ class StandardController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	 * @return void
 	 */
 	public function indexAction() {
-		$reviewGraph = new \WMDB\Forger\Graph\Gerrit\Full();
-		$issueGraph = new \WMDB\Forger\Graph\Forge\Full();
+		$reviewGraph = new GerritFull();
+		$issueGraph = new IssueFull();
 		$this->view->assignMultiple([
 			'openIssues' => $issueGraph->render(),
 			'openReviews' => $reviewGraph->render(),
@@ -64,7 +66,7 @@ class StandardController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	 */
 	public function searchAction($query) {
 		$this->view->assign('query', htmlspecialchars($query));
-		if(is_numeric($query)) {
+		if(is_numeric($this->checkIfQueryIsIssue($query))) {
 			$issueData = $this->findIssue($query);
 			$this->findDupes($issueData);
 		} else {
@@ -77,6 +79,20 @@ class StandardController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 		if (isset($_GET['filters'])) {
 			$this->view->assign('filters', $_GET['filters']);
 		}
+	}
+
+	/**
+	 * @param $query
+	 * @return bool
+	 */
+	protected function checkIfQueryIsIssue($query) {
+		$result = FALSE;
+		$pattern = '(^[0-9]{4,6}$)';
+		preg_match($pattern, $query, $matches);
+		if(!empty($matches)) {
+			$result = TRUE;
+		}
+		return $result;
 	}
 
 	/**

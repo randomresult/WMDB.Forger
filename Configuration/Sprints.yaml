@@ -8,6 +8,13 @@ WMDB:
             must:
               - term: {focus.name: Remote Sprint}
               - term: {fixed_version.name: 7.2 (Frontend)}
+      OLS_72:
+        Name: 7.2 UXW Sprint
+        Query:
+          bool:
+            must:
+              - term: {focus.name: On Location Sprint}
+              - term: {fixed_version.name: 7.2 (Frontend)}
       Essen_2015:
         Name: FAL Sprint Essen 2015
         Query:

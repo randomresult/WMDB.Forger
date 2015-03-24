@@ -26,7 +26,7 @@ class ElasticSearch {
 	private $connection;
 
 	/**
-	 * @var Query\Bool
+	 * @var Query\QueryString
 	 */
 	private $whereClause;
 
@@ -46,10 +46,10 @@ class ElasticSearch {
 	 */
 	protected $configurationManager;
 
-	/**
-	 * @var string
-	 */
-	private $divider = ' ';
+//	/**
+//	 * @var string
+//	 */
+//	private $divider = ' ';
 
 	protected $perPage = 25;
 
@@ -91,13 +91,13 @@ class ElasticSearch {
 	public function doSearch() {
 		$this->connection = new ElasticSearchConnection();
 		$this->connection->init();
-		$this->whereClause = new Query\Bool();
+		$this->whereClause = new Query\QueryString();
+		$this->whereClause->setQuery($this->searchTerms);
 		$this->utility = new Util;
 		if(isset($_GET['page'])) {
 			$this->currentPage = intval($_GET['page']);
 		}
 		$this->fieldMapping = $this->configurationManager->getConfiguration( ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'WMDB.Forger.SearchTermMapping');
-		$this->buildQueryString($this->searchTerms);
 
 		$elasticaQuery = new Query();
 		$elasticaQuery->setQuery($this->whereClause);
@@ -132,111 +132,6 @@ class ElasticSearch {
 			$out['endingAtItem'] = intval($this->totalHits);
 		}
 		return $out;
-	}
-
-	/**
-	 * @param $searchTerms
-	 * @throws \TYPO3\Flow\Exception
-	 * @return Query\Bool $whereClause
-	 */
-	public function buildQueryString($searchTerms) {
-		/**
-		 * Filter to type = issue
-		 */
-//		$this->whereClause->addMust([
-//			'term' => [
-//				'type' => 'issue'
-//			]
-//		]);
-
-		if (isset($searchTerms['shouldHave']) && isset($searchTerms['must']) && isset($searchTerms['mustNot'])) {
-			// Query search
-			foreach ($searchTerms['shouldHave'] as $word) {
-				$this->addShouldQuery($word);
-			}
-			foreach ($searchTerms['must'] as $word) {
-				$this->addMustQuery($word);
-			}
-			foreach ($searchTerms['mustNot'] as $word) {
-				$this->addMustNotQuery($word);
-			}
-			/**
-			 * Hide closed by default
-			 */
-			$searchTerm = new QueryString();
-			$searchTerm->setDefaultField('status.name');
-			$searchTerm->setQuery('Closed Resolved Rejected');
-			$this->whereClause->addMustNot($searchTerm);
-		} else {
-			foreach ($searchTerms as $field => $term) {
-				if ($term != '') {
-
-					if (!array_key_exists($field, $this->fieldMapping)) {
-						throw new Exception ('Field: ' . $field . ' is not mapped', 1413390545);
-					}
-
-					switch ($this->fieldMapping[$field]) {
-						case 'must':
-							$this->addMustQuery($term);
-							break;
-						case 'must_not':
-							$this->addMustNotQuery($term);
-							break;
-						case 'should':
-							$this->addShouldQuery($term);
-							break;
-						default:
-							throw new Exception('Condition: ' . $this->fieldMapping[$field] . ' does not exists!', 1413391351);
-					}
-				}
-			}
-		}
-	}
-
-	/**
-	 * @param $term
-	 */
-	private function addMustQuery($term) {
-		$searchTerm = new QueryString();
-		$searchWordArray = explode($this->divider, $term);
-		for($iterator = 0; count($searchWordArray); $iterator++) {
-			$tmp = implode($this->divider, $searchWordArray);
-			$tmp = $this->utility->escapeTerm($tmp);
-			$searchTerm->setQuery($tmp);
-			$this->whereClause->addMust($searchTerm);
-			array_pop($searchWordArray);
-		}
-	}
-
-	/**
-	 * @param string $term
-	 */
-	private function addShouldQuery($term) {
-		$searchTerm = new QueryString();
-		$searchWordArray = explode($this->divider, $term);
-		for($iterator = 0; count($searchWordArray); $iterator++) {
-			$tmp = implode($this->divider, $searchWordArray);
-			$tmp = $this->utility->escapeTerm($tmp);
-			$searchTerm->setQuery($tmp);
-			$this->whereClause->addShould($searchTerm);
-			array_pop($searchWordArray);
-		}
-
-	}
-
-	/**
-	 * @param string $term
-	 */
-	private function addMustNotQuery($term) {
-		$searchTerm = new QueryString();
-		$searchWordArray = explode($this->divider, $term);
-		for($iterator = 0; count($searchWordArray); $iterator++) {
-			$tmp = implode($this->divider, $searchWordArray);
-			$tmp = $this->utility->escapeTerm($tmp);
-			$searchTerm->setQuery($tmp);
-			$this->whereClause->addMustNot($searchTerm);
-			array_pop($searchWordArray);
-		}
 	}
 
 	/**

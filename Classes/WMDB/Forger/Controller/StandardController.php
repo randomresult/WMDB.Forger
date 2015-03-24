@@ -65,7 +65,8 @@ class StandardController extends ActionController {
 	 * @param string $query
 	 */
 	public function searchAction($query) {
-		$this->view->assign('query', htmlspecialchars($query));
+//		$this->view->assign('query', htmlspecialchars($query));
+		$this->view->assign('query', $query);
 		if(is_numeric($this->checkIfQueryIsIssue($query))) {
 			$issueData = $this->findIssue($query);
 			$this->findDupes($issueData);
@@ -147,41 +148,13 @@ class StandardController extends ActionController {
 	 * @param string $query
 	 */
 	private function findByQuery($query) {
-		$searchWords = $this->splitSearchwords($query);
 		$search = new ElasticSearch();
-
-		$search->setSearchTerms($searchWords);
+		$search->setSearchTerms($query);
 		$results = $search->doSearch();
 		$this->view->assignMultiple([
 			'result' => $results,
 			'mode' => 'dupes'
 		]);
-	}
-
-	/**
-	 * @param string $query
-	 * @return array
-	 */
-	private function splitSearchwords($query) {
-		$splitList = [
-			'shouldHave' => array(),
-			'must' => array(),
-			'mustNot' => array()
-		];
-		$wordList = GeneralUtility::trimExplode(' ', $query);
-		foreach ($wordList as $key => $word) {
-			switch(true) {
-				case substr($word, 0, 1) === '+':
-					$splitList['must'][] = trim(str_replace('+', '', $word));
-					break;
-				case substr($word, 0, 1) === '-':
-					$splitList['mustNot'][] = trim(str_replace('-', '', $word));
-					break;
-				default:
-					$splitList['shouldHave'][] = trim($word);
-			}
-		}
-		return $splitList;
 	}
 
 }

@@ -1,0 +1,103 @@
+{namespace wmdb=WMDB\Forger\ViewHelpers}
+<f:layout name="Default" />
+
+<f:section name="Title">Search Forge</f:section>
+<f:section name="Javascripts">
+	<!--<script type="text/javascript" src="<f:uri.resource package='WMDB.Forger' path='js/WMDB.Forger.js' />"></script>-->
+	<script type="text/javascript" src="<f:uri.resource package='WMDB.Forger' path='js/sprintf.min.js' />"></script>
+	<script type="text/javascript" src="<f:uri.resource package='WMDB.Forger' path='js/WMDB.Forger.Rst.js' />"></script>
+</f:section>
+
+<f:section name="Content">
+	<div class="row">
+		<div class="small-8 column">
+			<form class="form-horizontal">
+				<div class="row">
+					<div class="small-12 column">
+						<ul class="button-group radius even-3 js-changetypes">
+							<li><a class="button" href="#" data-value="breaking">Breaking</a></li>
+							<li><a class="button" href="#" data-value="deprecation">Deprecation</a></li>
+							<li><a class="button" href="#" data-value="feature">Feature</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="row collapse">
+					<div class="small-5 column">
+						<div class="row collapse">
+							<div class="small-10 column">
+								<input type="text" class="form-control" id="ticketid" placeholder="Ticket ID">
+							</div>
+							<div class="small-2 column">
+								<button class="button postfix" type="button" data-action="load-ticket"><span class="fa fa-ticket"></span></button>
+							</div>
+						</div>
+					</div>
+					<div class="small-6 large-offset-1 column">
+						<input type="text" class="form-control" id="title" placeholder="Title">
+					</div>
+				</div>
+				<div class="row collapse" data-tickettypes="breaking deprecation feature">
+					<div class="small-12 column">
+						<label for="description">Description</label>
+						<textarea class="form-control" rows="5" id="description"></textarea>
+					</div>
+				</div>
+				<div class="row collapse" data-tickettypes="breaking deprecation feature">
+					<div class="small-12 column">
+						<label for="impact">Impact</label>
+						<textarea class="form-control" rows="5" id="impact"></textarea>
+					</div>
+				</div>
+				<div class="row collapse hide" data-tickettypes="breaking deprecation">
+					<div class="small-12 column">
+						<label for="affected">Affected Installations</label>
+						<textarea class="form-control" rows="5" id="affected"></textarea>
+					</div>
+				</div>
+				<div class="row collapse hide" data-tickettypes="breaking deprecation">
+					<div class="small-12 column">
+						<label for="migration">Migration</label>
+						<textarea class="form-control" rows="5" id="migration"></textarea>
+					</div>
+				</div>
+				<input id="generate" type="button" class="button success expand hide" value="GENERATE ALL THE THINGS">
+			</form>
+		</div>
+		<div class="small-4 column">
+			<img src="<f:uri.resource package='WMDB.Forger' path='images/60654845.jpg' />" alt="" class="img-responsive">
+
+			<h2>Code snippets</h2>
+			<dl class="accordion" data-accordion>
+				<dd class="accordion-navigation">
+					<a href="#codeblock">Code Block</a>
+					<div id="codeblock" class="content active">
+						<button href="#" data-action="paste-code" class="button secondary small right"><span class="fa fa-clipboard"></span></button>
+						<pre>&#13;&#10;.. code-block:: [php|html|ts|js]&#13;&#10;&#13;&#10;&#9;Your code indented by a tab.&#13;&#10;</pre>
+						<div class="clearfix"></div>
+					</div>
+				</dd>
+				<dd class="accordion-navigation">
+					<a href="#inlinecode">Accordion 2</a>
+					<div id="inlinecode" class="content">
+						<button data-action="paste-code" class="button secondary small right"><span class="fa fa-clipboard"></span></button>
+						<pre>``Your code wrapped in ticks.``</pre>
+						<div class="clearfix"></div>
+					</div>
+				</dd>
+				<dd class="accordion-navigation">
+					<a href="#links">Accordion 3</a>
+					<div id="links" class="content">
+						<button href="#" data-action="paste-code" class="button secondary small right"><span class="fa fa-clipboard"></span></button>
+						<pre>Some linked_ text&#13;&#10;&#13;&#10;.. _linked: http://typo3.org</pre>
+						<div class="clearfix"></div>
+					</div>
+				</dd>
+			</dl>
+		</div>
+	</div>
+	<div id="resultModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+		<h4>Modal title</h4>
+		<textarea rows="20" style="font-family: monospace, fixed;" readonly></textarea>
+		<a class="close-reveal-modal" aria-label="Close">&#215;</a>
+	</div>
+</f:section>

@@ -48,6 +48,22 @@ class StandardController extends ActionController {
 		]);
 	}
 
+	public function rstAction(){
+		$this->view->assignMultiple([
+			'context' => $this->context
+		]);
+	}
+
+	/**
+	 * @param int $issueId
+	 * @return null|string
+	 */
+	public function getIssueJsonAction($issueId = 0){
+		$issueData = $this->findIssue($issueId);
+
+		return json_encode($issueData);
+	}
+
 	/**
 	 * @return void
 	 */

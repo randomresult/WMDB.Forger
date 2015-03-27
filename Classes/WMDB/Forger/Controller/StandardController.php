@@ -11,6 +11,7 @@ use TYPO3\Flow\Mvc\Controller\ActionController;
 use WMDB\Forger\Graph\Forge\Full as IssueFull;
 use WMDB\Forger\Graph\Gerrit\Full as GerritFull;
 use WMDB\Forger\Utilities\ElasticSearch\ElasticSearch;
+use WMDB\Forger\Utilities\Memes\MemeUtility;
 use WMDB\Utilities\Utility\GeneralUtility;
 
 /**
@@ -49,8 +50,10 @@ class StandardController extends ActionController {
 	}
 
 	public function rstAction(){
+
 		$this->view->assignMultiple([
-			'context' => $this->context
+			'context' => $this->context,
+			'memeImage' => MemeUtility::getRandomMeme()
 		]);
 	}
 

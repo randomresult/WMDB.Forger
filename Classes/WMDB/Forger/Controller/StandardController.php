@@ -176,4 +176,8 @@ class StandardController extends ActionController {
 		]);
 	}
 
+	public function calendarAction(){
+		
+	}
+
 }

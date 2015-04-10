@@ -15,28 +15,34 @@ WMDB:
             must:
               - term: {focus.name: On Location Sprint}
               - term: {fixed_version.name: 7.2 (Frontend)}
-      Essen_2015:
-        Name: FAL Sprint Essen 2015
-        Query:
-          bool:
-            must:
-              - term: {focus.name: On Location Sprint}
-              - term: {category.name: File Abstraction Layer (FAL)}
-            must_not:
-              - term: {subject: wip}
-
-      Berlin_2015:
-        Name: 7.1 Sprint Berlin 2015
-        Query:
-          bool:
-            must:
-              - term: {focus.name: On Location Sprint}
-            must_not:
-              - term: {subject: wip}
-              - term: {category.name: File Abstraction Layer (FAL)}
-      SP_71:
-        Name: 7.1 Stabilization Sprint
+      SS_6212:
+        Name: 6.2.12 Stabilisation
         Query:
           bool:
             must:
               - term: {focus.name: Stabilization Sprint}
+              - term: {fixed_version.name: 6.2.12}
+#      Essen_2015:
+#        Name: FAL Sprint Essen 2015
+#        Query:
+#          bool:
+#            must:
+#              - term: {focus.name: On Location Sprint}
+#              - term: {category.name: File Abstraction Layer (FAL)}
+#            must_not:
+#              - term: {subject: wip}
+#      Berlin_2015:
+#        Name: 7.1 Sprint Berlin 2015
+#        Query:
+#          bool:
+#            must:
+#              - term: {focus.name: On Location Sprint}
+#            must_not:
+#              - term: {subject: wip}
+#              - term: {category.name: File Abstraction Layer (FAL)}
+#      SP_71:
+#        Name: 7.1 Stabilization Sprint
+#        Query:
+#          bool:
+#            must:
+#              - term: {focus.name: Stabilization Sprint}

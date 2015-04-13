@@ -169,3 +169,10 @@ WMDB:
           Release:
             start: '2015-02-24'
             end: '2015-02-25'
+        7.2:
+          Stabilization:
+            start: '2015-04-15'
+            end: '2015-04-27'
+          Release:
+            start: '2015-04-27'
+            end: '2015-04-28'

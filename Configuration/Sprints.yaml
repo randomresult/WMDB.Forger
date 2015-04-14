@@ -29,6 +29,13 @@ WMDB:
             must:
               - term: {focus.name: Stabilization Sprint}
               - term: {fixed_version.name: 7.2 (Frontend)}
+      OLS_73:
+        Name: 7.3 Sprint Rosenheim
+        Query:
+          bool:
+            must:
+              - term: {focus.name: On Location Sprint}
+              - term: {fixed_version.name: 7.3 (Packages)}
 #      Essen_2015:
 #        Name: FAL Sprint Essen 2015
 #        Query:

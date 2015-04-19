@@ -1,27 +1,27 @@
 WMDB:
   Forger:
     Boards:
-      RS_72:
-        Name: 7.2 Remote Sprint
-        Query:
-          bool:
-            must:
-              - term: {focus.name: Remote Sprint}
-              - term: {fixed_version.name: 7.2 (Frontend)}
-      OLS_72:
-        Name: 7.2 UXW Sprint
-        Query:
-          bool:
-            must:
-              - term: {focus.name: On Location Sprint}
-              - term: {fixed_version.name: 7.2 (Frontend)}
-      SS_6212:
-        Name: 6.2.12 Stabilisation
-        Query:
-          bool:
-            must:
-              - term: {focus.name: Stabilization Sprint}
-              - term: {fixed_version.name: 6.2.12}
+#      RS_72:
+#        Name: 7.2 Remote Sprint
+#        Query:
+#          bool:
+#            must:
+#              - term: {focus.name: Remote Sprint}
+#              - term: {fixed_version.name: 7.2 (Frontend)}
+#      OLS_72:
+#        Name: 7.2 UXW Sprint
+#        Query:
+#          bool:
+#            must:
+#              - term: {focus.name: On Location Sprint}
+#              - term: {fixed_version.name: 7.2 (Frontend)}
+#      SS_6212:
+#        Name: 6.2.12 Stabilisation
+#        Query:
+#          bool:
+#            must:
+#              - term: {focus.name: Stabilization Sprint}
+#              - term: {fixed_version.name: 6.2.12}
       SS_72:
         Name: 7.2 Stabilisation
         Query:

@@ -61,11 +61,19 @@
 		</table>
 		<p>Don't try to drag & drop cards, it's not working and won't be for a <b>looooong</b> time</p>
 	</f:if>
-	<a href="javascript:;" data-reveal-id="boardconfig" class="button radius tiny">Debug Board Config</a>
-	<div id="boardconfig" class="reveal-modal" data-reveal>
-		<h2>Board Query</h2>
-		<pre>{boardConfig}</pre>
-		<a class="close-reveal-modal">&#215;</a>
+	<button type="button" data-toggle="modal" data-target="#boardconfig" class="btn btn-default">Debug Board Config</button>
+	<div id="boardconfig" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Board Query</h4>
+				</div>
+				<div class="modal-body">
+					<pre>{boardConfig}</pre>
+				</div>
+			</div>
+		</div>
 	</div>
 
 </f:section>

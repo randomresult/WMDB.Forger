@@ -1,12 +1,6 @@
-<div class="row collapse" xmlns:f="http://www.w3.org/1999/html">
-	<div class="small-2 columns">
-		<span class="prefix">Search FORGE</span>
-	</div>
-	<div class="small-6 columns">
-		<f:form.textfield name="query" placeholder="Issue ID or Searchwords" value="{query}" />
-	</div>
-	<div class="small-2 columns">
-		<input type="submit" class="button success postfix search-issue" value="Go">
-	</div>
-	<div class="small-1 column"></div>
+<div class="input-group col-sm-12">
+	<f:form.textfield name="query" placeholder="Issue ID or Searchwords" class="form-control input-lg" value="{query}" />
+	<span class="input-group-btn">
+		<input type="submit" class="btn btn-success btn-lg" value="Go">
+	</span>
 </div>

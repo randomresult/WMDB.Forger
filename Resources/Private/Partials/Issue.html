@@ -2,20 +2,20 @@
 <tr>
 	<th colspan="2">
 		<f:switch expression="{issue.hit._source.status.name}">
-			<f:case value="Closed">  <span class="label secondary radius">Closed</span></f:case>
-			<f:case value="Resolved"><span class="label secondary radius">Resolved</span></f:case>
-			<f:case value="New"><span class="label alert radius">NEW</span></f:case>
-			<f:defaultCase><span class="label secondary radius">{issue.hit._source.status.name}</span> </f:defaultCase>
+			<f:case value="Closed">  <span class="label label-default">Closed</span></f:case>
+			<f:case value="Resolved"><span class="label label-default">Resolved</span></f:case>
+			<f:case value="New"><span class="label label-danger">NEW</span></f:case>
+			<f:defaultCase><span class="label label-info">{issue.hit._source.status.name}</span> </f:defaultCase>
 		</f:switch>
 		<f:switch expression="{issue.hit._source.tracker.name}">
-			<f:case value="Bug"><span class="label alert radius">BUG</span></f:case>
-			<f:case value="Feature"><span class="label success radius">FEATURE</span></f:case>
-			<f:case value="Task"><span class="label radius">TASK</span></f:case>
-			<f:defaultCase><span class="label secondary radius">{issue.hit._source.tracker.name}</span> </f:defaultCase>
+			<f:case value="Bug"><span class="label label-danger">BUG</span></f:case>
+			<f:case value="Feature"><span class="label label-success">FEATURE</span></f:case>
+			<f:case value="Task"><span class="label label-primary">TASK</span></f:case>
+			<f:defaultCase><span class="label label-default">{issue.hit._source.tracker.name}</span> </f:defaultCase>
 		</f:switch>
 		<a href="http://forge.typo3.org/issues/{issue.hit._source.id}" target="forgeWindow">#{issue.hit._source.id}</a>
-		<f:if condition="{issue.hit._source.category.name}"> in <span class="label secondary radius">{issue.hit._source.category.name}</span></f:if>
-		<f:if condition="{issue.hit._source.typo3_version}"> for <span class="label secondary radius">TYPO3 CMS {issue.hit._source.typo3_version}</span></f:if>
+		<f:if condition="{issue.hit._source.category.name}"> in <span class="label label-default">{issue.hit._source.category.name}</span></f:if>
+		<f:if condition="{issue.hit._source.typo3_version}"> for <span class="label label-default">TYPO3 CMS {issue.hit._source.typo3_version}</span></f:if>
 	</th>
 </tr>
 <tr>
@@ -31,7 +31,7 @@
 		<div class="expandable">
 			<wmdb:textile>{issue.hit._source.description}</wmdb:textile>
 		</div>
-		<span class="label radius tiny success moreBtn">more...</span>
+		<span class="label label-success moreBtn">more...</span>
 	</td>
 </tr>
 <tr>

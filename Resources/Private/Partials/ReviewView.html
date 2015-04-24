@@ -1,11 +1,11 @@
 {namespace wmdb=WMDB\Forger\ViewHelpers}
-<div class="small-2 column">
+<div class="col-sm-3">
 	<h4>Aggregations</h4>
 	<div class="">
-		<input type="submit" class="button success radius tiny" value="Filter" />
+		<input type="submit" class="btn btn-success" value="Filter" />
 	</div>
 	<f:for each="{aggregations}" as="buckets" key="title">
-		<h6>{title}</h6>
+		<h4>{title}</h4>
 		<f:for each="{buckets.buckets}" as="bucket" key="index">
 			<div class="row">
 				<wmdb:lowercase category="{title}" index="{index}" bucket="{bucket.key}" docCount="{bucket.doc_count}" />
@@ -16,14 +16,14 @@
 		<input type="submit" class="button success radius tiny" value="Filter" />
 	</div>
 </div>
-<div class="small-10 column">
+<div class="col-sm-9">
 	<h4>Showing hits <strong>{startingAtItem} </strong>to <strong>{endingAtItem}</strong> of <strong>{totalResults}</strong></h4>
 	<f:if condition="{results}">
 		<ul class="pagination">
 			<f:for each="{pagesToLinkTo}" as="page" key="pageDesc">
 				<f:if condition="{currentPage} == {page}">
 					<f:then>
-						<li class="current"><f:link.action action="{action}" arguments="{query: query, page: page, filters: filters}">{page}</f:link.action></li>
+						<li class="active"><f:link.action action="{action}" arguments="{query: query, page: page, filters: filters}">{page}</f:link.action></li>
 					</f:then>
 					<f:else>
 						<li><f:link.action action="{action}" arguments="{query: query, page: page, filters: filters}">{page}</f:link.action></li>
@@ -32,7 +32,7 @@
 			</f:for>
 		</ul>
 	</f:if>
-	<table>
+	<table class="table table-bordered table-striped">
 		<f:for each="{results}" as="result">
 			<f:render partial="Review" arguments="{review: result.hit}" />
 		</f:for>
@@ -42,7 +42,7 @@
 			<f:for each="{pagesToLinkTo}" as="page" key="pageDesc">
 				<f:if condition="{currentPage} == {page}">
 					<f:then>
-						<li class="current"><f:link.action action="{action}" arguments="{query: query, page: page, filters: filters}">{page}</f:link.action></li>
+						<li class="active"><f:link.action action="{action}" arguments="{query: query, page: page, filters: filters}">{page}</f:link.action></li>
 					</f:then>
 					<f:else>
 						<li><f:link.action action="{action}" arguments="{query: query, page: page, filters: filters}">{page}</f:link.action></li>

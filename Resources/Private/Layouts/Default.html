@@ -3,68 +3,57 @@
 	<head>
 		<meta charset="utf-8">
 		<title>[{context}] <f:render section="Title" /> :: Forger</title>
-		<script type="application/javascript" src="<f:uri.resource package='WMDB.Forger' path='foundation-5.4.7/js/vendor/jquery.js' />"></script>
-		<script type="application/javascript" src="<f:uri.resource package='WMDB.Forger' path='foundation-5.4.7/js/foundation.min.js' />"></script>
-		<script type="application/javascript" src="<f:uri.resource package='WMDB.Forger' path='foundation-5.4.7/js/foundation/foundation.reveal.js' />"></script>
-		<script type="application/javascript" src="<f:uri.resource package='WMDB.Forger' path='foundation-5.4.7/js/foundation/foundation.offcanvas.js' />"></script>
-		<script type="application/javascript" src="<f:uri.resource package='WMDB.Forger' path='js/register-element.js' />"></script>
-		<script type="application/javascript" src="<f:uri.resource package='WMDB.Forger' path='js/time-elements.js' />"></script>
-		<link rel="stylesheet" href="<f:uri.resource package='WMDB.Forger' path='foundation-5.4.7/css/foundation.min.css' />" />
-		<link rel="stylesheet" href="<f:uri.resource package='WMDB.Forger' path='css/font-awesome.min.css' />" />
-		<f:render section="Javascripts" />
+		<link rel="stylesheet" href="<f:uri.resource package='WMDB.Forger' path='css/WMDB.Forger.css' />" />
+
 		<f:base />
 	</head>
 	<body>
-	<div class="off-canvas-wrap docs-wrap" data-offcanvas="">
-		<div class="inner-wrap">
-			<nav class="tab-bar">
-				<section class="left-small">
-					<a class="left-off-canvas-toggle menu-icon" aria-expanded="false"><span></span></a>
-				</section>
-				<section class="right tab-bar-section">
-					<h1 class="title">TYPO3 CMS FORGER :: <f:render section="Title" /></h1>
-				</section>
-				<section class="middle tab-bar-section">
-					<div class="small-12 column text-right">
-						Proudly coded by
-						<a href="http://www.wmdb.de" target="_blank">
-							<img src="<f:uri.resource package='WMDB.Forger' path='images/logo_wmdb.png' />" alt="wmdb Systems - TYPO3, Consulting, Mobile Solutions and Coaching from Düsseldorf, Germany" title="wmdb Systems - TYPO3, Consulting, Mobile Solutions and Coaching from Düsseldorf, Germany">
-						</a>
-						and hosted insanely fast by
-						<a href="http://www.network-publishing.de/">
-							<img src="<f:uri.resource package='WMDB.Forger' path='images/logo_network.publishing.png' />" alt="network.publishing - TYPO3, Webdesign and Hosting from Cologne, Germany" title="network.publishing - TYPO3, Webdesign and Hosting from Cologne, Germany">
-						</a>
-					</div>
-				</section>
-			</nav>
-			<aside class="left-off-canvas-menu">
-				<ul class="off-canvas-list">
-					<f:render partial="Menu" />
-				</ul>
-			</aside>
-			<section class="main-section">
-				<div class="row">
-					<div class="large-12 columns">
-						<f:flashMessages class="flashmessages" />
-						<f:render section="Content" />
-					</div>
-				</div>
-				<div class="panel callout radius">
-					<p>Found a bug? Got a feature you want in? <a href="https://github.com/wmdbsystems/WMDB.Forger" target="_blank">Tell us on GitHub</a></p>
-				</div>
-			</section>
-			<a class="exit-off-canvas"></a>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/">TYPO3 CMS FORGER :: <f:render section="Title" /></a>
+			</div>
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<f:render partial="Menu" />
+			</div>
+		</div>
+	</nav>
+	<div class="container">
+		<div class="col-sm-12">
+			<f:flashMessages class="flashmessages" />
 		</div>
 	</div>
-	<div id="helpModal" class="reveal-modal" data-reveal>
-		<h2>Search Help</h2>
-		<div class="small-12 column">Using <span class="label radius secondary">searchword</span> will add a should have. </div>
-		<div class="small-12 column">Using <span class="label radius secondary">+searchword</span> will add a must have. </div>
-		<div class="small-12 column">Using <span class="label radius secondary">-searchword</span> will add a must not have. </div>
-		<a class="close-reveal-modal">&#215;</a>
+	<div class="container-fluid">
+		<f:render section="Content" />
 	</div>
+	<div class="container">
+		<div class="col-sm-12">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					Found a bug? Got a feature you want in? <a href="https://github.com/wmdbsystems/WMDB.Forger" target="_blank">Tell us on GitHub</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--Proudly coded by-->
+						<!--<a href="http://www.wmdb.de" target="_blank">-->
+							<!--<img src="<f:uri.resource package='WMDB.Forger' path='images/logo_wmdb.png' />" alt="wmdb Systems - TYPO3, Consulting, Mobile Solutions and Coaching from Düsseldorf, Germany" title="wmdb Systems - TYPO3, Consulting, Mobile Solutions and Coaching from Düsseldorf, Germany">-->
+						<!--</a>-->
+						<!--and hosted insanely fast by-->
+						<!--<a href="http://www.network-publishing.de/">-->
+							<!--<img src="<f:uri.resource package='WMDB.Forger' path='images/logo_network.publishing.png' />" alt="network.publishing - TYPO3, Webdesign and Hosting from Cologne, Germany" title="network.publishing - TYPO3, Webdesign and Hosting from Cologne, Germany">-->
+						<!--</a>-->
+	<script type="application/javascript" src="<f:uri.resource package='WMDB.Forger' path='js/WMDB.Forger.min.js' />"></script>
+	<script type="application/javascript" src="<f:uri.resource package='WMDB.Forger' path='js/register-element.js' />"></script>
+	<script type="application/javascript" src="<f:uri.resource package='WMDB.Forger' path='js/time-elements.js' />"></script>
+	<f:render section="Javascripts" />
 	<script type="application/javascript">
-		$(document).foundation();
 	</script>
 	<f:if condition="{0:context} == {0:'PRD'}">
 	<!-- Piwik -->

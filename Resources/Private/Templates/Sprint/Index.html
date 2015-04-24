@@ -10,27 +10,27 @@
 </f:section>
 
 <f:section name="Content">
-	<dl class="sub-nav">
+	<ul class="nav nav-pills">
 		<dt>Available Boards</dt>
 		<f:for each="{boardMenu}" as="boardNav">
 			<f:if condition="{boardNav.active}">
 				<f:then>
-					<dd class="active">
+					<li class="active">
 						<f:link.action controller="Sprint" action="Index" arguments="{boardId:boardNav.id}">{boardNav.name}</f:link.action>
-					</dd>
+					</li>
 				</f:then>
 				<f:else>
-					<dd>
+					<li>
 						<f:link.action controller="Sprint" action="Index" arguments="{boardId:boardNav.id}">{boardNav.name}</f:link.action>
-					</dd>
+					</li>
 				</f:else>
 			</f:if>
 		</f:for>
-	</dl>
+	</ul>
 	<h3>Sprint Tasks</h3>
 	<f:if condition="{board}">
 		<div id="stackedBoardChart" style="height: 80px; width: 100%"></div>
-		<table>
+		<table class="table">
 			<tr>
 				<f:for each="{board}" as="cards" key="metacolname">
 					<f:switch expression="{metacolname}">

@@ -7,14 +7,14 @@
 </f:section>
 
 <f:section name="Content">
-	<form action="/standard/search" method="get">
-		<div class="large-12 columns"><f:render partial="SearchBox" arguments="{query: query}" /></div>
+	<form action="/standard/search" method="get" class="form-inline">
+		<f:render partial="SearchBox" arguments="{query: query}" />
 		<f:if condition="{0: mode} == {0: 'query'}">
 			<f:then>
-				<div class="large-2 column">
+				<div class="col-sm-3">
 					<h4>Aggregations</h4>
 					<f:for each="{result.aggs}" as="buckets" key="title">
-						<h6>{title}</h6>
+						<h4>{title}</h4>
 						<f:for each="{buckets.buckets}" as="bucket" key="index">
 							<div class="row">
 								<wmdb:lowercase category="{title}" index="{index}" bucket="{bucket.key}" docCount="{bucket.doc_count}" />
@@ -22,14 +22,14 @@
 						</f:for>
 					</f:for>
 				</div>
-				<div class="large-10 column">
+				<div class="col-sm-9">
 					<h4>Showing hits <strong>{result.startingAtItem} </strong>to <strong>{result.endingAtItem}</strong> of <strong>{result.totalResults}</strong></h4>
 					<f:if condition="{result.results}">
 						<ul class="pagination">
 							<f:for each="{result.pagesToLinkTo}" as="page" key="pageDesc">
 								<f:if condition="{result.currentPage} == {page}">
 									<f:then>
-										<li class="current"><f:link.action action="search" controller="standard" arguments="{query: query, page: page, filters: filters}">{page}</f:link.action></li>
+										<li class="active"><f:link.action action="search" controller="standard" arguments="{query: query, page: page, filters: filters}">{page}</f:link.action></li>
 									</f:then>
 									<f:else>
 										<li><f:link.action action="search" controller="standard" arguments="{query: query, page: page, filters: filters}">{page}</f:link.action></li>
@@ -38,7 +38,7 @@
 							</f:for>
 						</ul>
 					</f:if>
-					<table>
+					<table class="table table-striped">
 						<f:for each="{result.results}" as="results">
 							<f:render partial="Issue" arguments="{issue: results}" />
 						</f:for>
@@ -48,7 +48,7 @@
 							<f:for each="{result.pagesToLinkTo}" as="page" key="pageDesc">
 								<f:if condition="{result.currentPage} == {page}">
 									<f:then>
-										<li class="current"><f:link.action action="search" controller="standard" arguments="{query: query, page: page, filters: filters}">{page}</f:link.action></li>
+										<li class="active"><f:link.action action="search" controller="standard" arguments="{query: query, page: page, filters: filters}">{page}</f:link.action></li>
 									</f:then>
 									<f:else>
 										<li><f:link.action action="search" controller="standard" arguments="{query: query, page: page, filters: filters}">{page}</f:link.action></li>

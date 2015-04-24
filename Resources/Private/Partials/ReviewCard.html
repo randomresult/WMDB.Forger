@@ -1,5 +1,5 @@
 {namespace wmdb=WMDB\Forger\ViewHelpers}
-<table>
+<table class="table table-striped table-bordered">
 	<tr>
 		<td colspan="4"><a href="https://review.typo3.org/#/c/{card.id}/" target="_blank">{card.subject}</a></td>
 	</tr>
@@ -8,30 +8,30 @@
 	</tr>
 	<tr>
 		<td>Affected Files:</td>
-		<td><span class="label radius">{card.affected_files}</span></td>
+		<td><span class="label label-default">{card.affected_files}</span></td>
 		<td>Patchsets: </td>
-		<td><span class="label radius">{card.patchsets}</span></td>
+		<td><span class="label label-default">{card.patchsets}</span></td>
 	</tr>
 	<tr>
 		<td>Review
 			<f:if condition="{card.positive_reviews}">
-				<span class="label success radius">{card.positive_reviews}</span>
+				<span class="label label-success">{card.positive_reviews}</span>
 			</f:if>
 			<f:if condition="{card.negative_reviews}">
-				<span class="label alert radius">{card.negative_reviews}</span>
+				<span class="label label-danger">{card.negative_reviews}</span>
 			</f:if>
 		</td>
 		<td>Verify
 			<f:if condition="{card.positive_verifications}">
-				<span class="label success radius">{card.positive_verifications}</span>
+				<span class="label label-success">{card.positive_verifications}</span>
 			</f:if>
 			<f:if condition="{card.negative_verifications}">
-				<span class="label alert radius">{card.negative_verifications}</span>
+				<span class="label label-danger">{card.negative_verifications}</span>
 			</f:if>
 		</td>
 		<td colspan="2">
 			<f:if condition="{0: card.mergeable} == {0: 'no'}">
-				<span class="label radius alert">CAN'T MERGE</span>
+				<span class="label label-danger">CAN'T MERGE</span>
 			</f:if>
 		</td>
 	</tr>

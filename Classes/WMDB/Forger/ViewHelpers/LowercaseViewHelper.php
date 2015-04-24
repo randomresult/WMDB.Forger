@@ -29,7 +29,7 @@ class LowercaseViewHelper extends AbstractViewHelper {
 			$labelStyle = ' style="font-weight:bold; color:#008cba;"';
 		} else {
 			$checked = '';
-			$labelStyle = '';
+			$labelStyle = ' style="font-weight: normal;"';
 		}
 
 		$content = '

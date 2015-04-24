@@ -7,8 +7,8 @@
 
 <f:section name="Content">
 <f:form action="sendInvite" additionalAttributes="{data-abide:true}">
-	<div class="row">
-		<div class="small-12 medium-6 column">
+	<div class="container">
+		<div class="col-sm-12 col-md-6">
 			<div class="row">
 				<img src="<f:uri.resource package='WMDB.Forger' path='images/slack-logo.jpg' />" />
 			</div>
@@ -36,7 +36,7 @@
 					<small class="error">Please supply your last name.</small>
 				</label>
 			</div>
-			<f:form.submit value="send request" class="button radius tiny success"  />
+			<f:form.submit value="send request" class="btn btn-success"  />
 		</div>
 	</div>
 </f:form>

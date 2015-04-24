@@ -1,11 +1,13 @@
 $(document).ready(function () {
-	var $ticketType = $('.js-changetypes a'),
+	var $ticketType = $('.js-changetypes button'),
 		$ticketField = $('#ticketid'),
 		$titleField = $('#title'),
 		$generateButton = $('#generate'),
-		$modal = $('#resultModal'),
+		$modal = $('.modal'),
 		$activeChangeType = null,
 		$lastActiveTextarea = null;
+
+	$('[data-toggle="tooltip"]').tooltip();
 
 	$('textarea').on('focus', function () {
 		$lastActiveTextarea = $(this);
@@ -27,24 +29,23 @@ $(document).ready(function () {
 		});
 	});
 
-	$ticketType.on('click', function (e) {
-		e.preventDefault();
-
+	$ticketType.on('click', function () {
 		var $me = $(this),
-			value = $me.data('value');
+			value = $me.val();
+
+		$ticketType.removeClass('active');
+		$me.addClass('active');
 
 		$activeChangeType = $me;
-		$ticketType.removeClass('warning');
-		$me.addClass('warning');
-		$ticketTypeRelatedFields.addClass('hide');
+		$ticketTypeRelatedFields.addClass('hidden');
 
 		if (typeof typeTextTree[value] !== 'undefined') {
-			$generateButton.removeClass('hide');
+			$generateButton.removeClass('hidden');
 			$.each(typeTextTree[value], function (_, $affectedTicketTypeField) {
-				$affectedTicketTypeField.removeClass('hide');
+				$affectedTicketTypeField.removeClass('hidden');
 			});
 		} else {
-			$generateButton.addClass('hide');
+			$generateButton.addClass('hidden');
 		}
 	});
 
@@ -77,7 +78,7 @@ $(document).ready(function () {
 				$trigger.removeAttr('disabled');
 				$icon.removeClass('fa-spin');
 			}
-		});
+		})
 	});
 
 	$('[data-action=paste-code]').on('click', function () {
@@ -85,7 +86,7 @@ $(document).ready(function () {
 			alert('Please activate a textarea first');
 			return;
 		}
-		var snippet = $(this).next().text();
+		var snippet = $(this).parent().text();
 		if (document.selection) {
 			$lastActiveTextarea.focus();
 			var sel = document.selection.createRange();
@@ -105,7 +106,7 @@ $(document).ready(function () {
 	$generateButton.on('click', function () {
 		var ticketId = $ticketField.val().replace(/\D/g, ''),
 			title = $.trim($titleField.val()),
-			ticketType = $activeChangeType.text(),
+			ticketType = $ticketType.find('option:selected').text(),
 			headline = sprintf('%s - #%d: %s', ticketType, ticketId, title),
 			filename = sprintf('%s-%d-%s.rst', ticketType, ticketId, title.toUpperCamelCase().replace(/[^0-9a-z-_.]/gi, ''));
 
@@ -114,7 +115,7 @@ $(document).ready(function () {
 
 		$('textarea:visible').each(function () {
 			var $me = $(this),
-				$label = $me.prev(),
+				$label = $me.parents('.form-group').find('label'),
 				value = $.trim($me.val());
 
 			if (value.length > 0) {
@@ -124,14 +125,15 @@ $(document).ready(function () {
 		});
 		restContent += restBody.replace('\n', '');
 
-		$modal.find('h4').text(filename);
-		$modal.find('textarea').val(restContent);
+		$modal.find('.modal-title').text(filename);
+		$modal.find('.modal-body textarea').val(restContent);
 
-		$modal.foundation('reveal', 'open');
+		$('.modal').modal({
+			backdrop: 'static'
+		});
 	});
 
-	$(document).on('opened.fndtn.reveal', '[data-reveal]', function () {
-		var $modal = $(this);
+	$modal.on('shown.bs.modal', function() {
 		$modal.find('textarea').focus().select();
 	});
 });

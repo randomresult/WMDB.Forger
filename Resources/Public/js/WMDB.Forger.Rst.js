@@ -106,7 +106,7 @@ $(document).ready(function () {
 	$generateButton.on('click', function () {
 		var ticketId = $ticketField.val().replace(/\D/g, ''),
 			title = $.trim($titleField.val()),
-			ticketType = $ticketType.find('option:selected').text(),
+			ticketType = $activeChangeType.text(),
 			headline = sprintf('%s - #%d: %s', ticketType, ticketId, title),
 			filename = sprintf('%s-%d-%s.rst', ticketType, ticketId, title.toUpperCamelCase().replace(/[^0-9a-z-_.]/gi, ''));
 

@@ -107,7 +107,7 @@ $(document).ready(function () {
 		var ticketId = $ticketField.val().replace(/\D/g, ''),
 			title = $.trim($titleField.val()),
 			ticketType = $activeChangeType.text(),
-			headline = sprintf('%s - #%d: %s', ticketType, ticketId, title),
+			headline = sprintf('%s: #%d - %s', ticketType, ticketId, title),
 			filename = sprintf('%s-%d-%s.rst', ticketType, ticketId, title.toUpperCamelCase().replace(/[^0-9a-z-_.]/gi, ''));
 
 		var restContent = sprintf('%s\n%s\n%s', '='.repeat(headline.length), headline, '='.repeat(headline.length)),

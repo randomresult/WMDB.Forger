@@ -86,9 +86,11 @@ class ElasticSearch {
 	}
 
 	/**
+	 * @param $searchClosed
 	 * @return \Elastica\ResultSet
+	 * @throws Exception
 	 */
-	public function doSearch() {
+	public function doSearch($searchClosed) {
 		$this->connection = new ElasticSearchConnection();
 		$this->connection->init();
 		$this->whereClause = new Query\QueryString();
@@ -98,12 +100,21 @@ class ElasticSearch {
 			$this->currentPage = intval($_GET['page']);
 		}
 		$this->fieldMapping = $this->configurationManager->getConfiguration( ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'WMDB.Forger.SearchTermMapping');
-
 		$elasticaQuery = new Query();
-		$elasticaQuery->setQuery($this->whereClause);
+
+		if($searchClosed === 'true') {
+			$elasticaQuery->setQuery($this->whereClause);
+		} else {
+			$boolSearch = new Query\Bool();
+			$boolSearch->addMust($this->whereClause);
+			$boolSearch->addMustNot(['term' => ['status.name' => 'Closed']]);
+			$boolSearch->addMustNot(['term' => ['status.name' => 'Rejected']]);
+			$boolSearch->addMustNot(['term' => ['status.name' => 'Resolved']]);
+			$elasticaQuery->setQuery($boolSearch);
+		}
+
 		$elasticaQuery->setSize($this->perPage);
 		$elasticaQuery->setFrom(($this->currentPage * $this->perPage) - $this->perPage);
-
 		$usedFilters = $this->addFilters();
 		if ($usedFilters !== false) {
 			$elasticaQuery->setPostFilter($usedFilters);

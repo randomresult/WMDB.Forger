@@ -5,8 +5,8 @@
 <f:section name="Javascripts"></f:section>
 
 <f:section name="Content">
-	<form action="/standard/search" method="get" class="form-inline">
-		<f:render partial="SearchBox" arguments="{query: query}" />
+	<form action="/standard/search" method="get" class="">
+		<f:render partial="SearchBox" arguments="{query: query, searchClosed:searchClosed}" />
 		<f:if condition="{0: mode} == {0: 'query'}">
 			<f:then>
 				<div class="col-sm-3">

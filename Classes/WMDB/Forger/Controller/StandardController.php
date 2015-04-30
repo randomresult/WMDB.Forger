@@ -11,6 +11,7 @@ use TYPO3\Flow\Mvc\Controller\ActionController;
 use WMDB\Forger\Graph\Forge\Full as IssueFull;
 use WMDB\Forger\Graph\Gerrit\Full as GerritFull;
 use WMDB\Forger\Utilities\ElasticSearch\ElasticSearch;
+use WMDB\Forger\Utilities\ElasticSearch\ElasticSearchConnection;
 use WMDB\Forger\Utilities\Memes\MemeUtility;
 use WMDB\Utilities\Utility\GeneralUtility;
 
@@ -82,19 +83,26 @@ class StandardController extends ActionController {
 
 	/**
 	 * @param string $query
+	 * @param string $searchClosed
+	 * @return string
 	 */
-	public function searchAction($query) {
+	public function searchAction($query, $searchClosed = 'false') {
 //		$this->view->assign('query', htmlspecialchars($query));
 		$this->view->assign('query', $query);
-		if(is_numeric($this->checkIfQueryIsIssue($query))) {
-			$issueData = $this->findIssue($query);
-			$this->findDupes($issueData);
-		} else {
-			$this->findByQuery($query);
+		$this->view->assign('searchClosed', $searchClosed);
+//		if($this->checkIfQueryIsIssue($query)) {
+//			try {
+//				$issueData = $this->findIssue($query);
+//			} catch (\Elastica\Exception\NotFoundException $e) {
+//				return 'Issue not found';
+//			}
+//			$this->findDupes($issueData);
+//		} else {
+			$this->findByQuery($query, $searchClosed);
 			$this->view->assignMultiple([
 				'mode' => 'query'
 			]);
-		}
+//		}
 		$this->view->assign('context', $this->context);
 		if (isset($_GET['filters'])) {
 			$this->view->assign('filters', $_GET['filters']);
@@ -124,30 +132,30 @@ class StandardController extends ActionController {
 		return number_format(($singleScore * 100) / $maxScore);
 	}
 
-	/**
-	 * @param array $issueData
-	 */
-	private function findDupes(array $issueData) {
-		$search = new ElasticSearch();
-
-		$searchWords = $this->splitSearchwords('-'.$issueData['id']. ' '.$issueData['subject']. ' ' . $issueData['description']);
-
-
-		$search->setSearchTerms($searchWords);
-		$results = $search->doSearch();
-
-		$this->view->assignMultiple([
-			'result' => $results,
-			'mode' => 'dupes'
-		]);
-	}
+//	/**
+//	 * @param array $issueData
+//	 */
+//	private function findDupes(array $issueData) {
+//		$search = new ElasticSearch();
+//
+//		$searchWords = $this->splitSearchwords('-'.$issueData['id']. ' '.$issueData['subject']. ' ' . $issueData['description']);
+//
+//
+//		$search->setSearchTerms($searchWords);
+//		$results = $search->doSearch();
+//
+//		$this->view->assignMultiple([
+//			'result' => $results,
+//			'mode' => 'dupes'
+//		]);
+//	}
 
 	/**
 	 * @param int $issueId
 	 * @return array|string
 	 */
 	private function findIssue($issueId) {
-		$con = new \WMDB\Forger\Utilities\ElasticSearch\ElasticSearchConnection();
+		$con = new ElasticSearchConnection();
 		$con->init();
 		$index = $con->getIndex();
 		$forger = $index->getType('issue');
@@ -165,11 +173,12 @@ class StandardController extends ActionController {
 
 	/**
 	 * @param string $query
+	 * @param string $searchClosed
 	 */
-	private function findByQuery($query) {
+	private function findByQuery($query, $searchClosed) {
 		$search = new ElasticSearch();
 		$search->setSearchTerms($query);
-		$results = $search->doSearch();
+		$results = $search->doSearch($searchClosed);
 		$this->view->assignMultiple([
 			'result' => $results,
 			'mode' => 'dupes'

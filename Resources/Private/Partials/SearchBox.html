@@ -1,5 +1,16 @@
 <div class="input-group col-sm-12">
 	<f:form.textfield name="query" placeholder="Issue ID or Searchwords" class="form-control input-lg" value="{query}" />
+	<span class="input-group-addon">
+		<label>
+			<input type="checkbox"
+			       name="searchClosed"
+			       value="true"
+			       <f:if condition="{0:searchClosed} == {0:'true'}">
+				       checked="checked"
+			       </f:if>
+			       aria-label="Search in closed tickets, too"> Search closed Tickets
+		</label>
+	</span>
 	<span class="input-group-btn">
 		<input type="submit" class="btn btn-success btn-lg" value="Go">
 	</span>

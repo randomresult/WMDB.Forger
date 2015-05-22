@@ -10,17 +10,14 @@ use TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper;
 class ForgelinkViewHelper extends AbstractViewHelper {
 
 	/**
-	 * @param string $linkText
 	 * @param string $year
 	 * @param string $month
 	 * @param string $statusId
 	 * @return string
 	 */
-	public function render($linkText = '', $year = '2015', $month = '01', $statusId = 'o') {
+	public function render($year = '2015', $month = '01', $statusId = 'o') {
 		$redmineUrl = 'https://forge.typo3.org/projects/typo3cms-core/issues?set_filter=1';
-		$content = '<a href="'.$redmineUrl. $this->getFiltersString($year, $month, $statusId) . '&f[]='.$this->getColumnsString().'&group_by=" target="_blank">';
-		$content .= $linkText;
-		$content .= '</a>';
+		$content = $redmineUrl. $this->getFiltersString($year, $month, $statusId) . '&f[]='.$this->getColumnsString().'&group_by=';
 		return $content;
 	}
 

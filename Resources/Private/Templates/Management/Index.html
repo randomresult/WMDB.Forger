@@ -8,37 +8,32 @@
 
 	<h3>Issue Management View</h3>
 	<f:for each="{aggs}" as="year">
+		<div class="container-fluid">
 		<h4>{year.year} ({year.total})</h4>
-		<table class="table table-bordered">
-			<tr>
-				<f:for each="{year.months}" as="month">
-					<th>
-						{month.month}
-						<span class="label labeo-default"><wmdb:forgelink linkText="Show Issues ({month.total})" year="{year.year}" month="{month.month}" /></span>
-					</th>
-				</f:for>
-			</tr>
-			<tr>
-				<f:for each="{year.months}" as="month">
-					<td valign="top">
+			<f:for each="{year.months}" as="month">
+				<div class="col-sm-12 col-md-2 col-lg-1 norightpadding">
+					<div class="list-group">
+						<a class="list-group-item active" href="<wmdb:forgelink year="{year.year}" month="{month.month}" />">{month.month} ({month.total}) </a>
 						<f:for each="{month.stati}" as="status">
 							<f:switch expression="{status.name}">
-								<f:case value="New"><span class="label status_new"><wmdb:forgelink linkText="<b>{status.total}</b> {status.name}" year="{year.year}" month="{month.month}" statusId="1" /></span></f:case>
-								<f:case value="Accepted"><span class="label status_accepted"><wmdb:forgelink linkText="<b>{status.total}</b> {status.name}" year="{year.year}" month="{month.month}" statusId="2" /></span></span></f:case>
-								<f:case value="Under Review"><span class="label status_review"><wmdb:forgelink linkText="<b>{status.total}</b> {status.name}" year="{year.year}" month="{month.month}" statusId="8" /></span></span></f:case>
-								<f:case value="On Hold"><span class="label status_onhold"><wmdb:forgelink linkText="<b>{status.total}</b> {status.name}" year="{year.year}" month="{month.month}" statusId="7" /></span></span></f:case>
-								<f:case value="Needs Feedback"><span class="label status_feedback"><wmdb:forgelink linkText="<b>{status.total}</b> {status.name}" year="{year.year}" month="{month.month}" statusId="4" /></span></span></f:case>
-								<f:case value="In Progress"><span class="label status_wip"><wmdb:forgelink linkText="<b>{status.total}</b> {status.name}" year="{year.year}" month="{month.month}" statusId="11" /></span></span></f:case>
-								<f:defaultCase><span class="label"><b>{status.total}</b> {status.name}</span> </f:defaultCase>
-							</f:switch><br>
+								<f:case value="New">            <a class="list-group-item" href="<wmdb:forgelink year="{year.year}" month="{month.month}" statusId="1" />"><span class="badge status_new"     >{status.total}</span>{status.name}</a></f:case>
+								<f:case value="Accepted">       <a class="list-group-item" href="<wmdb:forgelink year="{year.year}" month="{month.month}" statusId="2" />"><span class="badge status_accepted">{status.total}</span>{status.name}</a></f:case>
+								<f:case value="Under Review">   <a class="list-group-item" href="<wmdb:forgelink year="{year.year}" month="{month.month}" statusId="8" />"><span class="badge status_review"  >{status.total}</span>{status.name}</a></f:case>
+								<f:case value="On Hold">        <a class="list-group-item" href="<wmdb:forgelink year="{year.year}" month="{month.month}" statusId="7" />"><span class="badge status_onhold"  >{status.total}</span>{status.name}</a></f:case>
+								<f:case value="Needs Feedback"> <a class="list-group-item" href="<wmdb:forgelink year="{year.year}" month="{month.month}" statusId="4" />"><span class="badge status_feedback">{status.total}</span>{status.name}</a></f:case>
+								<f:case value="In Progress">    <a class="list-group-item" href="<wmdb:forgelink year="{year.year}" month="{month.month}" statusId="11" />"><span class="badge status_wip"    >{status.total}</span>{status.name}</a></f:case>
+								<f:defaultCase>                 <a class="list-group-item" href="<wmdb:forgelink year="{year.year}" month="{month.month}" statusId="11" />"><span class="badge"><b>{status.total}</b> {status.name}</span></a></f:defaultCase>
+							</f:switch>
 						</f:for>
-					</td>
-				</f:for>
-			</tr>
-		</table>
+					</div>
+				</div>
+			</f:for>
+		</div>
 	</f:for>
 </f:section>
 <f:comment>
+	linkText="Show Issues ({month.total})"
+	<b>{status.total}</b> {status.name}"
 	<option value="1" selected="selected">New</option>
 	<option value="2">Accepted</option>
 	<option value="4">Needs Feedback</option>

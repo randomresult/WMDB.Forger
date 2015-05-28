@@ -176,6 +176,7 @@ class StandardController extends ActionController {
 	 * @param string $searchClosed
 	 */
 	private function findByQuery($query, $searchClosed) {
+		$query = addcslashes($query, '/()');
 		$search = new ElasticSearch();
 		$search->setSearchTerms($query);
 		$results = $search->doSearch($searchClosed);

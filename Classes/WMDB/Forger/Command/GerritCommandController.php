@@ -108,11 +108,7 @@ class GerritCommandController extends Cli\CommandController {
 		$json = file_get_contents($url);
 		$data = json_decode(str_replace(")]}'", '', $json), true);
 		foreach ($data as $change) {
-			try {
-				$ticketId = $this->getTicketId($change['revisions'][$change['current_revision']]['commit']['message']);
-			} catch (Exception $e) {
-				GeneralUtility::writeLine($e->getMessage());
-			}
+			$ticketId = $this->getTicketId($change['revisions'][$change['current_revision']]['commit']['message']);
 			if($ticketId > 0) {
 				$this->getTicketStatus($ticketId, $change['_number'],$expectedStatus);
 			} else {
@@ -131,6 +127,7 @@ class GerritCommandController extends Cli\CommandController {
 		if (
 			strstr($message, '[WIP]')
 			|| strstr($message, '[WIP/FEATURE]')
+			|| strstr($message, '[TASK] Travis:')
 			|| strstr($message, '[FEATURE] TYPO3 Webservice API')
 			|| strstr($message, '[FEATURE] File references direct edit link')
 			|| strstr($message, '[BUGFIX] addFieldsToPalette() removes --linebreak--')

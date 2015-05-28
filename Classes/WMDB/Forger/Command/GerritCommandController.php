@@ -108,7 +108,11 @@ class GerritCommandController extends Cli\CommandController {
 		$json = file_get_contents($url);
 		$data = json_decode(str_replace(")]}'", '', $json), true);
 		foreach ($data as $change) {
-			$ticketId = $this->getTicketId($change['revisions'][$change['current_revision']]['commit']['message']);
+			try {
+				$ticketId = $this->getTicketId($change['revisions'][$change['current_revision']]['commit']['message']);
+			} catch (Exception $e) {
+				GeneralUtility::writeLine($e->getMessage());
+			}
 			if($ticketId > 0) {
 				$this->getTicketStatus($ticketId, $change['_number'],$expectedStatus);
 			} else {

@@ -24,7 +24,7 @@
 	<h3>Sprint Tasks</h3>
 	<f:if condition="{board}">
 		<div class="row">
-			<div class="col-md-3">
+			<div class="col-md-12">
 				<table class="table">
 					<f:for each="{board}" as="cards" key="metacolname">
 						<tr>
@@ -54,11 +54,6 @@
 						</f:for>
 					</f:for>
 				</table>
-			</div>
-			<div class="col-md-9">
-				<div class="embed-responsive embed-responsive-4by3">
-					<iframe class="embed-responsive-item" src="" name="ticketiframe"></iframe>
-				</div>
 			</div>
 		</div>
 	</f:if>

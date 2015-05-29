@@ -1,0 +1,80 @@
+<f:layout name="Default" />
+
+<f:section name="Title">Sprint List View</f:section>
+<f:section name="Javascripts"></f:section>
+
+<f:section name="Content">
+	<ul class="nav nav-pills">
+		<dt>Available Boards</dt>
+		<f:for each="{boardMenu}" as="boardNav">
+			<f:if condition="{boardNav.active}">
+				<f:then>
+					<li class="active">
+						<f:link.action controller="Sprint" action="List" arguments="{boardId:boardNav.id}">{boardNav.name}</f:link.action>
+					</li>
+				</f:then>
+				<f:else>
+					<li>
+						<f:link.action controller="Sprint" action="List" arguments="{boardId:boardNav.id}">{boardNav.name}</f:link.action>
+					</li>
+				</f:else>
+			</f:if>
+		</f:for>
+	</ul>
+	<h3>Sprint Tasks</h3>
+	<f:if condition="{board}">
+		<div class="row">
+			<div class="col-md-3">
+				<table class="table">
+					<f:for each="{board}" as="cards" key="metacolname">
+						<tr>
+							<f:switch expression="{metacolname}">
+								<f:case value="Open"><th style="width:20%" class="status_new">{metacolname} (<f:count subject="{cards}" />)</th></f:case>
+								<f:case value="WIP"><th style="width:20%" class="status_wip">{metacolname} (<f:count subject="{cards}" />)</th></f:case>
+								<f:case value="Review"><th style="width:20%" class="status_review">{metacolname} (<f:count subject="{cards}" />)</th></f:case>
+								<f:case value="Done"><th style="width:20%">{metacolname} (<f:count subject="{cards}" />)</th></f:case>
+								<f:case value="BLOCKED"><th style="width:20%" class="status_feedback">{metacolname} (<f:count subject="{cards}" />)</th></f:case>
+							</f:switch>
+						</tr>
+						<f:for each="{cards}" as="card">
+							<f:if condition="{metacolname} == 'Review'">
+								<f:then>
+									<tr>
+										<td><a href="https://review.typo3.org/#/c/{card.id}/" target="ticketiframe">{card.subject}</a></td>
+									</tr>
+								</f:then>
+								<f:else>
+									<tr>
+										<td>
+											<a href="https://forge.typo3.org/issues/{card.id}" target="ticketiframe">#{card.id}</a> {card.subject}
+										</td>
+									</tr>
+								</f:else>
+							</f:if>
+						</f:for>
+					</f:for>
+				</table>
+			</div>
+			<div class="col-md-9">
+				<div class="embed-responsive embed-responsive-4by3">
+					<iframe class="embed-responsive-item" src="" name="ticketiframe"></iframe>
+				</div>
+			</div>
+		</div>
+	</f:if>
+	<button type="button" data-toggle="modal" data-target="#boardconfig" class="btn btn-default">Debug Board Config</button>
+	<div id="boardconfig" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Board Query</h4>
+				</div>
+				<div class="modal-body">
+					<pre>{boardConfig}</pre>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</f:section>

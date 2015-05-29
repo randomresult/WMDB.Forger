@@ -76,6 +76,20 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	 * @param string $boardId
 	 */
 	public function indexAction($boardId = '') {
+		$this->prepareBoardData($boardId);
+	}
+	/**
+	 * @param string $boardId
+	 */
+	public function listAction($boardId = '') {
+		$this->prepareBoardData($boardId);
+	}
+
+	/**
+	 * @param string $boardId
+	 * @throws Exception
+	 */
+	protected function prepareBoardData($boardId = '') {
 		if ($boardId !== '' && isset($this->sprintConfig['WMDB']['Forger']['Boards'][$boardId])) {
 			$boardData = $this->getBoardData($boardId);
 			$ticketCount = [];
@@ -87,8 +101,7 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 		}
 		$this->view->assignMultiple([
 			'boardMenu' => $this->makeBoardMenu($boardId),
-			'context' => $this->context
-		]);
+			'context' => $this->context]);
 	}
 
 	public function adminAction() {

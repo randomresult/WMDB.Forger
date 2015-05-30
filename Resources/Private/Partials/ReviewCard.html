@@ -7,29 +7,31 @@
 		<td colspan="4">By <strong>{card.owner}</strong></a> <span class="right"> added <strong><time is="time-ago" datetime="{card.updated_on->f:format.date(format: 'c')}">{issue.hit._source.updated_on}</time></strong></span></td>
 	</tr>
 	<tr>
-		<td>Affected Files:</td>
-		<td><span class="label label-default">{card.affected_files}</span></td>
-		<td>Patchsets: </td>
-		<td><span class="label label-default">{card.patchsets}</span></td>
+        <td colspan="4">
+            <div class="row">
+                <div class="col-md-6">Affected Files: <span class="label label-default pull-right">{card.affected_files}</span></div>
+                <div class="col-md-6">Patchsets: <span class="label label-default pull-right">{card.patchsets}</span></div>
+            </div>
+        </td>
 	</tr>
 	<tr>
-		<td>Review
+		<td class="col-md-4">Review
 			<f:if condition="{card.positive_reviews}">
-				<span class="label label-success">{card.positive_reviews}</span>
+				<span class="label label-success pull-right">{card.positive_reviews}</span>
 			</f:if>
 			<f:if condition="{card.negative_reviews}">
-				<span class="label label-danger">{card.negative_reviews}</span>
+				<span class="label label-danger pull-right">{card.negative_reviews}</span>
 			</f:if>
 		</td>
-		<td>Verify
+		<td class="col-md-4">Verify
 			<f:if condition="{card.positive_verifications}">
-				<span class="label label-success">{card.positive_verifications}</span>
+				<span class="label label-success pull-right">{card.positive_verifications}</span>
 			</f:if>
 			<f:if condition="{card.negative_verifications}">
-				<span class="label label-danger">{card.negative_verifications}</span>
+				<span class="label label-danger pull-right">{card.negative_verifications}</span>
 			</f:if>
 		</td>
-		<td colspan="2">
+		<td colspan="2" class="col-md-4">
 			<f:if condition="{0: card.mergeable} == {0: 'no'}">
 				<span class="label label-danger">CAN'T MERGE</span>
 			</f:if>

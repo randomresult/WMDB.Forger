@@ -137,11 +137,11 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 		}
 		$this->view->assign('boardConfig' ,json_encode($this->sprintConfig['WMDB']['Forger']['Boards'][$boardId]['Query'], JSON_PRETTY_PRINT));
 		$out = [
+			'BLOCKED' => [],
 			'Open' => [],
 			'WIP' => [],
 			'Review' => [],
 			'Done' => [],
-			'BLOCKED' => []
 		];
 		$fullRequest = [
 			'query' => $this->sprintConfig['WMDB']['Forger']['Boards'][$boardId]['Query'],

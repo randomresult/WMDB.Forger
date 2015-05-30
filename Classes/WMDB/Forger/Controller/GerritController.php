@@ -46,6 +46,9 @@ class GerritController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	}
 
 	protected function initializeAction() {
+
+		date_default_timezone_set('UTC');
+
 		$this->connection = new Es\ElasticSearchConnection();
 		$this->connection->init();
 		$context = $this->env->getContext();
@@ -378,6 +381,7 @@ class GerritController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	 */
 	protected function querySort() {
 		return [
+			'updated_on' => 'desc',
 			'insertions' => 'asc',
 			'deletions' => 'asc',
 			'patchsets' => 'desc'

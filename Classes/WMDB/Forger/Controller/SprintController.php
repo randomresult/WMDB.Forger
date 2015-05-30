@@ -61,6 +61,9 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	 * Initializes the controller
 	 */
 	protected function initializeAction() {
+
+		date_default_timezone_set('UTC');
+
 		$context = $this->env->getContext();
 		if($context == 'Development') {
 			$this->context = 'DEV';

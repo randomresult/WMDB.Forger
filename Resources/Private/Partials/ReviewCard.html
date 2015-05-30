@@ -4,7 +4,7 @@
 		<td colspan="4"><a href="https://review.typo3.org/#/c/{card.id}/" target="_blank">{card.subject}</a></td>
 	</tr>
 	<tr>
-		<td colspan="4">By <strong>{card.owner}</strong></a> <span class="right"> added <strong><time is="time-ago" datetime="{card.updated_on}">{issue.hit._source.updated_on}</time></strong></span></td>
+		<td colspan="4">By <strong>{card.owner}</strong></a> <span class="right"> added <strong><time is="time-ago" datetime="{card.updated_on->f:format.date(format: 'c')}">{issue.hit._source.updated_on}</time></strong></span></td>
 	</tr>
 	<tr>
 		<td>Affected Files:</td>

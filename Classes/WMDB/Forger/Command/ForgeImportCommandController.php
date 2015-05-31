@@ -7,6 +7,7 @@ namespace WMDB\Forger\Command;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
+use WMDB\Forger\Utilities\ElasticSearch\ElasticSearchConnection;
 use WMDB\Utilities\Utility\GeneralUtility;
 use Elastica;
 use TYPO3\Flow\Cli;
@@ -28,11 +29,6 @@ class ForgeImportCommandController extends Cli\CommandController {
 	protected $settings;
 
 	/**
-	 * @var \Elastica\Client;
-	 */
-	protected $elasticClient;
-
-	/**
 	 * @var \Elastica\Index
 	 */
 	protected $elasticIndex;
@@ -40,6 +36,11 @@ class ForgeImportCommandController extends Cli\CommandController {
 	protected $lockFile;
 
 	protected $moreIssuesFromGerrit = true;
+
+	/**
+	 * @var ElasticSearchConnection
+	 */
+	protected $connection;
 
 	/**
 	 * @var array
@@ -54,13 +55,10 @@ class ForgeImportCommandController extends Cli\CommandController {
 			$this->settings['Redmine']['url'],
 			$this->settings['Redmine']['apiKey']
 		);
-		$this->elasticClient = new Elastica\Client(array(
-			'host' => $this->settings['Elasticsearch']['Credentials']['host'],
-			'port' => $this->settings['Elasticsearch']['Credentials']['port'],
-			'path' => $this->settings['Elasticsearch']['Credentials']['path'],
-			'transport' => $this->settings['Elasticsearch']['Credentials']['transport']
-		));
-		$this->elasticIndex = $this->elasticClient->getIndex($this->settings['Elasticsearch']['Credentials']['index']);
+		$this->connection = new ElasticSearchConnection();
+		$this->connection->init();
+
+		$this->elasticIndex = $this->connection->getIndex();
 		$this->lockFile = FLOW_PATH_DATA.'Persistent/WMDB.Forger.lock';
 	}
 

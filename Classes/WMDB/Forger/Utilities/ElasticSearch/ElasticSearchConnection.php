@@ -38,12 +38,20 @@ class ElasticSearchConnection {
 	public function init() {
 		$conf = $this->configurationManager->getConfiguration( \TYPO3\Flow\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'WMDB.Forger.Elasticsearch.Credentials');
 		if(is_array($conf) && count($conf) > 0 && isset($conf['host']) && isset($conf['port']) && isset($conf['path']) && isset($conf['transport'])) {
-			$elasticaClient = new \Elastica\Client(array(
+
+			$elasticClientConfiguration = array(
 				'host' => $conf['host'],
 				'port' => $conf['port'],
 				'path' => $conf['path'],
 				'transport' => $conf['transport']
-			));
+			);
+			if (isset($conf['username']) && isset($conf['password'])) {
+				$elasticClientConfiguration['headers'] = array(
+					'Authorization' => 'Basic ' . base64_encode($conf['username'] . ':' . $conf['password']) . '=='
+				);
+			}
+
+			$elasticaClient = new \Elastica\Client($elasticClientConfiguration);
 
 			$this->index = $elasticaClient->getIndex($conf['index']);
 		} else {

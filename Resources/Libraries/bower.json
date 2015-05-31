@@ -10,6 +10,9 @@
     "typo3",
     "rules"
   ],
+  "dependencies": {
+    "bootstrap": "~3.3.*"
+  },
   "authors": [
     "Mathias Schreiber"
   ],

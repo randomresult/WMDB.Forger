@@ -6,38 +6,49 @@
 </f:section>
 
 <f:section name="Content">
-<f:form action="sendInvite" additionalAttributes="{data-abide:true}">
 	<div class="container">
-		<div class="col-sm-12 col-md-6">
-			<div class="row">
-				<img src="<f:uri.resource package='WMDB.Forger' path='images/slack-logo.jpg' />" />
-			</div>
-			<div class="row">
-				<h2>Register for TYPO3's Slack Platform</h2>
-				<p>Fill in the form below to get access to our Instant Communication Platform Slack.<br>
-				It's free and will instantly connect you to other enthusiasts and the <strong>Core Development Teams</strong> of TYPO3 CMS, TYPO3 Flow and TYPO3 Neos.</p>
-				<p>This service is sponsored by <a href="https://slack.com" target="_blank">Slack.com</a> - thanks a lot folks, we appreciate it.</p>
-			</div>
-			<div class="row">
-				<label for="email">Email: <small>required</small>
-					<input type="email" required="required" id="email" name="email" value="" placeholder="Email" class="form-control" />
-					<small class="error">A valid Email-address is required.</small>
-				</label>
-			</div>
-			<div class="row">
-				<label for="firstName">FirstName: <small>required</small>
-					<input type="text" id="firstName" name="firstName" required pattern="[a-zA-Z]+" value="" placeholder="FirstName" class="form-control" />
-					<small class="error">Please supply your first name.</small>
-				</label>
-			</div>
-			<div class="row">
-				<label for="lastName">LastName: <small>required</small>
-					<input type="text" id="lastName" name="lastName" required pattern="[a-zA-Z]+" value="" placeholder="LastName" class="form-control" />
-					<small class="error">Please supply your last name.</small>
-				</label>
-			</div>
-			<f:form.submit value="send request" class="btn btn-success"  />
-		</div>
+        <div class="row">
+            <div class="col-sm-12 col-md-6">
+                <img class="img-responsive" src="{f:uri.resource(package: 'WMDB.Forger', path:'images/slack-logo.jpg')}" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-6">
+                <h2 style="margin-top: 0;">Register for TYPO3's Slack Platform</h2>
+                <p>Fill in the form below to get access to our Instant Communication Platform Slack.<br>
+                It's free and will instantly connect you to other enthusiasts and the <strong>Core Development Teams</strong> of TYPO3 CMS, TYPO3 Flow and TYPO3 Neos.</p>
+                <p>This service is sponsored by <a href="https://slack.com" target="_blank">Slack.com</a> - thanks a lot folks, we appreciate it.</p>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <f:form action="sendInvite" additionalAttributes="{data-abide:true}" class="form-horizontal">
+                    <div class="form-group">
+                        <label for="email" class="col-sm-3 control-label">Email:<br/> <small>required</small></label>
+                        <div class="col-sm-9">
+                            <input type="email" required="required" id="email" name="email" value="" placeholder="Email" class="form-control" />
+                            <small class="error">A valid Email-address is required.</small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="firstName" class="col-sm-3 control-label">FirstName:<br/> <small>required</small></label>
+                        <div class="col-sm-9">
+                            <input type="text" id="firstName" name="firstName" required pattern="[a-zA-Z]+" value="" placeholder="FirstName" class="form-control" />
+                            <small class="error">Please supply your first name.</small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName" class="col-sm-3 control-label">LastName:<br/> <small>required</small></label>
+                        <div class="col-sm-9">
+                            <input type="text" id="lastName" name="lastName" required pattern="[a-zA-Z]+" value="" placeholder="LastName" class="form-control" />
+                            <small class="error">Please supply your last name.</small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <f:form.submit value="send request" class="btn btn-success"  />
+                        </div>
+                    </div>
+                </f:form>
+            </div>
+        </div>
 	</div>
-</f:form>
 </f:section>

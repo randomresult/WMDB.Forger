@@ -10,6 +10,14 @@
 </f:section>
 
 <f:section name="Content">
+    <f:if condition="{board}">
+        <f:then></f:then>
+        <f:else>
+            <div class="alert alert-info" role="alert">
+                <strong>No Sprint!</strong> Please select one sprint!
+            </div>
+        </f:else>
+    </f:if>
     <div class="btn-group">
         <f:for each="{boardMenu}" as="boardNav">
             <f:link.action class="btn btn-default {f:if(condition: boardNav.active, then: 'active')}" controller="Sprint" action="Index" arguments="{boardId:boardNav.id}">{boardNav.name}</f:link.action>
@@ -21,39 +29,39 @@
 
 	<h3>Sprint Tasks</h3>
 	<f:if condition="{board}">
-		<div id="stackedBoardChart" style="height: 80px; width: 100%"></div>
-		<div class="table-responsive">
-			<table class="table">
-				<tr>
-					<f:for each="{board}" as="cards" key="metacolname">
-						<f:switch expression="{metacolname}">
-							<f:case value="Open"><th style="width:20%" class="status_new">{metacolname} (<f:count subject="{cards}" />)</th></f:case>
-							<f:case value="WIP"><th style="width:20%" class="status_wip">{metacolname} (<f:count subject="{cards}" />)</th></f:case>
-							<f:case value="Review"><th style="width:20%" class="status_review">{metacolname} (<f:count subject="{cards}" />)</th></f:case>
-							<f:case value="Done"><th style="width:20%">{metacolname} (<f:count subject="{cards}" />)</th></f:case>
-							<f:case value="BLOCKED"><th style="width:20%" class="status_feedback">{metacolname} (<f:count subject="{cards}" />)</th></f:case>
-						</f:switch>
-					</f:for>
-				</tr>
-				<tr>
-					<f:for each="{board}" as="cards" key="metacolname">
-						<td style="width:20%;padding: 0" valign="top">
-							<f:for each="{cards}" as="card">
-								<f:if condition="{metacolname} == 'Review'">
-									<f:then>
-										<f:render partial="ReviewCard" arguments="{card: card, coltype: metacolname}" />
-									</f:then>
-									<f:else>
-										<f:render partial="BoardCard" arguments="{card: card, coltype: metacolname}" />
-									</f:else>
-								</f:if>
-							</f:for>
-						</td>
-					</f:for>
-				</tr>
-			</table>
-		</div>
-		<p>Don't try to drag & drop cards, it's not working and won't be for a <b>looooong</b> time</p>
+        <div id="stackedBoardChart" style="height: 80px; width: 100%"></div>
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <f:for each="{board}" as="cards" key="metacolname">
+                        <f:switch expression="{metacolname}">
+                            <f:case value="Open"><th style="width:20%" class="status_new">{metacolname} (<f:count subject="{cards}" />)</th></f:case>
+                            <f:case value="WIP"><th style="width:20%" class="status_wip">{metacolname} (<f:count subject="{cards}" />)</th></f:case>
+                            <f:case value="Review"><th style="width:20%" class="status_review">{metacolname} (<f:count subject="{cards}" />)</th></f:case>
+                            <f:case value="Done"><th style="width:20%">{metacolname} (<f:count subject="{cards}" />)</th></f:case>
+                            <f:case value="BLOCKED"><th style="width:20%" class="status_feedback">{metacolname} (<f:count subject="{cards}" />)</th></f:case>
+                        </f:switch>
+                    </f:for>
+                </tr>
+                <tr>
+                    <f:for each="{board}" as="cards" key="metacolname">
+                        <td style="width:20%;padding: 0" valign="top">
+                            <f:for each="{cards}" as="card">
+                                <f:if condition="{metacolname} == 'Review'">
+                                    <f:then>
+                                        <f:render partial="ReviewCard" arguments="{card: card, coltype: metacolname}" />
+                                    </f:then>
+                                    <f:else>
+                                        <f:render partial="BoardCard" arguments="{card: card, coltype: metacolname}" />
+                                    </f:else>
+                                </f:if>
+                            </f:for>
+                        </td>
+                    </f:for>
+                </tr>
+            </table>
+        </div>
+        <p>Don't try to drag & drop cards, it's not working and won't be for a <b>looooong</b> time</p>
 	</f:if>
 
 	<div id="boardconfig" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

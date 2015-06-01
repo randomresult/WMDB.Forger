@@ -1,9 +1,7 @@
 {namespace wmdb=WMDB\Forger\ViewHelpers}
 <div class="col-sm-3">
 	<h4>Aggregations</h4>
-	<div class="">
-		<input type="submit" class="btn btn-success" value="Filter" />
-	</div>
+    <button type="submit" class="btn btn-success"><i class="fa fa-filter"></i> Filter</button>
 	<f:for each="{aggregations}" as="buckets" key="title">
 		<h4>{title}</h4>
 		<f:for each="{buckets.buckets}" as="bucket" key="index">
@@ -12,9 +10,7 @@
 			</div>
 		</f:for>
 	</f:for>
-	<div class="">
-        <input type="submit" class="btn btn-success" value="Filter" />
-	</div>
+    <button type="submit" class="btn btn-success"><i class="fa fa-filter"></i> Filter</button>
 </div>
 <div class="col-sm-9">
 	<h4>Showing hits <strong>{startingAtItem} </strong>to <strong>{endingAtItem}</strong> of <strong>{totalResults}</strong></h4>

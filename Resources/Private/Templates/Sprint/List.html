@@ -4,23 +4,15 @@
 <f:section name="Javascripts"></f:section>
 
 <f:section name="Content">
-	<ul class="nav nav-pills">
-		<dt>Available Boards</dt>
-		<f:for each="{boardMenu}" as="boardNav">
-			<f:if condition="{boardNav.active}">
-				<f:then>
-					<li class="active">
-						<f:link.action controller="Sprint" action="List" arguments="{boardId:boardNav.id}">{boardNav.name}</f:link.action>
-					</li>
-				</f:then>
-				<f:else>
-					<li>
-						<f:link.action controller="Sprint" action="List" arguments="{boardId:boardNav.id}">{boardNav.name}</f:link.action>
-					</li>
-				</f:else>
-			</f:if>
-		</f:for>
-	</ul>
+    <div class="btn-group">
+        <f:for each="{boardMenu}" as="boardNav">
+            <f:link.action class="btn btn-default {f:if(condition: boardNav.active, then: 'active')}" controller="Sprint" action="List" arguments="{boardId:boardNav.id}">{boardNav.name}</f:link.action>
+        </f:for>
+    </div>
+    <div class="btn-group pull-right">
+        <button type="button" data-toggle="modal" data-target="#boardconfig" class="btn btn-info"><i class="fa fa-wrench"></i> Debug Board Config</button>
+    </div>
+
 	<h3>Sprint Tasks</h3>
 	<f:if condition="{board}">
 		<div class="row">
@@ -57,7 +49,7 @@
 			</div>
 		</div>
 	</f:if>
-	<button type="button" data-toggle="modal" data-target="#boardconfig" class="btn btn-default">Debug Board Config</button>
+
 	<div id="boardconfig" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">

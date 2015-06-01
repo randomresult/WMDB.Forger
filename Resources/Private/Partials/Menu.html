@@ -33,13 +33,13 @@
 	</li>
 </ul>
 
-<form action="/standard/search" method="get" class="navbar-form navbar-right" role="search">
-    <div class="form-group">
-        <div class="input-group">
-            <f:form.textfield name="query" placeholder="Issue ID or Searchwords" class="form-control" value="" />
-            <span class="input-group-btn">
-                <input type="submit" class="btn btn-success" value="Go">
-            </span>
-        </div>
-    </div>
-</form>
+<f:form action="search" controller="standard" method="get" class="navbar-form navbar-right">
+	<div class="form-group">
+		<div class="input-group">
+			<f:form.textfield name="query" placeholder="Issue ID or Searchwords" class="form-control" value="" />
+			<span class="input-group-btn">
+				<input type="submit" class="btn btn-success" value="Go">
+			</span>
+		</div>
+	</div>
+</f:form>

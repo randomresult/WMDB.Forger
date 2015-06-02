@@ -107,7 +107,8 @@ class ManagementController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 			foreach ($aggregation['buckets'] as $bucket) {
 				$dateParts = explode('/', $bucket['key_as_string']);
 				$yearName = $dateParts[0];
-				$months = [];
+				// prefill array with 12 index, for 12 month
+				$months = array_fill(0, 12, array());
 				foreach ($bucket['month']['buckets'] as $month) {
 					$dateParts = explode('/', $month['key_as_string']);
 					$monthName = $dateParts[1];
@@ -118,7 +119,8 @@ class ManagementController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 							'total' => $status['doc_count']
 						];
 					}
-					$months[] = [
+					$monthIndex = (int)$monthName - 1;
+					$months[$monthIndex] = [
 						'month' => $monthName,
 						'total' => $month['doc_count'],
 						'stati' => $stati

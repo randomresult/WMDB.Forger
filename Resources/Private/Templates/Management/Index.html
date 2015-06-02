@@ -9,27 +9,31 @@
 	<h3>Issue Management View</h3>
 	<f:for each="{aggs}" as="year">
 		<div class="container-fluid">
-		<h4>{year.year} ({year.total})</h4>
-			<f:for each="{year.months}" as="month">
-				<div class="col-sm-12 col-md-2 col-lg-1 norightpadding">
-					<div class="list-group">
-						<a class="list-group-item active" href="<wmdb:forgelink year="{year.year}" month="{month.month}" />">{month.month} ({month.total}) </a>
-						<f:for each="{month.stati}" as="status">
-							<f:switch expression="{status.name}">
-								<f:case value="New">            <a class="list-group-item" href="<wmdb:forgelink year="{year.year}" month="{month.month}" statusId="1" />"><span class="badge status_new"     >{status.total}</span>{status.name}</a></f:case>
-								<f:case value="Accepted">       <a class="list-group-item" href="<wmdb:forgelink year="{year.year}" month="{month.month}" statusId="2" />"><span class="badge status_accepted">{status.total}</span>{status.name}</a></f:case>
-								<f:case value="Under Review">   <a class="list-group-item" href="<wmdb:forgelink year="{year.year}" month="{month.month}" statusId="8" />"><span class="badge status_review"  >{status.total}</span>{status.name}</a></f:case>
-								<f:case value="On Hold">        <a class="list-group-item" href="<wmdb:forgelink year="{year.year}" month="{month.month}" statusId="7" />"><span class="badge status_onhold"  >{status.total}</span>{status.name}</a></f:case>
-								<f:case value="Needs Feedback"> <a class="list-group-item" href="<wmdb:forgelink year="{year.year}" month="{month.month}" statusId="4" />"><span class="badge status_feedback">{status.total}</span>{status.name}</a></f:case>
-								<f:case value="In Progress">    <a class="list-group-item" href="<wmdb:forgelink year="{year.year}" month="{month.month}" statusId="11" />"><span class="badge status_wip"    >{status.total}</span>{status.name}</a></f:case>
-								<f:defaultCase>                 <a class="list-group-item" href="<wmdb:forgelink year="{year.year}" month="{month.month}" statusId="11" />"><span class="badge"><b>{status.total}</b> {status.name}</span></a></f:defaultCase>
-							</f:switch>
-						</f:for>
-					</div>
-				</div>
-			</f:for>
-		</div>
-	</f:for>
+            <div class="row">
+                <h4>{year.year} ({year.total})</h4>
+                <f:for each="{year.months}" as="month">
+                    <div class="col-sm-12 col-md-2 col-lg-1 padding-5">
+                        <f:if condition="{month.stati}">
+                            <div class="list-group">
+                                <a class="list-group-item active" href="<wmdb:forgelink year="{year.year}" month="{month.month}" />">{month.month} ({month.total}) </a>
+                                <f:for each="{month.stati}" as="status">
+                                    <f:switch expression="{status.name}">
+                                        <f:case value="New">            <a class="list-group-item" href="<wmdb:forgelink year="{year.year}" month="{month.month}" statusId="1" />"><span class="badge status_new"     >{status.total}</span> {status.name}</a></f:case>
+                                        <f:case value="Accepted">       <a class="list-group-item" href="<wmdb:forgelink year="{year.year}" month="{month.month}" statusId="2" />"><span class="badge status_accepted">{status.total}</span> {status.name}</a></f:case>
+                                        <f:case value="Under Review">   <a class="list-group-item" href="<wmdb:forgelink year="{year.year}" month="{month.month}" statusId="8" />"><span class="badge status_review"  >{status.total}</span> {status.name}</a></f:case>
+                                        <f:case value="On Hold">        <a class="list-group-item" href="<wmdb:forgelink year="{year.year}" month="{month.month}" statusId="7" />"><span class="badge status_onhold"  >{status.total}</span> {status.name}</a></f:case>
+                                        <f:case value="Needs Feedback"> <a class="list-group-item" href="<wmdb:forgelink year="{year.year}" month="{month.month}" statusId="4" />"><span class="badge status_feedback">{status.total}</span> {status.name}</a></f:case>
+                                        <f:case value="In Progress">    <a class="list-group-item" href="<wmdb:forgelink year="{year.year}" month="{month.month}" statusId="11"/>"><span class="badge status_wip"     >{status.total}</span> {status.name}</a></f:case>
+                                        <f:defaultCase>                 <a class="list-group-item" href="<wmdb:forgelink year="{year.year}" month="{month.month}" statusId="11"/>"><span class="badge"                >{status.total}</span> {status.name}</a></f:defaultCase>
+                                    </f:switch>
+                                </f:for>
+                            </div>
+                        </f:if>
+                    </div>
+                </f:for>
+            </div>
+        </div>
+    </f:for>
 </f:section>
 <f:comment>
 	linkText="Show Issues ({month.total})"

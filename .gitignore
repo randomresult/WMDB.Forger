@@ -1,2 +1,3 @@
 Resources/Libraries/bower_components/
 Resources/Libraries/node_modules/
+Resources/Public/js/amcharts/plugins/*/examples/*

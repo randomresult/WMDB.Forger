@@ -4,6 +4,15 @@
 <f:section name="Javascripts"></f:section>
 
 <f:section name="Content">
+    <f:if condition="{board}">
+        <f:then></f:then>
+        <f:else>
+            <div class="alert alert-info" role="alert">
+                <strong>No Sprint!</strong> Please select one sprint!
+            </div>
+        </f:else>
+    </f:if>
+
     <div class="btn-group">
         <f:for each="{boardMenu}" as="boardNav">
             <f:link.action class="btn btn-default {f:if(condition: boardNav.active, then: 'active')}" controller="Sprint" action="List" arguments="{boardId:boardNav.id}">{boardNav.name}</f:link.action>

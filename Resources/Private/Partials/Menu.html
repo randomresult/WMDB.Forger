@@ -3,32 +3,32 @@
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Gerrit <span class="caret"></span></a>
 		<ul class="dropdown-menu" role="menu">
 			<li><f:link.action controller="gerrit" action="status">All</f:link.action></li>
-			<li><f:link.action controller="gerrit" action="mergeReady">Has verifications</f:link.action></li>
-			<li><f:link.action controller="gerrit" action="missesVerification">Needs Verification</f:link.action></li>
-			<li><f:link.action controller="gerrit" action="missesReview">Needs Review</f:link.action></li>
-			<li><f:link.action controller="gerrit" action="rebase">Rebase necessary</f:link.action></li>
+			<li><f:link.action controller="gerrit" action="mergeReady"><i class="fa fa-fw fa-check-square-o"></i> Has verifications</f:link.action></li>
+			<li><f:link.action controller="gerrit" action="missesVerification"><i class="fa fa-fw fa-plus-square-o"></i> Needs Verification</f:link.action></li>
+			<li><f:link.action controller="gerrit" action="missesReview"><i class="fa fa-fw fa-plus-square-o"></i> Needs Review</f:link.action></li>
+			<li><f:link.action controller="gerrit" action="rebase"><i class="fa fa-fw fa-refresh"></i> Rebase necessary</f:link.action></li>
 		</ul>
 	</li>
 	<li class="dropdown">
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Sprints <span class="caret"></span></a>
 		<ul class="dropdown-menu" role="menu">
-			<li><f:link.action controller="sprint" action="index">Sprint Boards</f:link.action></li>
-			<li><f:link.action controller="sprint" action="list">Sprint Lists</f:link.action></li>
-			<li><f:link.action controller="management" action="index">Issue Management</f:link.action></li>
+			<li><f:link.action controller="sprint" action="index"><i class="fa fa-fw fa-table"></i> Sprint Boards</f:link.action></li>
+			<li><f:link.action controller="sprint" action="list"><i class="fa fa-fw fa-list"></i> Sprint Lists</f:link.action></li>
+			<li><f:link.action controller="management" action="index"><i class="fa fa-fw fa-th-list"></i> Issue Management</f:link.action></li>
 		</ul>
 	</li>
 	<li class="dropdown">
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Utility <span class="caret"></span></a>
 		<ul class="dropdown-menu" role="menu">
-			<li><f:link.action controller="standard" action="rst">ReST Helper</f:link.action></li>
-			<li><f:link.action controller="standard" action="calendar">Team Calendar</f:link.action></li>
-			<li><f:link.action controller="slack" action="index">Slack Invite</f:link.action></li>
+			<li><f:link.action controller="standard" action="rst"><i class="fa fa-fw fa-file-text-o"></i> ReST Helper</f:link.action></li>
+			<li><f:link.action controller="standard" action="calendar"><i class="fa fa-fw fa-calendar"></i> Team Calendar</f:link.action></li>
+			<li><f:link.action controller="slack" action="index"><i class="fa fa-fw fa-slack"></i> Slack Invite</f:link.action></li>
 		</ul>
 	</li>
 	<li class="dropdown">
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Help <span class="caret"></span></a>
 		<ul class="dropdown-menu" role="menu">
-			<li><f:link.action controller="standard" action="help">Graphs</f:link.action></li>
+			<li><f:link.action controller="standard" action="help"><i class="fa fa-fw fa-question-circle"></i> Graphs</f:link.action></li>
 		</ul>
 	</li>
 </ul>
@@ -38,8 +38,9 @@
 		<div class="input-group">
 			<f:form.textfield name="query" placeholder="Issue ID or Searchwords" class="form-control" value="" />
 			<span class="input-group-btn">
-				<input type="submit" class="btn btn-success" value="Go">
+				<button type="submit" class="btn btn-success"><i class="fa fa-fw fa-search"></i></button>
 			</span>
 		</div>
 	</div>
 </f:form>
+

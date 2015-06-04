@@ -4,8 +4,8 @@
 		<meta charset="utf-8">
 		<title>[{context}] <f:render section="Title" /> :: Forger</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="<f:uri.resource package='WMDB.Forger' path='css/font-awesome.min.css' />" />
-        <link rel="stylesheet" href="<f:uri.resource package='WMDB.Forger' path='css/WMDB.Forger.css' />" />
+        <link rel="stylesheet" href="{f:uri.resource(package: 'WMDB.Forger', path: 'css/font-awesome.min.css')}" />
+        <link rel="stylesheet" href="{f:uri.resource(package: 'WMDB.Forger', path: 'css/WMDB.Forger.css')}" />
 
 		<f:base />
 	</head>
@@ -45,17 +45,9 @@
             </div>
         </div>
 	</div>
-	<!--Proudly coded by-->
-						<!--<a href="http://www.wmdb.de" target="_blank">-->
-							<!--<img src="<f:uri.resource package='WMDB.Forger' path='images/logo_wmdb.png' />" alt="wmdb Systems - TYPO3, Consulting, Mobile Solutions and Coaching from Düsseldorf, Germany" title="wmdb Systems - TYPO3, Consulting, Mobile Solutions and Coaching from Düsseldorf, Germany">-->
-						<!--</a>-->
-						<!--and hosted insanely fast by-->
-						<!--<a href="http://www.network-publishing.de/">-->
-							<!--<img src="<f:uri.resource package='WMDB.Forger' path='images/logo_network.publishing.png' />" alt="network.publishing - TYPO3, Webdesign and Hosting from Cologne, Germany" title="network.publishing - TYPO3, Webdesign and Hosting from Cologne, Germany">-->
-						<!--</a>-->
-	<script type="application/javascript" src="<f:uri.resource package='WMDB.Forger' path='js/WMDB.Forger.min.js' />"></script>
-	<script type="application/javascript" src="<f:uri.resource package='WMDB.Forger' path='js/register-element.js' />"></script>
-	<script type="application/javascript" src="<f:uri.resource package='WMDB.Forger' path='js/time-elements.js' />"></script>
+	<script type="application/javascript" src="{f:uri.resource(package: 'WMDB.Forger', path: 'js/WMDB.Forger.min.js')}"></script>
+	<script type="application/javascript" src="{f:uri.resource(package: 'WMDB.Forger', path: 'js/register-element.js')}"></script>
+	<script type="application/javascript" src="{f:uri.resource(package: 'WMDB.Forger', path: 'js/time-elements.js')}"></script>
 	<f:render section="Javascripts" />
 	<script type="application/javascript">
 	</script>

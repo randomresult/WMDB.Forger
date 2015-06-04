@@ -5,73 +5,57 @@
 <f:section name="Javascripts"></f:section>
 
 <f:section name="Content">
-	<form action="/standard/search" method="get" class="">
-		<f:render partial="SearchBox" arguments="{query: query, searchClosed:searchClosed}" />
-		<f:if condition="{0: mode} == {0: 'query'}">
-			<f:then>
-				<div class="col-sm-3">
-					<h4>Aggregations</h4>
-					<f:for each="{result.aggs}" as="buckets" key="title">
-						<h4>{title}</h4>
-						<f:for each="{buckets.buckets}" as="bucket" key="index">
-							<div class="row">
-								<wmdb:lowercase category="{title}" index="{index}" bucket="{bucket.key}" docCount="{bucket.doc_count}" />
-							</div>
-						</f:for>
-					</f:for>
-				</div>
-				<div class="col-sm-9">
-					<h4>Showing hits <strong>{result.startingAtItem} </strong>to <strong>{result.endingAtItem}</strong> of <strong>{result.totalResults}</strong></h4>
-					<f:if condition="{result.results}">
-						<ul class="pagination">
-							<f:for each="{result.pagesToLinkTo}" as="page" key="pageDesc">
-								<f:if condition="{result.currentPage} == {page}">
-									<f:then>
-										<li class="active"><f:link.action action="search" controller="standard" arguments="{query: query, page: page, filters: filters}">{page}</f:link.action></li>
-									</f:then>
-									<f:else>
-										<li><f:link.action action="search" controller="standard" arguments="{query: query, page: page, filters: filters}">{page}</f:link.action></li>
-									</f:else>
-								</f:if>
-							</f:for>
-						</ul>
-					</f:if>
-					<table class="table table-striped">
-						<f:for each="{result.results}" as="results">
-							<f:render partial="Issue" arguments="{issue: results}" />
-						</f:for>
-					</table>
-					<f:if condition="{result.results}">
-						<ul class="pagination">
-							<f:for each="{result.pagesToLinkTo}" as="page" key="pageDesc">
-								<f:if condition="{result.currentPage} == {page}">
-									<f:then>
-										<li class="active"><f:link.action action="search" controller="standard" arguments="{query: query, page: page, filters: filters}">{page}</f:link.action></li>
-									</f:then>
-									<f:else>
-										<li><f:link.action action="search" controller="standard" arguments="{query: query, page: page, filters: filters}">{page}</f:link.action></li>
-									</f:else>
-								</f:if>
-							</f:for>
-						</ul>
-					</f:if>
-				</div>
-			</f:then>
-			<f:else>
-				<div class="large-4 column">
-					<table>
-						<f:render partial="Issue" arguments="{issue: issue}" />
-					</table>
-				</div>
-				<div class="large-8 column">
-					<h4>{result.totalResults} dupes?</h4>
-					<table>
-						<f:for each="{result.results}" as="results">
-							<f:render partial="Issue" arguments="{issue: results}" />
-						</f:for>
-					</table>
-				</div>
-			</f:else>
-		</f:if>
+    <form action="/standard/search" method="get" class="">
+    <div class="row">
+        <div class="col-sm-12">
+            <f:render partial="SearchBox" arguments="{query: query, searchClosed:searchClosed}" />
+        </div>
+        <f:if condition="{0: mode} == {0: 'query'}">
+            <f:then>
+                <div class="col-sm-3">
+                    <h4>Aggregations</h4>
+                    <f:render partial="Accordion" arguments="{aggregations: result.aggs}" />
+                </div>
+                <div class="col-sm-9">
+                    <h4>Showing hits <strong>{result.startingAtItem} </strong>to <strong>{result.endingAtItem}</strong> of <strong>{result.totalResults}</strong></h4>
+                    <f:if condition="{result.results}">
+                        <f:render section="paginator" arguments="{_all}" />
+                    </f:if>
+                    <f:for each="{result.results}" as="results">
+                        <f:render partial="Issue" arguments="{issue: results}" />
+                    </f:for>
+                    <f:if condition="{result.results}">
+                        <f:render section="paginator" arguments="{_all}" />
+                    </f:if>
+                </div>
+            </f:then>
+            <f:else>
+                <div class="col-sm-3">
+                    <f:render partial="Issue" arguments="{issue: issue}" />
+                </div>
+                <div class="col-sm-9">
+                    <h4>{result.totalResults} dupes?</h4>
+                    <f:for each="{result.results}" as="results">
+                        <f:render partial="Issue" arguments="{issue: results}" />
+                    </f:for>
+                </div>
+            </f:else>
+        </f:if>
+    </div>
 	</form>
+</f:section>
+
+<f:section name="paginator">
+    <ul class="pagination">
+        <f:for each="{result.pagesToLinkTo}" as="page" key="pageDesc">
+            <f:if condition="{result.currentPage} == {page}">
+                <f:then>
+                    <li class="active"><f:link.action action="search" controller="standard" arguments="{query: query, page: page, filters: filters}">{page}</f:link.action></li>
+                </f:then>
+                <f:else>
+                    <li><f:link.action action="search" controller="standard" arguments="{query: query, page: page, filters: filters}">{page}</f:link.action></li>
+                </f:else>
+            </f:if>
+        </f:for>
+    </ul>
 </f:section>

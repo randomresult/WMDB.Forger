@@ -1,0 +1,25 @@
+{namespace wmdb=WMDB\Forger\ViewHelpers}
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="margin-top: 20px;">
+    <f:for each="{aggregations}" as="buckets" key="title">
+        <wmdb:counter increase="1" />
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="heading{wmdb:counter(output: 1)}">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse{wmdb:counter(output: 1)}" aria-expanded="true" aria-controls="collapse{wmdb:counter(output: 1)}" style="display:block;">
+                        {title} <wmdb:bucketCounter category="{title}" buckets="{buckets.buckets}" />
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse{wmdb:counter(output: 1)}" class="panel-collapse collapse {f:if(condition: '{wmdb:counter(output: 1)} == 1', then: 'in')}" role="tabpanel" aria-labelledby="heading{wmdb:counter(output: 1)}">
+                <div class="panel-body">
+                    <f:for each="{buckets.buckets}" as="bucket" key="index">
+                        <div>
+                            <wmdb:lowercase category="{title}" index="{index}" bucket="{bucket.key}" docCount="{bucket.doc_count}" />
+                        </div>
+                    </f:for>
+                </div>
+            </div>
+        </div>
+    </f:for>
+</div>

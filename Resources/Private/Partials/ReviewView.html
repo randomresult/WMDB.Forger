@@ -5,63 +5,34 @@
 
     <button type="submit" class="btn btn-success"><i class="fa fa-filter"></i> Filter</button>
 
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="margin-top: 20px;">
-        <f:for each="{aggregations}" as="buckets" key="title">
-            <wmdb:counter increase="1" />
-            <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="heading{wmdb:counter(output: 1)}">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{wmdb:counter(output: 1)}" aria-expanded="true" aria-controls="collapse{wmdb:counter(output: 1)}" style="display:block;">
-                            {title} <wmdb:bucketCounter category="{title}" buckets="{buckets.buckets}" />
-                        </a>
-                    </h4>
-                </div>
-                <div id="collapse{wmdb:counter(output: 1)}" class="panel-collapse collapse {f:if(condition: '{wmdb:counter(output: 1)} == 1', then: 'in')}" role="tabpanel" aria-labelledby="heading{wmdb:counter(output: 1)}">
-                    <div class="panel-body">
-                        <f:for each="{buckets.buckets}" as="bucket" key="index">
-                            <div>
-                                <wmdb:lowercase category="{title}" index="{index}" bucket="{bucket.key}" docCount="{bucket.doc_count}" />
-                            </div>
-                        </f:for>
-                    </div>
-                </div>
-            </div>
-        </f:for>
-    </div>
+    <f:render partial="Accordion" arguments="{aggregations: aggregations}" />
 
     <button type="submit" class="btn btn-success"><i class="fa fa-filter"></i> Filter</button>
 </div>
 <div class="col-sm-9">
 	<h4>Showing hits <strong>{startingAtItem} </strong>to <strong>{endingAtItem}</strong> of <strong>{totalResults}</strong></h4>
 	<f:if condition="{results}">
-		<ul class="pagination">
-			<f:for each="{pagesToLinkTo}" as="page" key="pageDesc">
-				<f:if condition="{currentPage} == {page}">
-					<f:then>
-						<li class="active"><f:link.action action="{action}" arguments="{query: query, page: page, filters: filters}">{page}</f:link.action></li>
-					</f:then>
-					<f:else>
-						<li><f:link.action action="{action}" arguments="{query: query, page: page, filters: filters}">{page}</f:link.action></li>
-					</f:else>
-				</f:if>
-			</f:for>
-		</ul>
+        <f:render section="paginator" arguments="{_all}" />
 	</f:if>
     <f:for each="{results}" as="result">
         <f:render partial="Review" arguments="{review: result.hit}" />
     </f:for>
 	<f:if condition="{results}">
-		<ul class="pagination">
-			<f:for each="{pagesToLinkTo}" as="page" key="pageDesc">
-				<f:if condition="{currentPage} == {page}">
-					<f:then>
-						<li class="active"><f:link.action action="{action}" arguments="{query: query, page: page, filters: filters}">{page}</f:link.action></li>
-					</f:then>
-					<f:else>
-						<li><f:link.action action="{action}" arguments="{query: query, page: page, filters: filters}">{page}</f:link.action></li>
-					</f:else>
-				</f:if>
-			</f:for>
-		</ul>
+        <f:render section="paginator" arguments="{_all}" />
 	</f:if>
 </div>
+
+<f:section name="paginator">
+    <ul class="pagination">
+        <f:for each="{pagesToLinkTo}" as="page" key="pageDesc">
+            <f:if condition="{currentPage} == {page}">
+                <f:then>
+                    <li class="active"><f:link.action action="{action}" arguments="{query: query, page: page, filters: filters}">{page}</f:link.action></li>
+                </f:then>
+                <f:else>
+                    <li><f:link.action action="{action}" arguments="{query: query, page: page, filters: filters}">{page}</f:link.action></li>
+                </f:else>
+            </f:if>
+        </f:for>
+    </ul>
+</f:section>

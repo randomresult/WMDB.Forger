@@ -1,0 +1,156 @@
+<f:layout name="Default" />
+
+<f:section name="Title">Version Support Overview</f:section>
+<f:section name="Javascripts">
+	<script type="text/javascript" src="<f:uri.resource package='WMDB.Forger' path='js/amcharts/amcharts.js' />"></script>
+	<script type="text/javascript" src="<f:uri.resource package='WMDB.Forger' path='js/amcharts/serial.js' />"></script>
+	<script type="text/javascript" src="<f:uri.resource package='WMDB.Forger' path='js/amcharts/gantt.js' />"></script>
+	<script type="text/javascript">
+		AmCharts.useUTC = true;
+		var chart = AmCharts.makeChart("chartdiv",
+				{
+					"type": "gantt",
+					"period": "MM",
+					"dataDateFormat": "YYYY-MM-DD",
+					//  "columnWidth": 0.5,
+					"valueAxis":
+					{
+						"type": "date",
+						"dateFormats": [
+							{
+								"period": "MM",
+								"format": "MM/YYYY"
+							},
+							{
+								"period": "YYYY",
+								"format": "YYYY"
+							}],
+						"guides": [
+							{
+								"above": false,
+								"value": new Date(),
+								"lineAlpha": 1,
+								"label": "Today",
+								"lineColor": "#ff0000",
+								"position": "top",
+								"lineThickness": 4,
+								"tickLength": 3
+							}]
+					},
+					"graph":
+					{
+						"fillAlphas": 1,
+						"balloonText": "<b>[[task]]</b>",
+						"labelText": "[[task]]",
+						"labelPosition": "inside",
+						"color": "#ffffff"
+					},
+					"rotate": true,
+					"categoryField": "category",
+					"segmentsField": "segments",
+					"colorField": "color",
+					"startDate": "2011-01-01",
+					"startDateField": "release",
+					"endDateField": "eol",
+					"dataProvider": [
+						{
+							"category": "4.5",
+							"segments": [
+								{
+									"task": "Regular Bugfixes",
+									"release": "2011-02-02",
+									"eol": "2012-08-30",
+									"color": "#1e8134"
+								},
+								{
+									"task": "Priority Fixes",
+									"release": "2012-08-30",
+									"eol": "2015-04-31",
+									"color": "#f49600"
+								},
+								{
+									"task": "ELTS (paid extension)",
+									"release": "2015-04-31",
+									"eol": "2016-04-31",
+									"color": "#CF794A"
+								}]
+						},
+						{
+							"category": "6.2",
+							"segments": [
+								{
+									"task": "Regular Bugfixes",
+									"release": "2014-03-25",
+									"eol": "2015-08-30",
+									"color": "#1e8134"
+								},
+								{
+									"task": "Priority Fixes",
+									"release": "2015-08-30",
+									"eol": "2017-03-31",
+									"color": "#f49600"
+								}
+								//						,{
+								//							"task": "ELTS (paid extension)",
+								//							"release": "2017-03-31",
+								//							"eol": "2018-03-31",
+								//							"color": "#CF794A"
+								//						}
+							]
+						},
+						{
+							"category": "7",
+							"segments": [
+								{
+									"task": "Sprint Phase",
+									"release": "2014-10-01",
+									"eol": "2014-12-01",
+									"color": "#dddddd"
+								},
+								{
+									"task": "Stabilization Phase",
+									"release": "2014-11-01",
+									"eol": "2014-12-07",
+									"color": "#9c1006"
+								},
+								{
+									"task": "Regular Bugfixes",
+									"release": "2015-10-31",
+									"eol": "2016-07-30",
+									"color": "#1e8134"
+								},
+								{
+									"task": "Priority Fixes",
+									"release": "2016-07-30",
+									"eol": "2017-05-31",
+									"color": "#f49600"
+								}]
+						},
+						{
+							"category": "8",
+							"segments": [
+								{
+									"task": "Regular Bugfixes",
+									"release": "2016-07-30",
+									"eol": "2017-05-31",
+									"color": "#1e8134"
+								},
+								{
+									"task": "Priority Fixes",
+									"release": "2017-05-31",
+									"eol": "2018-05-31",
+									"color": "#f49600"
+								}]
+						}],
+					"chartScrollbar":
+					{},
+				});
+	</script>
+</f:section>
+
+<f:section name="Content">
+	<div class="col-sm-12">
+		<h1>Version Support Overview</h1>
+		<div id="chartdiv" style="height: 500px"></div>
+	</div>
+</f:section>

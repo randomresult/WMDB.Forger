@@ -2,53 +2,61 @@
 
 <f:section name="Title">Dashboard</f:section>
 <f:section name="Javascripts">
-	<script type="text/javascript" src="<f:uri.resource package='WMDB.Forger' path='js/amcharts/amcharts.js' />"></script>
-	<script type="text/javascript" src="<f:uri.resource package='WMDB.Forger' path='js/amcharts/serial.js' />"></script>
-	<script type="text/javascript" src="<f:uri.resource package='WMDB.Forger' path='js/amcharts/pie.js' />"></script>
+	<script type="text/javascript" src="{f:uri.resource(package: 'WMDB.Forger', path: 'js/amcharts/amcharts.js')}"></script>
+	<script type="text/javascript" src="{f:uri.resource(package: 'WMDB.Forger', path: 'js/amcharts/serial.js')}"></script>
+	<script type="text/javascript" src="{f:uri.resource(package: 'WMDB.Forger', path: 'js/amcharts/pie.js')}"></script>
 </f:section>
 
 <f:section name="Content">
-	<form action="/standard/search" method="get" class="">
-		<f:render partial="SearchBox" arguments="{query: query}" />
-	</form>
-	<h3>FORGE</h3>
-	<div class="col-lg-4 col-sm-12">
-		<div id="general" class="graph">
-			<div class="row">
-				<div class="col-sm-7 column"><h3>Open Issues:</h3></div>
-				<div class="col-sm-5 column"><h1>{openIssues}</h1></div>
-			</div>
-			<div class="row">
-				<div class="col-sm-7 column"><h3>Open Reviews:</h3></div>
-				<div class="col-sm-5 column"><h1>{openReviews}</h1></div>
-			</div>
-			<div class="row">
-				<div class="col-sm-12 column">
-					<div id="mergeable" data-type="Gerrit" data-graph="Mergeable" data-chart="Pie" data-charttitle="Reviews mergeable?" class="graph" style="height: 300px;"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="col-lg-4 col-sm-12">
-		<div id="openvsclosed" data-type="Forge" data-graph="Velocity" data-chart="Velocity" data-charttitle="Forge Velocity" class="graph"></div>
-	</div>
-	<div class="col-lg-4 col-sm-12">
-		<div id="reviewOverTime"  data-type="Forge" data-graph="OpenReviews" data-chart="Line" data-charttitle="Open Reviews" class="graph"></div>
-	</div>
-	<div class="col-lg-4 col-sm-12">
-		<div id="closedLastTwoMonths" data-type="Forge" data-graph="OpenVsClosed" data-chart="Line" data-charttitle="Opened vs. Closed" class="graph"></div>
-	</div>
-	<div class="col-lg-4 col-sm-12">
-		<div id="trackertype" data-type="Forge" data-graph="TrackerTypes" data-chart="BarHorizontal" data-charttitle="Tracker Types" class="graph"></div>
-	</div>
-	<div class="col-lg-4 col-sm-12">
-		<div id="cycleTime" data-type="Forge" data-graph="CycleTime" data-chart="Line" data-charttitle="CycleTime" class="graph"></div>
-	</div>
-	<h3>GERRIT</h3>
-	<div class="col-lg-8 col-sm-12">
-		<div id="gerritOpenVsClosed" data-type="Gerrit" data-graph="Overview" data-chart="Overview" data-charttitle="Gerrit Overview" class="graph"></div>
-	</div>
-	<div class="col-lg-4 col-sm-12">
-		<div id="gerritVelocity" data-type="Gerrit" data-graph="Velocity" data-chart="Velocity" data-charttitle="Gerrit Velocity" class="graph"></div>
-	</div>
+    <div class="row">
+        <div class="col-sm-12">
+            <form action="/standard/search" method="get" class="">
+                <f:render partial="SearchBox" arguments="{query: query}" />
+            </form>
+        </div>
+        <div class="col-sm-12">
+            <h3>FORGE</h3>
+        </div>
+        <div class="col-lg-4 col-sm-12">
+            <div id="general" class="graph">
+                <div class="row">
+                    <div class="col-sm-7 column"><h3>Open Issues:</h3></div>
+                    <div class="col-sm-5 column"><h1>{openIssues}</h1></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-7 column"><h3>Open Reviews:</h3></div>
+                    <div class="col-sm-5 column"><h1>{openReviews}</h1></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 column">
+                        <div id="mergeable" data-type="Gerrit" data-graph="Mergeable" data-chart="Pie" data-charttitle="Reviews mergeable?" class="graph" style="height: 300px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-12">
+            <div id="openvsclosed" data-type="Forge" data-graph="Velocity" data-chart="Velocity" data-charttitle="Forge Velocity" class="graph"></div>
+        </div>
+        <div class="col-lg-4 col-sm-12">
+            <div id="reviewOverTime"  data-type="Forge" data-graph="OpenReviews" data-chart="Line" data-charttitle="Open Reviews" class="graph"></div>
+        </div>
+        <div class="col-lg-4 col-sm-12">
+            <div id="closedLastTwoMonths" data-type="Forge" data-graph="OpenVsClosed" data-chart="Line" data-charttitle="Opened vs. Closed" class="graph"></div>
+        </div>
+        <div class="col-lg-4 col-sm-12">
+            <div id="trackertype" data-type="Forge" data-graph="TrackerTypes" data-chart="BarHorizontal" data-charttitle="Tracker Types" class="graph"></div>
+        </div>
+        <div class="col-lg-4 col-sm-12">
+            <div id="cycleTime" data-type="Forge" data-graph="CycleTime" data-chart="Line" data-charttitle="CycleTime" class="graph"></div>
+        </div>
+        <div class="col-sm-12">
+            <h3>GERRIT</h3>
+        </div>
+        <div class="col-lg-8 col-sm-12">
+            <div id="gerritOpenVsClosed" data-type="Gerrit" data-graph="Overview" data-chart="Overview" data-charttitle="Gerrit Overview" class="graph"></div>
+        </div>
+        <div class="col-lg-4 col-sm-12">
+            <div id="gerritVelocity" data-type="Gerrit" data-graph="Velocity" data-chart="Velocity" data-charttitle="Gerrit Velocity" class="graph"></div>
+        </div>
+    </div>
 </f:section>

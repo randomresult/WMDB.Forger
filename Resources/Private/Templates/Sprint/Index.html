@@ -2,8 +2,8 @@
 
 <f:section name="Title">Sprint View</f:section>
 <f:section name="Javascripts">
-	<script type="text/javascript" src="<f:uri.resource package='WMDB.Forger' path='js/amcharts/amcharts.js' />"></script>
-	<script type="text/javascript" src="<f:uri.resource package='WMDB.Forger' path='js/amcharts/serial.js' />"></script>
+	<script type="text/javascript" src="{f:uri.resource(package: 'WMDB.Forger', path: 'js/amcharts/amcharts.js')}"></script>
+	<script type="text/javascript" src="{f:uri.resource(package: 'WMDB.Forger', path: 'js/amcharts/serial.js')}"></script>
 	<f:if condition="{ticketCount}">
         <f:format.raw>{ticketCount}</f:format.raw>
 	</f:if>

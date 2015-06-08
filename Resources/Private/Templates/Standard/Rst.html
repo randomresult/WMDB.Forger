@@ -3,8 +3,8 @@
 
 <f:section name="Title">Create ReST file</f:section>
 <f:section name="Javascripts">
-	<script type="text/javascript" src="<f:uri.resource package='WMDB.Forger' path='js/sprintf.min.js' />"></script>
-	<script type="text/javascript" src="<f:uri.resource package='WMDB.Forger' path='js/WMDB.Forger.Rst.js' />"></script>
+	<script type="text/javascript" src="{f:uri.resource(package: 'WMDB.Forger', path: 'js/sprintf.min.js')}"></script>
+	<script type="text/javascript" src="{f:uri.resource(package: 'WMDB.Forger', path: 'js/WMDB.Forger.Rst.js')}"></script>
 </f:section>
 
 <f:section name="Content">
@@ -14,7 +14,9 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-8">
-				<form class="form-horizontal">
+                <h2>ReST-File-Generator</h2>
+
+                <form class="form-horizontal">
 					<div class="btn-group btn-group-justified js-changetypes" role="group">
 						<div class="btn-group"><button type="button" value="breaking" class="btn btn-danger">Breaking</button></div>
 						<div class="btn-group"><button type="button" value="deprecation" class="btn btn-warning">Deprecation</button></div>
@@ -22,7 +24,15 @@
 						<div class="btn-group"><button type="button" value="important" class="btn btn-info">Important</button></div>
 					</div>
 					<hr>
-					<div class="form-group">
+                    <div class="row" id="no-type-selected-hint">
+                        <div class="col-sm-12">
+                            <div class="alert alert-info" role="alert">
+                                <strong>No Type selected!</strong> Please select one rst type above!
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+					<div class="form-group hidden" data-tickettypes="breaking deprecation feature important">
 						<div class="col-sm-3">
 							<div class="input-group">
 								<input type="text" class="form-control" id="ticketid" placeholder="Ticket ID">
@@ -35,13 +45,13 @@
 							<input type="text" class="form-control" id="title" placeholder="Title">
 						</div>
 					</div>
-					<div class="form-group" data-tickettypes="breaking deprecation feature important">
+					<div class="form-group hidden" data-tickettypes="breaking deprecation feature important">
 						<label for="description" class="col-sm-2 control-label">Description</label>
 						<div class="col-sm-10">
 							<textarea class="form-control" rows="5" id="description" title="Description"></textarea>
 						</div>
 					</div>
-					<div class="form-group" data-tickettypes="breaking deprecation feature">
+					<div class="form-group hidden" data-tickettypes="breaking deprecation feature">
 						<label for="impact" class="col-sm-2 control-label">Impact</label>
 						<div class="col-sm-10">
 							<textarea class="form-control" rows="5" id="impact" title="Impact"></textarea>
@@ -53,20 +63,22 @@
 							<textarea class="form-control" rows="5" id="affected" title="Affected Installations"></textarea>
 						</div>
 					</div>
-					<div class="form-group hidden" data-tickettypes="breaking deprecation">
-						<label for="migration" class="col-sm-2 control-label">Migration</label>
-						<div class="col-sm-10">
-							<textarea class="form-control" rows="5" id="migration" title="Migration"></textarea>
-						</div>
-					</div>
-					<input id="generate" type="button" class="btn btn-block btn-success hidden" value="Create ReST manual">
+                    <div class="form-group hidden" data-tickettypes="breaking deprecation">
+                        <label for="migration" class="col-sm-2 control-label">Migration</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="5" id="migration" title="Migration"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group" data-tickettypes="breaking deprecation feature important">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <input id="generate" type="button" class="btn btn-block btn-success hidden" value="Create ReST manual">
+                        </div>
+                    </div>
 				</form>
 			</div>
+
 			<div class="col-md-4">
-				<img src="<f:uri.resource package='WMDB.Forger' path='images/memes/{memeImage}' />" alt="Random ReST meme, because we are cool!" class="img-responsive">
-
 				<h2>Code snippets</h2>
-
 				<div class="panel-group" id="codesnippets" role="tablist" aria-multiselectable="true">
 					<div class="panel panel-default">
 						<div class="panel-heading" role="tab" id="codeblockHeader">
@@ -113,7 +125,10 @@
 						</div>
 					</div>
 				</div>
-			</div>
+                <div style="margin-bottom: 20px;">
+                    <img src="{f:uri.resource(package: 'WMDB.Forger', path: 'images/memes/{memeImage}')}" alt="Random ReST meme, because we are cool!" class="img-responsive">
+                </div>
+            </div>
 		</div>
 	</div>
 	<div class="modal fade">

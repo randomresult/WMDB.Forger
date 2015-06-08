@@ -33,8 +33,10 @@ $(document).ready(function () {
 		var $me = $(this),
 			value = $me.val();
 
-		$ticketType.removeClass('active');
-		$me.addClass('active');
+		$('#no-type-selected-hint').slideUp();
+
+		$ticketType.removeClass('active').find('i.fa').remove();
+		$me.addClass('active').prepend('<i class="fa fa-check"></i>');
 
 		$activeChangeType = $me;
 		$ticketTypeRelatedFields.addClass('hidden');

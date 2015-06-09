@@ -45,19 +45,19 @@
 				<div class="col-md-2 col-sm-2 boardcolumn">
 					<f:switch expression="{metacolname}">
 						<f:case value="Open">
-							<h2 class="status_new">{metacolname} (<f:count subject="{cards}"/>)</h2>
+							<h3 class="status_new">{metacolname} (<f:count subject="{cards}"/>)</h3>
 						</f:case>
 						<f:case value="WIP">
-							<h2 class="status_wip">{metacolname} (<f:count subject="{cards}"/>)</h2>
+							<h3 class="status_wip">{metacolname} (<f:count subject="{cards}"/>)</h3>
 						</f:case>
 						<f:case value="Review">
-							<h2 class="status_review">{metacolname} (<f:count subject="{cards}"/>)</h2>
+							<h3 class="status_review">{metacolname} (<f:count subject="{cards}"/>)</h3>
 						</f:case>
 						<f:case value="Done">
-							<h2 class="status_done">{metacolname} (<f:count subject="{cards}"/>)</h2>
+							<h3 class="status_done">{metacolname} (<f:count subject="{cards}"/>)</h3>
 						</f:case>
 						<f:case value="BLOCKED">
-							<h2 class="status_feedback">{metacolname} (<f:count subject="{cards}"/>)</h2>
+							<h3 class="status_feedback">{metacolname} (<f:count subject="{cards}"/>)</h3>
 						</f:case>
 					</f:switch>
 					<f:for each="{cards}" as="card">

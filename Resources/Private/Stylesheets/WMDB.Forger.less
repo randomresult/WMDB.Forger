@@ -26,16 +26,36 @@ table tr td table {
 }
 
 .table-board {
-  border-spacing: 10px 0;
+//  border-spacing: 10px 0;
   border-collapse: initial;
 
   th, td {
     width: 20%;
     border-top: 0;
+	border-right: 10px solid white;
+	border-top: none !important;
+	border-bottom: none !important;
+  }
+
+  th:last-child, td:last-child {
+	width: 20%;
+	border-top: 0;
+	border-right: 0 hidden;
+	border-top: none !important;
+	border-bottom: none !important;
   }
 
   table.table {
-    margin: 10px 0;
+    margin-bottom: 0;
+  }
+  .panel a {
+	color: black;
+  }
+  .panel-danger a {
+	color: white;
+  }
+  .panel {
+	margin-bottom: 10px;
   }
 }
 
@@ -63,7 +83,7 @@ div.expandable {
   overflow: hidden;
   margin-bottom: 9px;
 }
-.status_new {
+.progress-bar-open, .status_new {
   background-color: #fb7e7e;
   color: black;
 }
@@ -71,7 +91,7 @@ div.expandable {
   background-color: #fbee99;
   color: black;
 }
-.status_review {
+.progress-bar-review, .status_review {
   background-color: #aeff91;
   color: black;
 }
@@ -79,12 +99,17 @@ div.expandable {
   background-color: #D1F412;
   color: black;
 }
-.status_feedback {
+.progress-bar-blocked, .status_feedback {
   background-color: #FBC3C3;
   color: black;
 }
-.status_wip {
+.progress-bar-wip, .status_wip {
   background-color: #A9E2FF;
+  color: black;
+}
+
+.progress-bar-done {
+  background-color: #ddd;
   color: black;
 }
 

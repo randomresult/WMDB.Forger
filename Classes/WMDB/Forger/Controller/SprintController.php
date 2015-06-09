@@ -99,7 +99,7 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 			foreach ($boardData as $status => $tickets) {
 				$ticketCount[$status] = count($tickets);
 			}
-			$this->view->assign('ticketCount', $this->renderJsForGraph($ticketCount));
+			$this->view->assign('progress', $this->calculateProgressBars($ticketCount));
 			$this->view->assign('board', $boardData);
 		}
 		$this->view->assignMultiple([
@@ -256,76 +256,16 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 
 	/**
 	 * @param array $data
-	 * @return string
+	 * @return array
 	 */
-	protected function renderJsForGraph(array $data) {
-		$fullCount = 0;
-		$chartConfig = [
-			'type' => 'serial',
-			'theme' => 'none',
-			'rotate' => true,
-			'marginTop' => 0,
-//			'marginLeft' => 50,
-			'marginRight' => 80,
-			'fontSize' => 16,
-			'dataProvider' => [$data],
-			'valueAxes' => [
-				[
-					'stackType' => '100%',
-					'axisAlpha' => 0,
-					'gridAlpha' => 0,
-					'autoGridCount' => false,
-					'labelFrequency' => 1,
-//					'showFirstLabel' => true,
-					'inside' => true,
-					'offset' => -200,
-					'totalText' => 'Σ: [[total]]',
-//					'totalTextOffset' => 20,
-//					'position' => 'top',
-				]
-			],
-			'categoryAxis' => [
-				'inside' => true,
-				'offset' => -1000000
-			]
-		];
+	protected function calculateProgressBars(array $data) {
+		$out = [];
+		$fullCount = array_sum($data);
+		$percentage = $fullCount / 100;
 		foreach ($data as $key => $count) {
-			switch($key) {
-				case 'Open':
-					$lineColor = '#fb7e7e';
-					break;
-				case 'WIP':
-					$lineColor = '#A9E2FF';
-					break;
-				case 'Review':
-					$lineColor = '#aeff91';
-					break;
-				case 'BLOCKED':
-					$lineColor = '#FBC3C3';
-					break;
-				default:
-					$lineColor = '#CECDCC';
-			}
-			$fullCount += $count;
-			$chartConfig['graphs'][] = [
-//				'balloonText' => '<b>[[title]]</b> => <b>[[value]]</b></span>',
-				'fillAlphas' => 1,
-				'labelText' => $key.': [[value]]',
-//				'lineAlpha' => 0.3,
-//				'title' => ucwords($key),
-				'type' => 'column',
-				'color' => '#000000',
-				'valueField' => $key,
-				'lineColor' => $lineColor
-			];
+			$out['sections'][strtolower($key)] = ($count / $percentage);
 		}
-		$chartConfig['valueAxes'][0]['maximum'] = $fullCount;
-		$chartConfig['valueAxes'][0]['gridCount'] = $fullCount;
-		$content = '
-		<script type="application/javascript">
-		var chart = AmCharts.makeChart("stackedBoardChart", '.json_encode($chartConfig).');
-		</script>
-		';
-		return $content;
+		$out['total'] = $fullCount;
+		return $out;
 	}
 }

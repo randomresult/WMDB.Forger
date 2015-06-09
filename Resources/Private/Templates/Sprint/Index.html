@@ -1,16 +1,10 @@
 <f:layout name="Default" />
 
 <f:section name="Title">Sprint View</f:section>
-<f:section name="Javascripts">
-	<script type="text/javascript" src="{f:uri.resource(package: 'WMDB.Forger', path: 'js/amcharts/amcharts.js')}"></script>
-	<script type="text/javascript" src="{f:uri.resource(package: 'WMDB.Forger', path: 'js/amcharts/serial.js')}"></script>
-	<f:if condition="{ticketCount}">
-        <f:format.raw>{ticketCount}</f:format.raw>
-	</f:if>
-</f:section>
+<f:section name="Javascripts"></f:section>
 
 <f:section name="Content">
-    <div class="row" style="padding: 0 10px;">
+    <div class="row">
         <div class="col-xs-12">
             <f:if condition="{board}">
                 <f:then></f:then>
@@ -32,9 +26,16 @@
     </div>
     <div class="row">
         <div class="col-xs-12">
-            <h3>Sprint Tasks</h3>
+	        <h3>Sprint Tasks ({progress.total})</h3>
             <f:if condition="{board}">
-                <div id="stackedBoardChart" style="height: 80px; width: 100%"></div>
+                <div class="progress">
+	                <f:for each="{progress.sections}" as="barWidth" key="barName">
+		                <div class="progress-bar progress-bar-{barName}" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {barWidth}%;">
+			                {barName}
+		                </div>
+	                </f:for>
+
+	            </div>
             </f:if>
         </div>
     </div>
@@ -56,7 +57,7 @@
                         </tr>
                         <tr>
                             <f:for each="{board}" as="cards" key="metacolname">
-                                <td>
+                                <td style="padding-left:0;padding-right: 0">
                                     <f:for each="{cards}" as="card">
                                         <f:if condition="{metacolname} == 'Review'">
                                             <f:then>

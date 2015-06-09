@@ -5,47 +5,54 @@
 	<f:defaultCase>   <div class="panel panel-default"></f:defaultCase>
 </f:switch>
 	<div class="panel-heading">
+		<f:if condition="{0: card.mergeable} == {0: 'no'}">
+			<div class="col-md-6">
+				<span class="label label-danger">CAN'T MERGE</span>
+			</div>
+		</f:if>
 		<a href="https://review.typo3.org/#/c/{card.id}/" target="_blank">{card.subject}</a>
 	</div>
-	<!--<div class="panel-body">-->
-		<table class="table table-striped table-bordered">
-			<!--<tr>-->
-				<!--<td colspan="4"><a href="https://review.typo3.org/#/c/{card.id}/" target="_blank">{card.subject}</a></td>-->
-			<!--</tr>-->
-			<tr>
-				<td colspan="4">By <strong>{card.owner}</strong></a> <span class="right"> added <strong><time is="time-ago" datetime="{card.updated_on->f:format.date(format: 'c')}">{issue.hit._source.updated_on}</time></strong></span></td>
-			</tr>
-			<tr>
-		        <td colspan="4">
-		            <div class="row">
-		                <div class="col-md-6">Affected Files: <span class="label label-default pull-right">{card.affected_files}</span></div>
-		                <div class="col-md-6">Patchsets: <span class="label label-default pull-right">{card.patchsets}</span></div>
-		            </div>
-		        </td>
-			</tr>
-			<tr>
-				<td class="col-md-4">Review
-					<f:if condition="{card.positive_reviews}">
-						<span class="label label-success pull-right">{card.positive_reviews}</span>
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-sm-12">
+				By <strong>{card.owner}</strong></a> <span class="pull-right"> added <strong><time is="time-ago" datetime="{card.updated_on->f:format.date(format: 'c')}">{issue.hit._source.updated_on}</time></strong></span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">Affected Files: <span class="label label-default pull-right">{card.affected_files}</span></div>
+			<div class="col-md-6">Patchsets: <span class="label label-default pull-right">{card.patchsets}</span></div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">Reviews:
+				<f:if condition="{card.positive_reviews}">
+					<span class="label label-success pull-right"><i class="glyphicon glyphicon-ok"></i></span>
+				</f:if>
+				<f:if condition="{card.negative_reviews}">
+					<f:if condition="{0: card.negative_reviews} == {0: '2'}">
+						<f:then>
+							<span class="label label-danger pull-right"><i class="glyphicon glyphicon-remove"></i></span>
+						</f:then>
+						<f:else>
+							<span class="label label-danger pull-right"><i class="glyphicon glyphicon-minus"></i></span>
+						</f:else>
 					</f:if>
-					<f:if condition="{card.negative_reviews}">
-						<span class="label label-danger pull-right">{card.negative_reviews}</span>
+				</f:if>
+			</div>
+			<div class="col-md-6">Code Check:
+				<f:if condition="{card.positive_verifications}">
+					<span class="label label-success pull-right"><i class="glyphicon glyphicon-ok"></i></span>
+				</f:if>
+				<f:if condition="{card.negative_verifications}">
+					<f:if condition="{0: card.negative_reviews} == {0: '2'}">
+						<f:then>
+							<span class="label label-danger pull-right"><i class="glyphicon glyphicon-remove"></i></span>
+						</f:then>
+						<f:else>
+							<span class="label label-danger pull-right"><i class="glyphicon glyphicon-minus"></i></span>
+						</f:else>
 					</f:if>
-				</td>
-				<td class="col-md-4">Verify
-					<f:if condition="{card.positive_verifications}">
-						<span class="label label-success pull-right">{card.positive_verifications}</span>
-					</f:if>
-					<f:if condition="{card.negative_verifications}">
-						<span class="label label-danger pull-right">{card.negative_verifications}</span>
-					</f:if>
-				</td>
-				<td colspan="2" class="col-md-4">
-					<f:if condition="{0: card.mergeable} == {0: 'no'}">
-						<span class="label label-danger">CAN'T MERGE</span>
-					</f:if>
-				</td>
-			</tr>
-		</table>
-	<!--</div>-->
+				</f:if>
+			</div>
+		</div>
+	</div>
 </div>

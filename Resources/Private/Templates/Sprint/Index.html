@@ -45,19 +45,19 @@
 				<div class="col-md-2 col-sm-2 boardcolumn">
 					<f:switch expression="{metacolname}">
 						<f:case value="Open">
-							<h3 class="status_new">{metacolname} (<f:count subject="{cards}"/>)</h3>
+							<h3 class="status_new"><i class="glyphicon glyphicon-info-sign" title="Open"></i> {metacolname} (<f:count subject="{cards}"/>)</h3>
 						</f:case>
 						<f:case value="WIP">
-							<h3 class="status_wip">{metacolname} (<f:count subject="{cards}"/>)</h3>
+							<h3 class="status_wip"><i class="glyphicon glyphicon-wrench" title="WIP"></i> {metacolname} (<f:count subject="{cards}"/>)</h3>
 						</f:case>
 						<f:case value="Review">
-							<h3 class="status_review">{metacolname} (<f:count subject="{cards}"/>)</h3>
+							<h3 class="status_review"><i class="glyphicon glyphicon-eye-open" title="Review"></i> {metacolname} (<f:count subject="{cards}"/>)</h3>
 						</f:case>
 						<f:case value="Done">
-							<h3 class="status_done">{metacolname} (<f:count subject="{cards}"/>)</h3>
+							<h3 class="status_done"><i class="glyphicon glyphicon-ok-sign" title="Done"></i> {metacolname} (<f:count subject="{cards}"/>)</h3>
 						</f:case>
 						<f:case value="BLOCKED">
-							<h3 class="status_feedback">{metacolname} (<f:count subject="{cards}"/>)</h3>
+							<h3 class="status_feedback"><i class="glyphicon glyphicon-ban-circle" title="BLOCKED"></i> {metacolname} (<f:count subject="{cards}"/>)</h3>
 						</f:case>
 					</f:switch>
 					<f:for each="{cards}" as="card">

@@ -19,10 +19,10 @@
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-sm-12">
-					Added by <strong>{card.author.name}</strong></a> <span class="pull-right"> <strong><time is="time-ago" datetime="{card.created_on->f:format.date(format: 'c')}">{card.created_on}</time></strong></span>
+					<span class="glyphicon glyphicon-bullhorn" title="Added by"></span> {card.author.name} <span class="pull-right"> <time is="time-ago" datetime="{card.created_on->f:format.date(format: 'c')}">{card.created_on}</time></span>
 				</div>
 				<div class="col-sm-12">
-					Update by <strong>{card.journals.0.user.name}</strong></a> <span class="pull-right"> <strong><time is="time-ago" datetime="{card.updated_on->f:format.date(format: 'c')}">{card.updated_on}</time></strong></span>
+					<span class="glyphicon glyphicon-comment" title="Last Updated by"></span> {card.journals.0.user.name} <span class="pull-right"><time is="time-ago" datetime="{card.updated_on->f:format.date(format: 'c')}">{card.updated_on}</time></span>
 				</div>
 			</div>
 			<div class="row">

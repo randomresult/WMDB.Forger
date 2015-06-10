@@ -15,15 +15,15 @@
 	<div class="panel-body">
 		<div class="row">
 			<div class="col-sm-12">
-				By <strong>{card.owner}</strong></a> <span class="pull-right"> added <strong><time is="time-ago" datetime="{card.updated_on->f:format.date(format: 'c')}">{issue.hit._source.updated_on}</time></strong></span>
+				<span class="glyphicon glyphicon-user"></span> {card.owner} <span class="pull-right"><time is="time-ago" datetime="{card.updated_on->f:format.date(format: 'c')}">{issue.hit._source.updated_on}</time></span>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-6">Affected Files: <span class="label label-default pull-right">{card.affected_files}</span></div>
-			<div class="col-md-6">Patchsets: <span class="label label-default pull-right">{card.patchsets}</span></div>
+			<div class="col-md-6">Files: <span class="label label-default pull-right">{card.affected_files}</span></div>
+			<div class="col-md-6">Patches: <span class="label label-default pull-right">{card.patchsets}</span></div>
 		</div>
 		<div class="row">
-			<div class="col-md-6">Reviews:
+			<div class="col-md-6">Review:
 				<f:if condition="{card.positive_reviews}">
 					<span class="label label-success pull-right"><i class="glyphicon glyphicon-ok"></i></span>
 				</f:if>
@@ -38,7 +38,7 @@
 					</f:if>
 				</f:if>
 			</div>
-			<div class="col-md-6">Code Check:
+			<div class="col-md-6">Test:
 				<f:if condition="{card.positive_verifications}">
 					<span class="label label-success pull-right"><i class="glyphicon glyphicon-ok"></i></span>
 				</f:if>

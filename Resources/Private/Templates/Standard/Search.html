@@ -14,7 +14,9 @@
             <f:then>
                 <div class="col-sm-3">
                     <h4>Aggregations</h4>
+	                <button type="submit" class="btn btn-success"><i class="fa fa-filter"></i> Filter</button>
                     <f:render partial="Accordion" arguments="{aggregations: result.aggs}" />
+	                <button type="submit" class="btn btn-success"><i class="fa fa-filter"></i> Filter</button>
                 </div>
                 <div class="col-sm-9">
                     <h4>Showing hits <strong>{result.startingAtItem} </strong>to <strong>{result.endingAtItem}</strong> of <strong>{result.totalResults}</strong></h4>

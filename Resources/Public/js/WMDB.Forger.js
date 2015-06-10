@@ -11540,34 +11540,6 @@ if (typeof jQuery === 'undefined') {
 		});
 	};
 
-	var legend = {
-		"horizontalGap": 5,
-		"maxColumns": 3,
-		"position": "absolute",
-		"align": "center",
-		"top": 20,
-		"left": 0,
-		"backgroundAlpha": 0.5,
-		"useGraphSettings": true,
-		"markerSize": 10,
-		"markerBorderThickness": 10,
-		"marginTop": 0
-	};
-	var settings = {
-		marginTop: 40,
-		marginLeft: 20,
-		marginBottom: 20,
-		marginRight: 20
-	};
-	var imagePath = '/_Resources/Static/Packages/WMDB.Forger/js/amcharts/images/';
-	var chartCursor = {
-		"cursorPosition": "mouse",
-		"pan": true,
-		"valueLineEnabled":true,
-		"valueLineBalloonEnabled":true
-	};
-
-
 	/**
 	 * Graph Logic
 	 */
@@ -11600,7 +11572,33 @@ if (typeof jQuery === 'undefined') {
 
 	function drawVelocityChart(docType, view, divId, charttitle) {
 		getData(docType, view, function(chartData) {
-			var chart = AmCharts.makeChart(divId, {
+			var legend = {
+				"horizontalGap": 5,
+				"maxColumns": 3,
+				"position": "absolute",
+				"align": "center",
+				"top": 20,
+				"left": 0,
+				"backgroundAlpha": 0.5,
+				"useGraphSettings": true,
+				"markerSize": 10,
+				"markerBorderThickness": 10,
+				"marginTop": 0
+			};
+			var settings = {
+				marginTop: 40,
+				marginLeft: 20,
+				marginBottom: 20,
+				marginRight: 20
+			};
+			var imagePath = '/_Resources/Static/Packages/WMDB.Forger/js/amcharts/images/';
+			var chartCursor = {
+				"cursorPosition": "mouse",
+				"pan": true,
+				"valueLineEnabled":true,
+				"valueLineBalloonEnabled":true
+			};
+			return AmCharts.makeChart(divId, {
 				"type": "serial",
 				"theme": "none",
 				"autoMargins": true,
@@ -11661,6 +11659,32 @@ if (typeof jQuery === 'undefined') {
 
 	function drawOverviewChart(docType, view, divId, charttitle) {
 		getData(docType, view, function(chartData) {
+			var legend = {
+				"horizontalGap": 5,
+				"maxColumns": 3,
+				"position": "absolute",
+				"align": "center",
+				"top": 20,
+				"left": 0,
+				"backgroundAlpha": 0.5,
+				"useGraphSettings": true,
+				"markerSize": 10,
+				"markerBorderThickness": 10,
+				"marginTop": 0
+			};
+			var settings = {
+				marginTop: 40,
+				marginLeft: 20,
+				marginBottom: 20,
+				marginRight: 20
+			};
+			var imagePath = '/_Resources/Static/Packages/WMDB.Forger/js/amcharts/images/';
+			var chartCursor = {
+				"cursorPosition": "mouse",
+				"pan": true,
+				"valueLineEnabled":true,
+				"valueLineBalloonEnabled":true
+			};
 			chart2 = AmCharts.makeChart(divId, {
 				"dataProvider": chartData.chartData,
 				"guides": chartData.guides,
@@ -11753,6 +11777,32 @@ if (typeof jQuery === 'undefined') {
 
 	function drawBarHorizontalChart(docType, view, divId, charttitle) {
 		getData(docType, view, function(chartData) {
+			var legend = {
+				"horizontalGap": 5,
+				"maxColumns": 3,
+				"position": "absolute",
+				"align": "center",
+				"top": 20,
+				"left": 0,
+				"backgroundAlpha": 0.5,
+				"useGraphSettings": true,
+				"markerSize": 10,
+				"markerBorderThickness": 10,
+				"marginTop": 0
+			};
+			var settings = {
+				marginTop: 40,
+				marginLeft: 20,
+				marginBottom: 20,
+				marginRight: 20
+			};
+			var imagePath = '/_Resources/Static/Packages/WMDB.Forger/js/amcharts/images/';
+			var chartCursor = {
+				"cursorPosition": "mouse",
+				"pan": true,
+				"valueLineEnabled":true,
+				"valueLineBalloonEnabled":true
+			};
 			var graphs = [];
 			$.each(chartData.lookup, function(index, data) {
 				var singleBar = {
@@ -11767,7 +11817,7 @@ if (typeof jQuery === 'undefined') {
 				};
 				graphs.push(singleBar);
 			});
-			var chart = AmCharts.makeChart(divId, {
+			return AmCharts.makeChart(divId, {
 				"type": "serial",
 				"theme": "none",
 				"autoMargins": true,
@@ -11807,6 +11857,32 @@ if (typeof jQuery === 'undefined') {
 
 	function drawLineChart(docType, view, divId, charttitle) {
 		getData(docType, view, function(chartData) {
+			var legend = {
+				"horizontalGap": 5,
+				"maxColumns": 3,
+				"position": "absolute",
+				"align": "center",
+				"top": 20,
+				"left": 0,
+				"backgroundAlpha": 0.5,
+				"useGraphSettings": true,
+				"markerSize": 10,
+				"markerBorderThickness": 10,
+				"marginTop": 0
+			};
+			var settings = {
+				marginTop: 40,
+				marginLeft: 20,
+				marginBottom: 20,
+				marginRight: 20
+			};
+			var imagePath = '/_Resources/Static/Packages/WMDB.Forger/js/amcharts/images/';
+			var chartCursor = {
+				"cursorPosition": "mouse",
+				"pan": true,
+				"valueLineEnabled":true,
+				"valueLineBalloonEnabled":true
+			};
 			var graphs = [];
 			$.each(chartData.lines, function(index, data) {
 				var singleLine = {
@@ -11898,7 +11974,7 @@ if (typeof jQuery === 'undefined') {
 
 	function drawPieChart(docType, view, divId, charttitle) {
 		getData(docType, view, function(chartData) {
-			var chart = AmCharts.makeChart(divId, {
+			return AmCharts.makeChart(divId, {
 				"type": "pie",
 				"theme": "none",
 				"marginLeft": 0,

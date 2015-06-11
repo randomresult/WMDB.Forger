@@ -262,6 +262,7 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 		$out = [];
 		$fullCount = array_sum($data);
 		$percentage = $fullCount / 100;
+		$percentage = $percentage ?: 1;
 		foreach ($data as $key => $count) {
 			$out['sections'][strtolower($key)] = ($count / $percentage);
 		}

@@ -1,6 +1,5 @@
-@import "../../Libraries/bower_components/bootstrap/less/variables.less";
 @import "variables";
-@import "../../Libraries/bower_components/bootstrap/less/bootstrap";
+@import "bootstrap";
 
 body {
   padding-top: 70px;
@@ -26,6 +25,7 @@ table tr td table {
 }
 
 .boardcolumn {
+
   h3 {
 	padding: 7px 10px;
 	font-size: 17px;
@@ -33,15 +33,14 @@ table tr td table {
 	border: 1px solid #ddd;
 	.box-shadow(0 1px 1px rgba(0,0,0,.05));
 
-	.glyphicon {
-	  background-color: rgba(255, 255, 255, 0.5);
-	  border-radius: 26px;
-	  padding: 5px;
-	  border: 1px solid #ddd;
-	  font-size: 15px;
-	  width: 26px;
-	  height: 26px;
-	}
+    .fa-stack {
+      & > .fa-circle {
+        color: rgba(255, 255, 255, 0.5);
+      }
+      & > .fa-inverse {
+        color: rgba(0, 0, 0, 0.8);
+      }
+    }
   }
 
   .panel {
@@ -56,14 +55,15 @@ table tr td table {
 	  color: white;
 	}
 
-	&-heading .tracker-icon .glyphicon {
-	  background-color: rgba(255, 255, 255, 0.5);
-	  border-radius: 32px;
-	  padding: 5px;
-	  border: 1px solid #ddd;
-	  font-size: 20px;
-	  width: 32px;
-	  height: 32px;
+	&-heading .tracker-icon {
+      .fa-stack {
+        & > .fa-circle {
+          color: rgba(255, 255, 255, 0.5);
+        }
+        & > .fa-inverse {
+          color: rgba(0, 0, 0, 0.8);
+        }
+      }
 	}
   }
 }

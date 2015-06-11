@@ -5,9 +5,9 @@
 			<div class="col-md-12">
 				<span class="tracker-icon pull-left">
 					<f:switch expression="{card.tracker.name}">
-						<f:case value="Bug"><i class="glyphicon glyphicon-fire" title="Bug"></i></f:case>
-						<f:case value="Feature"><i class="glyphicon glyphicon glyphicon-heart-empty" title="Feature"></i></f:case>
-						<f:case value="Task"><i class="glyphicon glyphicon-list-alt" title="Task"></i></f:case>
+						<f:case value="Bug"><span class="fa-stack" title="Bug"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-bug fa-stack-1x fa-inverse"></i></span></f:case>
+						<f:case value="Feature"><span class="fa-stack" title="Feature"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-heart fa-stack-1x fa-inverse"></i></span></f:case>
+						<f:case value="Task"><span class="fa-stack" title="Task"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-task fa-stack-1x fa-inverse"></i></span></f:case>
 						<f:defaultCase><span class="label label-default">{card.tracker.name}</span> </f:defaultCase>
 					</f:switch>
 				</span>
@@ -19,14 +19,14 @@
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-sm-12">
-					<span class="glyphicon glyphicon-bullhorn" title="Added by"></span> {card.author.name} <span class="pull-right"> <time is="time-ago" datetime="{card.created_on->f:format.date(format: 'c')}">{card.created_on}</time></span>
+                    <i class="fa fa-bullhorn fa-fw" title="Added by"></i> {card.author.name} <span class="pull-right"> <time is="time-ago" datetime="{card.created_on->f:format.date(format: 'c')}">{card.created_on}</time></span>
 				</div>
 				<div class="col-sm-12">
-					<span class="glyphicon glyphicon-comment" title="Last Updated by"></span> {card.journals.0.user.name} <span class="pull-right"><time is="time-ago" datetime="{card.updated_on->f:format.date(format: 'c')}">{card.updated_on}</time></span>
+                    <i class="fa fa-comment fa-fw" title="Last Updated by"></i> {card.journals.0.user.name} <span class="pull-right"><time is="time-ago" datetime="{card.updated_on->f:format.date(format: 'c')}">{card.updated_on}</time></span>
 				</div>
 				<f:if condition="{card.assigned_to.name}">
 					<div class="col-sm-12">
-						<span class="glyphicon glyphicon-arrow-right" title="Assigned to"></span> {card.assigned_to.name}</span>
+                        <i class="fa fa-hand-o-right fa-fw" title="Assigned to"></i> {card.assigned_to.name}</span>
 					</div>
 				</f:if>
 			</div>

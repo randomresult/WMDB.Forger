@@ -6,85 +6,91 @@
 <f:section name="Content">
 	<div class="row">
 		<div class="col-xs-12">
-			<f:if condition="{board}">
-				<f:then></f:then>
-				<f:else>
-					<div class="alert alert-info" role="alert">
-						<strong>No Sprint!</strong> Please select one sprint!
-					</div>
-				</f:else>
-			</f:if>
 			<div class="btn-group">
 				<f:for each="{boardMenu}" as="boardNav">
 					<f:link.action class="btn btn-default {f:if(condition: boardNav.active, then: 'active')}" controller="Sprint" action="Index" arguments="{boardId:boardNav.id}">{boardNav.name}
 					</f:link.action>
 				</f:for>
 			</div>
-			<div class="btn-group pull-right">
-				<button type="button" data-toggle="modal" data-target="#boardconfig" class="btn btn-info"><i class="fa fa-wrench"></i> Debug Board Config</button>
-			</div>
+            <f:if condition="{board}">
+                <div class="btn-group pull-right">
+                    <button type="button" data-toggle="modal" data-target="#boardconfig" class="btn btn-info"><i class="fa fa-wrench"></i> Debug Board Config</button>
+                </div>
+            </f:if>
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-xs-12">
-			<h3>Sprint Tasks ({progress.total})</h3>
-			<f:if condition="{board}">
-				<div class="progress">
-					<f:for each="{progress.sections}" as="barWidth" key="barName">
-						<div class="progress-bar progress-bar-{barName}" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {barWidth}%;">
-							{barName}
-						</div>
-					</f:for>
-				</div>
-			</f:if>
-		</div>
-	</div>
-	<div class="row grid-10">
-		<f:if condition="{board}">
-			<f:for each="{board}" as="cards" key="metacolname">
-				<div class="col-md-2 col-sm-2 boardcolumn">
-					<f:switch expression="{metacolname}">
-						<f:case value="Open">
-							<h3 class="status_new"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-info fa-stack-1x fa-inverse"></i></span> {metacolname} (<f:count subject="{cards}"/>)</h3>
-						</f:case>
-						<f:case value="WIP">
-							<h3 class="status_wip"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-wrench fa-stack-1x fa-inverse"></i></span> {metacolname} (<f:count subject="{cards}"/>)</h3>
-						</f:case>
-						<f:case value="Review">
-							<h3 class="status_review"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-eye fa-stack-1x fa-inverse"></i></span></i> {metacolname} (<f:count subject="{cards}"/>)</h3>
-						</f:case>
-						<f:case value="Done">
-							<h3 class="status_done"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-check fa-stack-1x fa-inverse"></i></span> {metacolname} (<f:count subject="{cards}"/>)</h3>
-						</f:case>
-						<f:case value="BLOCKED">
-							<h3 class="status_feedback"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-ban fa-stack-1x fa-inverse"></i></span> {metacolname} (<f:count subject="{cards}"/>)</h3>
-						</f:case>
-					</f:switch>
-					<f:for each="{cards}" as="card">
-						<f:if condition="{metacolname} == 'Review'">
-							<f:then>
-								<f:render partial="ReviewCard" arguments="{card: card, coltype: metacolname}"/>
-							</f:then>
-							<f:else>
-								<f:render partial="BoardCard" arguments="{card: card, coltype: metacolname}"/>
-							</f:else>
-						</f:if>
-					</f:for>
-				</div>
-			</f:for>
-		</f:if>
-	</div>
-	<div id="boardconfig" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">Board Query</h4>
-				</div>
-				<div class="modal-body">
-					<pre>{boardConfig}</pre>
-				</div>
-			</div>
-		</div>
-	</div>
+    <f:if condition="{board}">
+        <f:then></f:then>
+        <f:else>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="alert alert-info" role="alert">
+                        <strong>No Sprint!</strong> Please select one sprint!
+                    </div>
+                </div>
+            </div>
+        </f:else>
+    </f:if>
+    <f:if condition="{board}">
+        <div class="row">
+            <div class="col-xs-12">
+                <h3>Sprint Tasks ({progress.total})</h3>
+                <f:if condition="{board}">
+                    <div class="progress">
+                        <f:for each="{progress.sections}" as="barWidth" key="barName">
+                            <div class="progress-bar progress-bar-{barName}" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {barWidth}%;">
+                                {barName}
+                            </div>
+                        </f:for>
+                    </div>
+                </f:if>
+            </div>
+        </div>
+        <div class="row grid-10">
+            <f:for each="{board}" as="cards" key="metacolname">
+                <div class="col-md-2 col-sm-2 boardcolumn">
+                    <f:switch expression="{metacolname}">
+                        <f:case value="Open">
+                            <h3 class="status_new"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-info fa-stack-1x fa-inverse"></i></span> {metacolname} (<f:count subject="{cards}"/>)</h3>
+                        </f:case>
+                        <f:case value="WIP">
+                            <h3 class="status_wip"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-wrench fa-stack-1x fa-inverse"></i></span> {metacolname} (<f:count subject="{cards}"/>)</h3>
+                        </f:case>
+                        <f:case value="Review">
+                            <h3 class="status_review"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-eye fa-stack-1x fa-inverse"></i></span></i> {metacolname} (<f:count subject="{cards}"/>)</h3>
+                        </f:case>
+                        <f:case value="Done">
+                            <h3 class="status_done"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-check fa-stack-1x fa-inverse"></i></span> {metacolname} (<f:count subject="{cards}"/>)</h3>
+                        </f:case>
+                        <f:case value="BLOCKED">
+                            <h3 class="status_feedback"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-ban fa-stack-1x fa-inverse"></i></span> {metacolname} (<f:count subject="{cards}"/>)</h3>
+                        </f:case>
+                    </f:switch>
+                    <f:for each="{cards}" as="card">
+                        <f:if condition="{metacolname} == 'Review'">
+                            <f:then>
+                                <f:render partial="ReviewCard" arguments="{card: card, coltype: metacolname}"/>
+                            </f:then>
+                            <f:else>
+                                <f:render partial="BoardCard" arguments="{card: card, coltype: metacolname}"/>
+                            </f:else>
+                        </f:if>
+                    </f:for>
+                </div>
+            </f:for>
+        </div>
+        <div id="boardconfig" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Board Query</h4>
+                    </div>
+                    <div class="modal-body">
+                        <pre>{boardConfig}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </f:if>
 </f:section>

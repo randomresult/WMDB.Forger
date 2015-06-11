@@ -24,6 +24,11 @@
 				<div class="col-sm-12">
 					<span class="glyphicon glyphicon-comment" title="Last Updated by"></span> {card.journals.0.user.name} <span class="pull-right"><time is="time-ago" datetime="{card.updated_on->f:format.date(format: 'c')}">{card.updated_on}</time></span>
 				</div>
+				<f:if condition="{card.assigned_to.name}">
+					<div class="col-sm-12">
+						<span class="glyphicon glyphicon-arrow-right" title="Assigned to"></span> {card.assigned_to.name}</span>
+					</div>
+				</f:if>
 			</div>
 			<div class="row">
 				<div class="col-md-6"><p>Status:

@@ -45,19 +45,19 @@
 				<div class="col-md-2 col-sm-2 boardcolumn">
 					<f:switch expression="{metacolname}">
 						<f:case value="Open">
-							<h3 class="status_new"><i class="glyphicon glyphicon-info-sign" title="Open"></i> {metacolname} (<f:count subject="{cards}"/>)</h3>
+							<h3 class="status_new"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-info fa-stack-1x fa-inverse"></i></span> {metacolname} (<f:count subject="{cards}"/>)</h3>
 						</f:case>
 						<f:case value="WIP">
-							<h3 class="status_wip"><i class="glyphicon glyphicon-wrench" title="WIP"></i> {metacolname} (<f:count subject="{cards}"/>)</h3>
+							<h3 class="status_wip"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-wrench fa-stack-1x fa-inverse"></i></span> {metacolname} (<f:count subject="{cards}"/>)</h3>
 						</f:case>
 						<f:case value="Review">
-							<h3 class="status_review"><i class="glyphicon glyphicon-eye-open" title="Review"></i> {metacolname} (<f:count subject="{cards}"/>)</h3>
+							<h3 class="status_review"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-eye fa-stack-1x fa-inverse"></i></span></i> {metacolname} (<f:count subject="{cards}"/>)</h3>
 						</f:case>
 						<f:case value="Done">
-							<h3 class="status_done"><i class="glyphicon glyphicon-ok-sign" title="Done"></i> {metacolname} (<f:count subject="{cards}"/>)</h3>
+							<h3 class="status_done"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-check fa-stack-1x fa-inverse"></i></span> {metacolname} (<f:count subject="{cards}"/>)</h3>
 						</f:case>
 						<f:case value="BLOCKED">
-							<h3 class="status_feedback"><i class="glyphicon glyphicon-ban-circle" title="BLOCKED"></i> {metacolname} (<f:count subject="{cards}"/>)</h3>
+							<h3 class="status_feedback"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-ban fa-stack-1x fa-inverse"></i></span> {metacolname} (<f:count subject="{cards}"/>)</h3>
 						</f:case>
 					</f:switch>
 					<f:for each="{cards}" as="card">

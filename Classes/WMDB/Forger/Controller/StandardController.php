@@ -176,7 +176,7 @@ class StandardController extends ActionController {
 	 * @param string $searchClosed
 	 */
 	private function findByQuery($query, $searchClosed) {
-		$query = addcslashes($query, '/()');
+		$query = $this->escape($query);
 		$search = new ElasticSearch();
 		$search->setSearchTerms($query);
 		$results = $search->doSearch($searchClosed);
@@ -188,6 +188,20 @@ class StandardController extends ActionController {
 
 	public function calendarAction(){
 		
+	}
+
+	/**
+	 * Escape a value for special query characters such as ':', '(', ')', '*', '?', etc.
+	 * NOTE: inside a phrase fewer characters need escaped, use {@link Apache_Solr_Service::escapePhrase()} instead
+	 *
+	 * @param string $value
+	 * @return string
+	 */
+	public function escape($value) {
+		//list taken from http://lucene.apache.org/java/docs/queryparsersyntax.html#Escaping%20Special%20Characters
+		$pattern = '/(\+|-|&&|\|\||!|\(|\)|\{|}|\[|]|\^|"|~|\*|\?|:|\\\)/';
+		$replace = '\\\$1';
+		return preg_replace($pattern, $replace, $value);
 	}
 
 }

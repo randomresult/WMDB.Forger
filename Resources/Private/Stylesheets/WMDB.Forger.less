@@ -27,7 +27,7 @@ table tr td table {
 .boardcolumn {
 
   h3 {
-	padding: 7px 10px;
+	padding: 2px 4px;
 	font-size: 17px;
 	border-radius: 2px;
 	border: 1px solid #ddd;
@@ -39,6 +39,7 @@ table tr td table {
       }
       & > .fa-inverse {
         color: rgba(0, 0, 0, 0.8);
+        text-shadow: 1px 1px 1px #fff;
       }
     }
   }
@@ -55,16 +56,26 @@ table tr td table {
 	  color: white;
 	}
 
-	&-heading .tracker-icon {
-      .fa-stack {
-        & > .fa-circle {
-          color: rgba(255, 255, 255, 0.5);
-        }
-        & > .fa-inverse {
-          color: rgba(0, 0, 0, 0.8);
+	&-heading {
+      padding: 5px;
+
+      .tracker-icon {
+        margin-right: 5px;
+
+        .fa-stack {
+          & > .fa-circle {
+            color: rgba(255, 255, 255, 0.5);
+          }
+          & > .fa-inverse {
+            color: rgba(0, 0, 0, 0.8);
+          }
         }
       }
-	}
+    }
+
+    &-body {
+      padding: 5px;
+    }
   }
 }
 
@@ -92,33 +103,33 @@ div.expandable {
   margin-bottom: 9px;
 }
 .progress-bar-open, .status_new {
-  background-color: #fb7e7e;
-  color: black;
+  background-color: #E70000;
+  color: lighten(#E70000, 50%);
 }
 .status_accepted {
   background-color: #fbee99;
-  color: black;
+  color: #000000;
 }
 .progress-bar-review, .status_review {
-  background-color: #aeff91;
-  color: black;
+  background-color: #33A300;
+  color: #DEFFCF;
 }
 .status_onhold {
   background-color: #D1F412;
-  color: black;
+  color: lighten(#D1F412, 50%);
 }
 .progress-bar-blocked, .status_feedback {
-  background-color: #FBC3C3;
-  color: black;
+  background-color: #FFAE00;
+  color: lighten(#FFAE00, 50%);
 }
 .progress-bar-wip, .status_wip {
-  background-color: #A9E2FF;
-  color: black;
+  background-color: #008AD0;
+  color: lighten(#008AD0, 50%);
 }
 
 .progress-bar-done, .status_done {
-  background-color: #ddd;
-  color: black;
+  background-color: #696969;
+  color: lighten(#696969, 50%);
 }
 
 .norightpadding {

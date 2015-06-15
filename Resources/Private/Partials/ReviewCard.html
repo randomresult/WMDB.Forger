@@ -6,9 +6,7 @@
 </f:switch>
 	<div class="panel-heading">
 		<f:if condition="{0: card.mergeable} == {0: 'no'}">
-			<div class="col-md-6">
-				<span class="label label-danger">CAN'T MERGE</span>
-			</div>
+			<span class="label label-danger">CAN'T MERGE</span>
 		</f:if>
 		<a href="https://review.typo3.org/#/c/{card.id}/" target="_blank">{card.subject}</a>
 	</div>

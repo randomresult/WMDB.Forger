@@ -35,6 +35,10 @@
         <div class="row">
             <div class="col-xs-12">
                 <h3>Sprint Tasks ({progress.total})</h3>
+            </div>
+        </div>
+        <div class="row statusbar">
+            <div class="col-xs-12" style="padding-top: 10px;">
                 <f:if condition="{board}">
                     <div class="progress">
                         <f:for each="{progress.sections}" as="barWidth" key="barName">
@@ -46,26 +50,11 @@
                 </f:if>
             </div>
         </div>
-        <div class="row grid-10">
+        <div class="row grid-10 board">
             <f:for each="{board}" as="cards" key="metacolname">
                 <div class="col-md-2 col-sm-2 boardcolumn">
-                    <f:switch expression="{metacolname}">
-                        <f:case value="Open">
-                            <h3 class="status_new"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-info fa-stack-1x fa-inverse"></i></span> {metacolname} (<f:count subject="{cards}"/>)</h3>
-                        </f:case>
-                        <f:case value="WIP">
-                            <h3 class="status_wip"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-wrench fa-stack-1x fa-inverse"></i></span> {metacolname} (<f:count subject="{cards}"/>)</h3>
-                        </f:case>
-                        <f:case value="Review">
-                            <h3 class="status_review"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-eye fa-stack-1x fa-inverse"></i></span></i> {metacolname} (<f:count subject="{cards}"/>)</h3>
-                        </f:case>
-                        <f:case value="Done">
-                            <h3 class="status_done"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-check fa-stack-1x fa-inverse"></i></span> {metacolname} (<f:count subject="{cards}"/>)</h3>
-                        </f:case>
-                        <f:case value="BLOCKED">
-                            <h3 class="status_feedback"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-ban fa-stack-1x fa-inverse"></i></span> {metacolname} (<f:count subject="{cards}"/>)</h3>
-                        </f:case>
-                    </f:switch>
+                    <h3><strong><f:count subject="{cards}"/></strong> {metacolname}</h3>
+                    <div class="cards">
                     <f:for each="{cards}" as="card">
                         <f:if condition="{metacolname} == 'Review'">
                             <f:then>
@@ -76,6 +65,7 @@
                             </f:else>
                         </f:if>
                     </f:for>
+                    </div>
                 </div>
             </f:for>
         </div>

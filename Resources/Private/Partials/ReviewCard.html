@@ -1,56 +1,58 @@
 {namespace wmdb=WMDB\Forger\ViewHelpers}
-<f:switch expression="{card.negative_reviews}">
-	<f:case value="1"><div class="panel panel-warning"></f:case>
-	<f:case value="2"><div class="panel panel-danger"></f:case>
-	<f:defaultCase>   <div class="panel panel-default"></f:defaultCase>
-</f:switch>
-	<div class="panel-heading">
-		<f:if condition="{0: card.mergeable} == {0: 'no'}">
-			<span class="label label-danger">CAN'T MERGE</span>
-		</f:if>
-		<a href="https://review.typo3.org/#/c/{card.id}/" target="_blank">{card.subject}</a>
-	</div>
-	<div class="panel-body">
-		<div class="row">
-			<div class="col-sm-12">
+<div class="card card-status-{card.negative_reviews}">
+    <div class="card-heading">
+        <div class="media">
+            <div class="media-body">
+                <a href="https://review.typo3.org/#/c/{card.id}/" target="_blank">{card.subject}</a>
+            </div>
+        </div>
+    </div>
+    <f:if condition="{0: card.mergeable} == {0: 'no'}">
+        <div class="card-status">
+            <span class="label label-danger">CAN'T MERGE</span>
+        </div>
+    </f:if>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-12">
                 <i class="fa fa-user"></i> {card.owner} <span class="pull-right"><time is="time-ago" datetime="{card.updated_on->f:format.date(format: 'c')}">{issue.hit._source.updated_on}</time></span>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-6">Files: <span class="label label-default pull-right">{card.affected_files}</span></div>
-			<div class="col-md-6">Patches: <span class="label label-default pull-right">{card.patchsets}</span></div>
-		</div>
-		<div class="row">
-			<div class="col-md-6">Review:
-				<f:if condition="{card.positive_reviews}">
-					<span class="label label-success pull-right"><i class="fa fa-check"></i></span>
-				</f:if>
-				<f:if condition="{card.negative_reviews}">
-					<f:if condition="{0: card.negative_reviews} == {0: '2'}">
-						<f:then>
-							<span class="label label-danger pull-right"><i class="fa fa-times"></i></span>
-						</f:then>
-						<f:else>
-							<span class="label label-danger pull-right"><i class="fa fa-minus"></i></span>
-						</f:else>
-					</f:if>
-				</f:if>
-			</div>
-			<div class="col-md-6">Test:
-				<f:if condition="{card.positive_verifications}">
-					<span class="label label-success pull-right"><i class="fa fa-check"></i></span>
-				</f:if>
-				<f:if condition="{card.negative_verifications}">
-					<f:if condition="{0: card.negative_reviews} == {0: '2'}">
-						<f:then>
-							<span class="label label-danger pull-right"><i class="fa fa-times"></i></span>
-						</f:then>
-						<f:else>
-							<span class="label label-danger pull-right"><i class="fa fa-minus"></i></span>
-						</f:else>
-					</f:if>
-				</f:if>
-			</div>
-		</div>
-	</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">Files: <span class="label label-default pull-right">{card.affected_files}</span></div>
+            <div class="col-md-6">Patches: <span class="label label-default pull-right">{card.patchsets}</span></div>
+        </div>
+        <div class="row status">
+            <div class="col-md-6">Review:<br/>
+                <f:if condition="{card.positive_reviews}">
+                    <span class="label label-success pull-right"><i class="fa fa-check fa-fw"></i></span>
+                </f:if>
+                <f:if condition="{card.negative_reviews}">
+                    <f:if condition="{0: card.negative_reviews} == {0: '2'}">
+                        <f:then>
+                            <span class="label label-danger pull-right"><i class="fa fa-times fa-fw"></i></span>
+                        </f:then>
+                        <f:else>
+                            <span class="label label-danger pull-right"><i class="fa fa-minus fa-fw"></i></span>
+                        </f:else>
+                    </f:if>
+                </f:if>
+            </div>
+            <div class="col-md-6">Test:<br/>
+                <f:if condition="{card.positive_verifications}">
+                    <span class="label label-success pull-right"><i class="fa fa-check fa-fw"></i></span>
+                </f:if>
+                <f:if condition="{card.negative_verifications}">
+                    <f:if condition="{0: card.negative_reviews} == {0: '2'}">
+                        <f:then>
+                            <span class="label label-danger pull-right"><i class="fa fa-times fa-fw"></i></span>
+                        </f:then>
+                        <f:else>
+                            <span class="label label-danger pull-right"><i class="fa fa-minus fa-fw"></i></span>
+                        </f:else>
+                    </f:if>
+                </f:if>
+            </div>
+        </div>
+    </div>
 </div>

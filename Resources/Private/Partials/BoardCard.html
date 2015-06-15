@@ -1,66 +1,68 @@
 {namespace wmdb=WMDB\Forger\ViewHelpers}
-<div class="panel panel-default">
-	<div class="panel-heading">
+<div class="card">
+    <div class="card-heading">
         <div class="media">
             <div class="media-left">
-                <span class="tracker-icon pull-left">
+                <span class="tracker-icon">
                     <f:switch expression="{card.tracker.name}">
-                        <f:case value="Bug"><span class="fa-stack" title="Bug"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-bug fa-stack-1x fa-inverse"></i></span></f:case>
-                        <f:case value="Feature"><span class="fa-stack" title="Feature"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-heart fa-stack-1x fa-inverse"></i></span></f:case>
-                        <f:case value="Task"><span class="fa-stack" title="Task"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-tasks fa-stack-1x fa-inverse"></i></span></f:case>
+                        <f:case value="Bug"><span class="fa-stack" title="Bug"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-bug fa-stack-1x fa-inverse"></i></span></f:case>
+                        <f:case value="Feature"><span class="fa-stack" title="Feature"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-heart fa-stack-1x fa-inverse"></i></span></f:case>
+                        <f:case value="Task"><span class="fa-stack" title="Task"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-tasks fa-stack-1x fa-inverse"></i></span></f:case>
+                        <f:case value="Story"><span class="fa-stack" title="Story"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-film fa-stack-1x fa-inverse"></i></span></f:case>
+                        <f:case value="Epic"><span class="fa-stack" title="Epic"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-book fa-stack-1x fa-inverse"></i></span></f:case>
                         <f:defaultCase><span class="label label-default">{card.tracker.name}</span> </f:defaultCase>
                     </f:switch>
                 </span>
             </div>
             <div class="media-body">
-                <a href="https://forge.typo3.org/issues/{card.id}" target="_blank">#{card.id} {card.subject}</a>
+                <a href="https://forge.typo3.org/issues/{card.id}" target="_blank" title="#{card.id} {card.subject}">#{card.id} {card.subject}</a>
             </div>
         </div>
-	</div>
-	<f:if condition="{0: coltype} != {0: 'Done'}">
-		<div class="panel-body">
-			<div class="row">
-				<div class="col-sm-12">
-                    <i class="fa fa-bullhorn fa-fw" title="Added by"></i> {card.author.name} <span class="pull-right"> <time is="time-ago" datetime="{card.created_on->f:format.date(format: 'c')}">{card.created_on}</time></span>
-				</div>
-				<div class="col-sm-12">
-                    <i class="fa fa-comment fa-fw" title="Last Updated by"></i> {card.journals.0.user.name} <span class="pull-right"><time is="time-ago" datetime="{card.updated_on->f:format.date(format: 'c')}">{card.updated_on}</time></span>
-				</div>
-				<f:if condition="{card.assigned_to.name}">
-					<div class="col-sm-12">
-                        <i class="fa fa-hand-o-right fa-fw" title="Assigned to"></i> {card.assigned_to.name}</span>
-					</div>
-				</f:if>
-			</div>
-			<div class="row">
-				<div class="col-md-6"><p>Status:
-					<f:switch expression="{card.status.name}">
-						<f:case value="New">           <span class="label status_new">{card.status.name}</span></f:case>
-						<f:case value="Accepted">      <span class="label status_accepted">{card.status.name}</span></f:case>
-						<f:case value="Under Review">  <span class="label status_review">{card.status.name}</span></f:case>
-						<f:case value="On Hold">       <span class="label status_onhold">{card.status.name}</span></f:case>
-						<f:case value="Needs Feedback"><span class="label status_feedback">{card.status.name}</span></f:case>
-						<f:case value="In Progress">   <span class="label status_wip">{card.status.name}</span></f:case>
-						<f:case value="Rejected">      <span class="label label-default">{card.status.name}</span></f:case>
-						<f:defaultCase>                <span class="label label-default">{card.status.name}</span> </f:defaultCase>
-					</f:switch>
-					</p>
-				</div>
-				<div class="col-md-6">
-					<f:for each="{card.custom_fields}" as="customfield">
-						<f:if condition="{customfield.name} == 'Complexity'">
-							<f:switch expression="{customfield.value}">
-								<f:case value="easy">      Complexity: <span class="label label-success">{customfield.value}</span></f:case>
-								<f:case value="no-brainer">Complexity: <span class="label labe-success">{customfield.value}</span></f:case>
-								<f:case value="medium">    Complexity: <span class="label status_accepted">{customfield.value}</span></f:case>
-								<f:case value="hard">      Complexity: <span class="label status_new">{customfield.value}</span></f:case>
-								<f:case value="nightmare"> Complexity: <span class="label label-danger">{customfield.value}</span></f:case>
-								<f:defaultCase></f:defaultCase>
-							</f:switch>
-						</f:if>
-					</f:for>
-				</div>
-			</div>
-		</div>
-	</f:if>
+    </div>
+    <f:if condition="{0: coltype} != {0: 'Done'}">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <i class="fa fa-bullhorn fa-fw" title="Added by"></i> {card.author.name} <span class="pull-right"> <time is="time-ago" datetime="{card.created_on->f:format.date(format: 'c')}">{card.created_on}</time></span>
+            </div>
+            <div class="col-sm-12">
+                <i class="fa fa-comment fa-fw" title="Last Updated by"></i> {card.journals.0.user.name} <span class="pull-right"><time is="time-ago" datetime="{card.updated_on->f:format.date(format: 'c')}">{card.updated_on}</time></span>
+            </div>
+            <f:if condition="{card.assigned_to.name}">
+                <div class="col-sm-12">
+                    <i class="fa fa-hand-o-right fa-fw" title="Assigned to"></i> {card.assigned_to.name}</span>
+                </div>
+            </f:if>
+        </div>
+        <div class="row">
+            <div class="col-md-6"><p>Status:<br/>
+                <f:switch expression="{card.status.name}">
+                    <f:case value="New">           <span class="label status_new">{card.status.name}</span></f:case>
+                    <f:case value="Accepted">      <span class="label status_accepted">{card.status.name}</span></f:case>
+                    <f:case value="Under Review">  <span class="label status_review">{card.status.name}</span></f:case>
+                    <f:case value="On Hold">       <span class="label status_onhold">{card.status.name}</span></f:case>
+                    <f:case value="Needs Feedback"><span class="label status_feedback">{card.status.name}</span></f:case>
+                    <f:case value="In Progress">   <span class="label status_wip">{card.status.name}</span></f:case>
+                    <f:case value="Rejected">      <span class="label label-default">{card.status.name}</span></f:case>
+                    <f:defaultCase>                <span class="label label-default">{card.status.name}</span> </f:defaultCase>
+                </f:switch>
+            </p>
+            </div>
+            <div class="col-md-6">
+                <f:for each="{card.custom_fields}" as="customfield">
+                    <f:if condition="{customfield.name} == 'Complexity'">
+                        <f:switch expression="{customfield.value}">
+                            <f:case value="easy">      Complexity:<br/> <span class="label label-success">{customfield.value}</span></f:case>
+                            <f:case value="no-brainer">Complexity:<br/> <span class="label labe-success">{customfield.value}</span></f:case>
+                            <f:case value="medium">    Complexity:<br/> <span class="label status_accepted">{customfield.value}</span></f:case>
+                            <f:case value="hard">      Complexity:<br/> <span class="label status_new">{customfield.value}</span></f:case>
+                            <f:case value="nightmare"> Complexity:<br/> <span class="label label-danger">{customfield.value}</span></f:case>
+                            <f:defaultCase></f:defaultCase>
+                        </f:switch>
+                    </f:if>
+                </f:for>
+            </div>
+        </div>
+    </div>
+    </f:if>
 </div>

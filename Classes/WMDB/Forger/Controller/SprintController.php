@@ -264,7 +264,13 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 		$percentage = $fullCount / 100;
 		$percentage = $percentage ?: 1;
 		foreach ($data as $key => $count) {
-			$out['sections'][strtolower($key)] = ($count / $percentage);
+			$out['sections'][strtolower($key)]['classes'] = strtolower($key);
+			if($key === 'WIP') {
+				$out['sections'][strtolower($key)]['classes'] = 'wip active progress-bar-striped';
+			}
+
+			$out['sections'][strtolower($key)]['value'] = ($count / $percentage);
+			$out['sections'][strtolower($key)]['label'] = $key;
 		}
 		$out['total'] = $fullCount;
 		return $out;

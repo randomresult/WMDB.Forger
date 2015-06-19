@@ -45,15 +45,15 @@ WMDB:
               - term: {fixed_version.name: 7.4 (Backend)}
             must_not:
               - term: {subject: wip}
-#      Berlin_2015:
-#        Name: 7.1 Sprint Berlin 2015
-#        Query:
-#          bool:
-#            must:
-#              - term: {focus.name: On Location Sprint}
-#            must_not:
-#              - term: {subject: wip}
-#              - term: {category.name: File Abstraction Layer (FAL)}
+      RS_74:
+        Name: 7.4 Board
+        Query:
+          bool:
+            must:
+              - term: {focus.name: Remote Sprint}
+              - term: {fixed_version.name: 7.4 (Backend)}
+            must_not:
+              - term: {subject: wip}
 #      SP_71:
 #        Name: 7.1 Stabilization Sprint
 #        Query:

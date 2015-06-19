@@ -34,7 +34,7 @@
     <f:if condition="{board}">
         <div class="row">
             <div class="col-xs-12">
-                <h3>Sprint Tasks ({progress.total})</h3>
+                <h3>{boardInfo.Name} Board ({progress.total})</h3>
             </div>
         </div>
         <div class="row statusbar">
@@ -58,7 +58,7 @@
         </div>
         <div class="row grid-10 board">
             <f:for each="{board}" as="cards" key="metacolname">
-                <div class="col-md-2 col-sm-2 boardcolumn">
+                <div class="col-md-2 col-sm-2 boardcolumn" id="column-{metacolname}">
 	                <f:switch expression="{metacolname}">
 		                <f:case value="Open">
 			                <h3 class="status_new"><strong><f:count subject="{cards}"/></strong> {metacolname}</h3>

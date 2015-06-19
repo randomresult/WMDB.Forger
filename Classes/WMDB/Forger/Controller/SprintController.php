@@ -101,6 +101,7 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 			}
 			$this->view->assign('progress', $this->calculateProgressBars($ticketCount));
 			$this->view->assign('board', $boardData);
+			$this->view->assign('boardInfo', $this->sprintConfig['WMDB']['Forger']['Boards'][$boardId]);
 		}
 		$this->view->assignMultiple([
 			'boardMenu' => $this->makeBoardMenu($boardId),

@@ -1,41 +1,20 @@
 WMDB:
   Forger:
     Boards:
-#      RS_72:
-#        Name: 7.2 Remote Sprint
-#        Query:
-#          bool:
-#            must:
-#              - term: {focus.name: Remote Sprint}
-#              - term: {fixed_version.name: 7.2 (Frontend)}
-#      OLS_72:
-#        Name: 7.2 UXW Sprint
-#        Query:
-#          bool:
-#            must:
-#              - term: {focus.name: On Location Sprint}
-#              - term: {fixed_version.name: 7.2 (Frontend)}
-      SS_6213:
-        Name: 6.2.13 Stabilisation
+      SS_6214:
+        Name: 6.2.14 Stabilisation
         Query:
           bool:
             must:
               - term: {focus.name: Stabilization Sprint}
-              - term: {fixed_version.name: 6.2.13}
-#      SS_72:
-#        Name: 7.2 Stabilisation
-#        Query:
-#          bool:
-#            must:
-#              - term: {focus.name: Stabilization Sprint}
-#              - term: {fixed_version.name: 7.2 (Frontend)}
-      SP_73:
-        Name: 7.3 Stabilisation
+              - term: {fixed_version.name: 6.2.14}
+      SP_74:
+        Name: 7.4 Stabilisation
         Query:
           bool:
             must:
               - term: {focus.name: Stabilization Sprint}
-              - term: {fixed_version.name: 7.3 (Packages)}
+              - term: {fixed_version.name: 7.4 (Backend)}
       ParisSprint:
         Name: Paris Sprint
         Query:
@@ -54,9 +33,3 @@ WMDB:
               - term: {fixed_version.name: 7.4 (Backend)}
             must_not:
               - term: {subject: wip}
-#      SP_71:
-#        Name: 7.1 Stabilization Sprint
-#        Query:
-#          bool:
-#            must:
-#              - term: {focus.name: Stabilization Sprint}

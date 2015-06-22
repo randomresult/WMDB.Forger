@@ -159,16 +159,23 @@ class StandardController extends ActionController {
 		$con->init();
 		$index = $con->getIndex();
 		$forger = $index->getType('issue');
-		$res = $forger->getDocument($issueId);
-		// Need to use an ugly hack
-		// funny noone found that one earlier
-//		\TYPO3\Flow\var_dump($res);
-		$this->view->assign('issue', [
-			'hit' => [
-				'_source' => $res->getData()
-			]
-		]);
-		return $res->getData();
+		try {
+			$res = $forger->getDocument($issueId);
+			// Need to use an ugly hack
+			// funny noone found that one earlier
+			// \TYPO3\Flow\var_dump($res);
+			$data = $res->getData();
+			$this->view->assign('issue', [
+				'hit' => [
+					'_source' => $data
+				]
+			]);
+		} catch (\Exception $e) {
+			$data = array(
+				'error' => 'Issue #' . $issueId . ' was not found.'
+			);
+		}
+		return $data;
 	}
 
 	/**

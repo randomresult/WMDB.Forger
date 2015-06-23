@@ -1,8 +1,24 @@
-# TYPO3 CMS FORGER
+TYPO3 CMS FORGER
 
 ## Setup Notes
 
+### Install
+
+Use `composer require wmdb/forger` and `composer update` to install the package.
+
+### Application startup:
+
+* Create an index in Elasticsearch called „forger“. This has to be done manually.
+* Call setup:elasticmapping to create a approriate mapping and document types in Elasticsearch
+* Call forgeimport:fullgerrit to import all reviews from gerrit (start with this, because it’s faster ;-))
+* Call forgeimport:full to import all issues from forge (takes about 1.5 hrs)
+* Add forgeimport:delta to CRON every 5 minutes
+* Add forgeimport:gerritdelta to CRON every minute
+
+## Functions
+
 The Flow App has the following commandControllers:
+
 <pre>
 forgeimport:test            Test command - imports Forge Issue #63618
 forgeimport:delta           Imports the last 50 issues from Redmine
@@ -15,11 +31,3 @@ setup:elasticmapping        Sets up the mapping for Elasticsearch
 gerrit:abandoned            Generates a list of abandoned reviews with open issues in Redmine Wiki Syntax
 </pre>
 
-## Application startup:
-
-* Create an index in Elasticsearch called „forger“. This has to be done manually.
-* Call setup:elasticmapping to create a approriate mapping and document types in Elasticsearch
-* Call forgeimport:fullgerrit to import all reviews from gerrit (start with this, because it’s faster ;-))
-* Call forgeimport:full to import all issues from forge (takes about 1.5 hrs)
-* Add forgeimport:delta to CRON every 5 minutes
-* Add forgeimport:gerritdelta to CRON every minute

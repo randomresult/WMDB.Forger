@@ -157,6 +157,10 @@ WMDB:
     Redmine:
       url: https://forge.typo3.org
       apiKey: REDMINE_API_KEY
+    Slack:
+      Url: void
+      #TeamUrl: https://typo3.slack.com
+      #token: SLACK_API_TOKEN
     Charts:
       Colors:
         Stabilization: '#dedede'

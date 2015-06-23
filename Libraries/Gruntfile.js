@@ -4,7 +4,7 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		paths: {
-			root    : "Resources/",
+			root    : "../Resources/",
 			css  : "<%= paths.root %>Private/Stylesheets/",
 			js    : "<%= paths.root %>Private/Javascripts/"
 		},

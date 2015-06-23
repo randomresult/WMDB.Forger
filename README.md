@@ -57,3 +57,16 @@ setup:elasticmapping        Sets up the mapping for Elasticsearch
 gerrit:abandoned            Generates a list of abandoned reviews with open issues in Redmine Wiki Syntax
 </pre>
 
+## Developing
+
+### Prerequisites
+
+* Switch to `Packages/Application/WMDB.Forger/Libraries/`
+* Call `npm install` to install grunt and bower - obviously, nodejs needs to be installed :)
+* Call `bower update` to fetch all frontend related dependencies
+* Call `grunt` once to make sure the taskrunner runs fine
+
+### Settings
+
+* Make sure to set the Flow Setting WMDB.Forger.Slack.Url to `Void`, otherwise you will flood the Slack channel with messages
+

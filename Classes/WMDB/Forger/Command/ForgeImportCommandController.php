@@ -67,7 +67,7 @@ class ForgeImportCommandController extends Cli\CommandController {
 	 */
 	public function testCommand() {
 		$this->startUp();
-		#$res = $this->redmineClient->api('issue')->show(63618, array('include' => 'journals'));
+		#$res = $this->redmineClient->api('issue')->show(63618, array('include' => array('journals')));
 		#$this->addDocumentToElastic($res['issue']);
 		$res = $this->getReviewBlock(1,1);
 		\TYPO3\Flow\var_dump($res);
@@ -152,7 +152,7 @@ class ForgeImportCommandController extends Cli\CommandController {
 	 * @param int $issueId
 	 */
 	private function getTicketAndJournal($issueId) {
-		$res = $this->redmineClient->api('issue')->show($issueId, array('include' => 'journals'));
+		$res = $this->redmineClient->api('issue')->show($issueId, array('include' => array('journals')));
 		if (is_array($res)) {
 			$this->addDocumentToElastic($res['issue']);
 		} else {

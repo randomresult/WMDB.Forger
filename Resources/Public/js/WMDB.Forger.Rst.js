@@ -5,7 +5,8 @@ $(document).ready(function () {
 		$generateButton = $('#generate'),
 		$modal = $('.modal'),
 		$activeChangeType = null,
-		$lastActiveTextarea = null;
+		$lastActiveTextarea = null,
+		$flashmessageContainer = $('.flashmessage-container');
 
 	$('[data-toggle="tooltip"]').tooltip();
 
@@ -72,8 +73,19 @@ $(document).ready(function () {
 				$icon.addClass('fa-spin');
 			},
 			success: function(issue) {
-				$titleField.val(issue.subject);
-				$('#description').val(issue.description);
+				if (typeof issue.error !== 'undefined') {
+					$flashmessageContainer.append(
+						$('<div/>', {class: 'alert alert-danger alert-dismissible fade in', role: 'alert'}).append(
+							$('<button/>', {type: 'button', class: 'close', 'data-dismiss': 'alert', 'aria-label': 'Close'}).append(
+								$('<span/>', {'aria-hidden': 'true'}).html('&times;')
+							),
+							$('<strong/>').text(issue.error)
+						).fadeIn()
+					);
+				} else {
+					$titleField.val(issue.subject);
+					$('#description').val(issue.description);
+				}
 			},
 			complete: function() {
 				$ticketField.removeAttr('disabled');

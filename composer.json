@@ -1,16 +1,39 @@
 {
-    "name": "wmdb/forger",
-    "type": "typo3-flow-package",
-    "description": "Forger Package for the TYPO3 Project",
-    "require": {
-        "typo3/flow": "*",
-        "kbsali/redmine-api": "*",
-        "ruflin/elastica": "*",
-        "netcarver/textile": "3.5.*"
+  "name": "wmdb/forger",
+  "type": "typo3-flow-package",
+  "description": "Forger Package for the TYPO3 Project",
+  "homepage": "https://forger.typo3.org",
+  "license": "GPL-2.0+",
+  "authors": [
+    {
+      "name": "Mathias Schreiber",
+      "email": "mathias@typo3.org",
+      "homepage": "http://www.wmdb.de",
+      "role": "Lead energy drink consumer"
     },
-    "autoload": {
-        "psr-0": {
-            "WMDB\\Forger": "Classes"
-        }
+    {
+      "name": "Frank Nägler",
+      "role": "Dave's boss"
+    },
+    {
+      "name": "Andreas Fernandez",
+      "email": "a.fernandez@scripting-base.de",
+      "homepage": "http://www.scripting-base.de",
+      "role": "Developer"
     }
+  ],
+  "support": {
+    "issues": "https://github.com/wmdbsystems/WMDB.Forger/issues"
+  },
+  "require": {
+    "typo3/flow": "*",
+    "kbsali/redmine-api": "*",
+    "ruflin/elastica": "*",
+    "netcarver/textile": "3.5.*"
+  },
+  "autoload": {
+    "psr-0": {
+      "WMDB\\Forger": "Classes"
+    }
+  }
 }

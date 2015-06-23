@@ -6,6 +6,32 @@ TYPO3 CMS FORGER
 
 Use `composer require wmdb/forger` and `composer update` to install the package.
 
+### Supply the necessary routes
+
+Project Routes.yaml
+<pre>
+-
+  name: 'Forger'
+  uriPattern: '<ForgerRoutes>'
+  defaults:
+    '@format': 'html'
+  subRoutes:
+    ForgerRoutes:
+      package: WMDB.Forger
+##
+# Flow subroutes
+#
+
+-
+  name: 'Flow'
+  uriPattern: '<FlowSubroutes>'
+  defaults:
+    '@format': 'html'
+  subRoutes:
+    FlowSubroutes:
+      package: TYPO3.Flow
+</pre>
+
 ### Application startup:
 
 * Create an index in Elasticsearch called „forger“. This has to be done manually.

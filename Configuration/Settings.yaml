@@ -180,3 +180,9 @@ WMDB:
           Release:
             start: '2015-04-27'
             end: '2015-04-28'
+TYPO3:
+  Flow:
+    object:
+      excludeClasses:
+        'ruflin.*': ['.*']
+        'kbsali.*': ['.*']

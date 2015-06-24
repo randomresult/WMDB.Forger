@@ -201,7 +201,8 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 			$returnValue['_redmine_issue_id'] = $ticket['id'];
 			return $returnValue;
 		}
-		return [];
+		$returnValue['_redmine_issue_id'] = $ticket['id'];
+		return $returnValue;
 	}
 
 	/**

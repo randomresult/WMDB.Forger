@@ -197,7 +197,9 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 			}
 			$reviewType = $this->connection->getIndex()->getType('review');
 			$item = $reviewType->getDocument($matches['reviewId']);
-			return $item->getData();
+			$returnValue = $item->getData();
+			$returnValue['_redmine_issue_id'] = $ticket['id'];
+			return $returnValue;
 		}
 		return [];
 	}

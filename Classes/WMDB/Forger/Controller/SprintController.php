@@ -93,8 +93,11 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	 * @throws Exception
 	 */
 	protected function prepareBoardData($boardId = '') {
+		$this->view->assignMultiple([
+			                            'boardMenu' => $this->makeBoardMenu($boardId),
+			                            'context' => $this->context]);
 		if(!isset($this->sprintConfig['WMDB']['Forger']['Boards'][$boardId]) && !is_numeric($boardId)) {
-			throw new \Exception('No board found with this config');
+			return [];
 		}
 		$query = '';
 		if (isset($this->sprintConfig['WMDB']['Forger']['Boards'][$boardId])) {
@@ -128,9 +131,7 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 		$this->view->assign('progress', $this->calculateProgressBars($ticketCount));
 		$this->view->assign('board', $boardData);
 		$this->view->assign('boardInfo', $boardInfo);
-		$this->view->assignMultiple([
-			'boardMenu' => $this->makeBoardMenu($boardId),
-			'context' => $this->context]);
+
 	}
 
 	public function adminAction() {

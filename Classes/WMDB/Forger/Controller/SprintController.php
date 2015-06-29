@@ -93,16 +93,41 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	 * @throws Exception
 	 */
 	protected function prepareBoardData($boardId = '') {
-		if ($boardId !== '' && isset($this->sprintConfig['WMDB']['Forger']['Boards'][$boardId])) {
-			$boardData = $this->getBoardData($boardId);
-			$ticketCount = [];
-			foreach ($boardData as $status => $tickets) {
-				$ticketCount[$status] = count($tickets);
-			}
-			$this->view->assign('progress', $this->calculateProgressBars($ticketCount));
-			$this->view->assign('board', $boardData);
-			$this->view->assign('boardInfo', $this->sprintConfig['WMDB']['Forger']['Boards'][$boardId]);
+		if(!isset($this->sprintConfig['WMDB']['Forger']['Boards'][$boardId]) && !is_numeric($boardId)) {
+			throw new \Exception('No board found with this config');
 		}
+		$query = '';
+		if (isset($this->sprintConfig['WMDB']['Forger']['Boards'][$boardId])) {
+			$query = $this->sprintConfig['WMDB']['Forger']['Boards'][$boardId]['Query'];
+			$boardInfo = $this->sprintConfig['WMDB']['Forger']['Boards'][$boardId];
+		}
+		if(is_numeric($boardId)) {
+			$query = array(
+				'bool' => array(
+					'must' => array(
+						array(
+							'term' => array(
+								'focus.name' => 'Remote Sprint'
+							)
+						),
+						array(
+							'term' => array(
+								'assigned_to.id' => (int)$boardId
+							)
+						),
+					)
+				)
+			);
+			$boardInfo['Name'] = '';
+		}
+		$boardData = $this->getBoardData($query);
+		$ticketCount = [];
+		foreach ($boardData as $status => $tickets) {
+			$ticketCount[$status] = count($tickets);
+		}
+		$this->view->assign('progress', $this->calculateProgressBars($ticketCount));
+		$this->view->assign('board', $boardData);
+		$this->view->assign('boardInfo', $boardInfo);
 		$this->view->assignMultiple([
 			'boardMenu' => $this->makeBoardMenu($boardId),
 			'context' => $this->context]);
@@ -131,15 +156,13 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	}
 
 	/**
-	 * @param string $boardId
+	 * @param string $query
 	 * @return array
 	 * @throws Exception
 	 */
-	protected function getBoardData($boardId) {
-		if (!isset($this->sprintConfig['WMDB']['Forger']['Boards'][$boardId]['Query'])) {
-			throw new Exception('No sprint query found');
-		}
-		$this->view->assign('boardConfig' ,json_encode($this->sprintConfig['WMDB']['Forger']['Boards'][$boardId]['Query'], JSON_PRETTY_PRINT));
+	protected function getBoardData($query) {
+		
+		$this->view->assign('boardConfig' ,json_encode($query, JSON_PRETTY_PRINT));
 		$out = [
 			'BLOCKED' => [],
 			'Open' => [],
@@ -148,7 +171,7 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 			'Done' => [],
 		];
 		$fullRequest = [
-			'query' => $this->sprintConfig['WMDB']['Forger']['Boards'][$boardId]['Query'],
+			'query' => $query,
 			'filter' => $this->queryFilters(),
 			'size' => 1000
 		];

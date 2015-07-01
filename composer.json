@@ -30,7 +30,7 @@
     "kbsali/redmine-api": "*",
     "ruflin/elastica": "*",
     "netcarver/textile": "3.5.*",
-    "flowpack/twitter-api": "*"
+    "flowpack/twitter-api": "@dev"
   },
   "autoload": {
     "psr-0": {

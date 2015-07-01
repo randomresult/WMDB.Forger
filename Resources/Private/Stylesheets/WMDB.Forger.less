@@ -97,6 +97,29 @@ table tr td table {
             font-weight: 500;
           }
         }
+        .media-right {
+          padding: 5px;
+
+          .avatar {
+            width: 40px;
+            height: 40px;
+            overflow: hidden;
+            position: relative;
+            border-radius: 3px;
+            box-shadow: 0px 0px 1px #999;
+            img {
+              position:absolute;
+              left: -100%;
+              right: -100%;
+              top: -100%;
+              bottom: -100%;
+              margin: auto;
+              min-height: 100%;
+              min-width: 100%;
+              width: 40px;
+            }
+          }
+        }
       }
 
       &-status {

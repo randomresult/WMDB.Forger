@@ -29,7 +29,8 @@
     "typo3/flow": "*",
     "kbsali/redmine-api": "*",
     "ruflin/elastica": "*",
-    "netcarver/textile": "3.5.*"
+    "netcarver/textile": "3.5.*",
+    "flowpack/twitter-api": "*"
   },
   "autoload": {
     "psr-0": {

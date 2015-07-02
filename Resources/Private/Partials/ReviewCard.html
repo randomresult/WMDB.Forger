@@ -5,7 +5,7 @@
             <div class="media-body">
                 <a href="https://review.typo3.org/#/c/{card.id}/" target="_blank">{card.subject}</a>
             </div>
-            <f:if condition="card.avatar">
+            <f:if condition="{card.avatar}">
                 <div class="media-right">
                     <f:render partial="Avatar" arguments="{username: card.avatar.username}" />
                 </div>

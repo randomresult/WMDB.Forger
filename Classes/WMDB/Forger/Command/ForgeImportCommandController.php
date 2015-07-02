@@ -49,12 +49,22 @@ class ForgeImportCommandController extends Cli\CommandController {
 
 	/**
 	 * Initializes all client connections to forge and to Elasticsearch
+	 *
+	 * @param string $mode
+	 * @throws \TYPO3\Flow\Exception
 	 */
-	protected function startUp() {
-		$this->redmineClient = new Redmine\Client(
-			$this->settings['Redmine']['url'],
-			$this->settings['Redmine']['apiKey']
-		);
+	protected function startUp($mode = '') {
+		if ($mode === 'elevated') {
+			$this->redmineClient = new Redmine\Client(
+				$this->settings['Redmine']['url'],
+				$this->settings['Redmine']['apiKeyElevated']
+			);
+		} else {
+			$this->redmineClient = new Redmine\Client(
+				$this->settings['Redmine']['url'],
+				$this->settings['Redmine']['apiKey']
+			);
+		}
 		$this->connection = new ElasticSearchConnection();
 		$this->connection->init();
 
@@ -433,7 +443,7 @@ class ForgeImportCommandController extends Cli\CommandController {
 	 * Imports users from Redmine
 	 */
 	public function usersCommand() {
-		$this->startUp();
+		$this->startUp('elevated');
 		$memberships = $this->redmineClient->api('membership')->all('typo3cms-core', array('limit' => 1000));
 		if (isset($memberships['memberships'])) {
 			foreach ($memberships['memberships'] as $userData) {

@@ -435,8 +435,12 @@ class ForgeImportCommandController extends Cli\CommandController {
 	public function usersCommand() {
 		$this->startUp();
 		$memberships = $this->redmineClient->api('membership')->all('typo3cms-core', array('limit' => 1000));
-		foreach ($memberships['memberships'] as $userData) {
-			$this->insertUser($userData['user']['id'], $userData['user']['login']);
+		if (isset($memberships['memberships'])) {
+			foreach ($memberships['memberships'] as $userData) {
+				$this->insertUser($userData['user']['id'], $userData['user']['login']);
+			}
+		} else {
+			$this->outputLine('Cannot fetch memberships. Maybe the user may not read them?');
 		}
 	}
 

@@ -17,9 +17,11 @@
             <div class="media-body">
                 <a href="https://forge.typo3.org/issues/{card.id}" target="_blank" title="#{card.id} {card.subject}">#{card.id} {card.subject}</a>
             </div>
-            <!-- div class="media-right">
-                <f:render partial="Avatar" arguments="{username: 'dermattes'}" />
-            </div -->
+            <f:if condition="card.avatar">
+                <div class="media-right">
+                    <f:render partial="Avatar" arguments="{username: card.avatar.username}" />
+                </div>
+            </f:if>
         </div>
     </div>
     <f:if condition="{0: coltype} != {0: 'Done'}">

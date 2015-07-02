@@ -5,9 +5,11 @@
             <div class="media-body">
                 <a href="https://review.typo3.org/#/c/{card.id}/" target="_blank">{card.subject}</a>
             </div>
-            <!-- div class="media-right">
-                <f:render partial="Avatar" arguments="{username: 'dermattes'}" />
-            </div -->
+            <f:if condition="card.avatar">
+                <div class="media-right">
+                    <f:render partial="Avatar" arguments="{username: card.avatar.username}" />
+                </div>
+            </f:if>
         </div>
     </div>
     <f:if condition="{0: card.mergeable} == {0: 'no'}">

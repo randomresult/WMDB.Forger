@@ -41,6 +41,11 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	protected $context;
 
 	/**
+	 * @var array
+	 */
+	protected $users;
+
+	/**
 	 * @var Es\ElasticSearchConnection
 	 */
 	private $connection;
@@ -162,7 +167,7 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	 * @throws Exception
 	 */
 	protected function getBoardData($query) {
-		
+		$this->getAllUsers();
 		$this->view->assign('boardConfig' ,json_encode($query, JSON_PRETTY_PRINT));
 		$out = [
 			'BLOCKED' => [],
@@ -183,7 +188,11 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 			$status = $ticket->__get('status');
 			$getBoardGroup = $this->defineBoardGroup($status['name']);
 			if ($getBoardGroup !== 'Review') {
-				$out[$getBoardGroup][] = $ticket->getData('id');
+				$ticketInfo = $ticket->getData('id');
+				if (isset($ticketInfo['assigned_to']) && isset($this->users[$ticketInfo['assigned_to']['id']])) {
+					$ticketInfo['avatar'] = $this->users[$ticketInfo['assigned_to']['id']];
+				}
+				$out[$getBoardGroup][] = $ticketInfo;
 			} else {
 				$out[$getBoardGroup][] = $this->getReviewCard($ticket->getData('id'));
 			}
@@ -199,6 +208,7 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	 * @throws Exception
 	 */
 	protected function getReviewCard(array $ticket) {
+
 		$notes = '';
 		if (isset($ticket['journals'])) {
 			foreach ($ticket['journals'] as $journalEntry) {
@@ -222,6 +232,9 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 			$reviewType = $this->connection->getIndex()->getType('review');
 			$item = $reviewType->getDocument($matches['reviewId']);
 			$returnValue = $item->getData();
+			if (isset($ticket['assigned_to']) && isset($this->users[$ticket['assigned_to']['id']])) {
+				$returnValue['avatar'] = $this->users[$ticket['assigned_to']['id']];
+			}
 			$returnValue['_redmine_issue_id'] = $ticket['id'];
 			return $returnValue;
 		}
@@ -302,5 +315,17 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 		}
 		$out['total'] = $fullCount;
 		return $out;
+	}
+
+	/**
+	 * 
+	 */
+	protected function getAllUsers() {
+		$res = $this->connection->getIndex()->getType('user')->search('', array('size'=> 100));
+		$results = $res->getResults();
+		foreach ($results as $hit) {
+			$user = $hit->getSource();
+			$this->users[$user['id']] = $user;
+		}
 	}
 }

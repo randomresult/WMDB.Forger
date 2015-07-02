@@ -394,6 +394,9 @@ class ForgeImportCommandController extends Cli\CommandController {
 			case 'review':
 				$type = new Elastica\Type($this->elasticIndex, 'review');
 				break;
+			case 'user':
+				$type = new Elastica\Type($this->elasticIndex, 'user');
+				break;
 			default:
 		}
 		#\TYPO3\Flow\var_dump($type);
@@ -424,5 +427,31 @@ class ForgeImportCommandController extends Cli\CommandController {
 		} else {
 			return 'broken';
 		}
+	}
+
+	/**
+	 * Imports users from Redmine
+	 */
+	public function usersCommand() {
+		$this->startUp();
+		$memberships = $this->redmineClient->api('membership')->all('typo3cms-core', array('limit' => 1000));
+		foreach ($memberships['memberships'] as $userData) {
+			$this->insertUser($userData['user']['id'], $userData['user']['login']);
+		}
+	}
+
+	/**
+	 * @param int $userId
+	 * @param string $username
+	 */
+	protected function insertUser($userId = 0, $username = '') {
+		$userData = $this->redmineClient->api('user')->show($userId);
+		$compiledData = [
+			'id' => $userId,
+			'username' => $username,
+			'email' => (isset($userData['user']['mail']) ? $userData['user']['mail'] : NULL),
+			'fullname' => $userData['user']['firstname'].' '.$userData['user']['lastname']
+		];
+		$this->addDocumentToElastic($compiledData, 'user');
 	}
 }

@@ -41,6 +41,19 @@ class SetupCommandController extends Cli\CommandController {
 	}
 
 	/**
+	 * @param string $mappingName Name of the mapping to apply
+	 */
+	public function addMappingCommand($mappingName){
+		$this->index = $this->connectToElastic();
+		if(isset($this->settings['Elasticsearch']['Mapping'][$mappingName])) {
+			$type = new Elastica\Type($this->index, $mappingName);
+			$this->setMapping($this->settings['Elasticsearch']['Mapping'][$mappingName], $type);
+		} else {
+			$this->outputLine('No mapping instructions available for '.$mappingName.'. Make sure these are defined in your settings.yaml');
+		}
+	}
+
+	/**
 	 * @return \Elastica\Index
 	 * @throws \TYPO3\Flow\Exception
 	 */

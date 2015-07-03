@@ -96,11 +96,16 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	/**
 	 * @param string $boardId
 	 * @throws Exception
+	 * @return array
 	 */
 	protected function prepareBoardData($boardId = '') {
-		$this->view->assignMultiple([
-			                            'boardMenu' => $this->makeBoardMenu($boardId),
-			                            'context' => $this->context]);
+		$this->getAllUsers();
+		$this->view->assignMultiple(
+			[
+				'boardMenu' => $this->makeBoardMenu($boardId),
+				'context' => $this->context
+			]
+		);
 		if(!isset($this->sprintConfig['WMDB']['Forger']['Boards'][$boardId]) && !is_numeric($boardId)) {
 			return [];
 		}
@@ -113,11 +118,11 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 			$query = array(
 				'bool' => array(
 					'must' => array(
-						array(
-							'term' => array(
-								'focus.name' => 'Remote Sprint'
-							)
-						),
+//						array(
+//							'term' => array(
+//								'focus.name' => 'Remote Sprint'
+//							)
+//						),
 						array(
 							'term' => array(
 								'assigned_to.id' => (int)$boardId
@@ -126,7 +131,11 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 					)
 				)
 			);
-			$boardInfo['Name'] = '';
+			if (isset($this->users[$boardId])) {
+				$boardInfo['Name'] = 'Private Board: '.$this->users[$boardId]['fullname'];
+			} else {
+				$boardInfo['Name'] = '';
+			}
 		}
 		$boardData = $this->getBoardData($query);
 		$ticketCount = [];
@@ -167,7 +176,6 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	 * @throws Exception
 	 */
 	protected function getBoardData($query) {
-		$this->getAllUsers();
 		$this->view->assign('boardConfig' ,json_encode($query, JSON_PRETTY_PRINT));
 		$out = [
 			'BLOCKED' => [],
@@ -179,7 +187,7 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 		$fullRequest = [
 			'query' => $query,
 			'filter' => $this->queryFilters(),
-			'size' => 1000
+			'size' => 10000
 		];
 		$search = $this->connection->getIndex()->createSearch($fullRequest);
 		$search->addType('issue');
@@ -187,6 +195,16 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 		foreach ($resultSet->getResults() as $ticket) {
 			$status = $ticket->__get('status');
 			$getBoardGroup = $this->defineBoardGroup($status['name']);
+			if($getBoardGroup === 'Done') {
+				//@todo yes, this is butt-ugly, but either like this or with two queries.
+				$ticketTime = new \DateTime($ticket->__get('updated_on'));
+				$now = new \DateTime();
+				$ageDiff = $now->diff($ticketTime);
+				$age = (int)$ageDiff->format('%a');
+				if($age > 30) {
+					continue;
+				}
+			}
 			if ($getBoardGroup !== 'Review') {
 				$ticketInfo = $ticket->getData('id');
 				if (isset($ticketInfo['assigned_to']) && isset($this->users[$ticketInfo['assigned_to']['id']])) {

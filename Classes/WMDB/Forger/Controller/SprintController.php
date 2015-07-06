@@ -89,30 +89,36 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	/**
 	 * @param string $boardId
 	 */
+	public function focusAction($boardId = '') {
+		$this->prepareBoardData($boardId, 'FocusBoards');
+	}
+	/**
+	 * @param string $boardId
+	 */
 	public function listAction($boardId = '') {
 		$this->prepareBoardData($boardId);
 	}
 
 	/**
 	 * @param string $boardId
-	 * @throws Exception
+	 * @param string $boardType
 	 * @return array
 	 */
-	protected function prepareBoardData($boardId = '') {
+	protected function prepareBoardData($boardId = '', $boardType = 'Boards') {
 		$this->getAllUsers();
 		$this->view->assignMultiple(
 			[
-				'boardMenu' => $this->makeBoardMenu($boardId),
+				'boardMenu' => $this->makeBoardMenu($boardId, $boardType),
 				'context' => $this->context
 			]
 		);
-		if(!isset($this->sprintConfig['WMDB']['Forger']['Boards'][$boardId]) && !is_numeric($boardId)) {
+		if(!isset($this->sprintConfig['WMDB']['Forger'][$boardType][$boardId]) && !is_numeric($boardId)) {
 			return [];
 		}
 		$query = '';
-		if (isset($this->sprintConfig['WMDB']['Forger']['Boards'][$boardId])) {
-			$query = $this->sprintConfig['WMDB']['Forger']['Boards'][$boardId]['Query'];
-			$boardInfo = $this->sprintConfig['WMDB']['Forger']['Boards'][$boardId];
+		if (isset($this->sprintConfig['WMDB']['Forger'][$boardType][$boardId])) {
+			$query = $this->sprintConfig['WMDB']['Forger'][$boardType][$boardId]['Query'];
+			$boardInfo = $this->sprintConfig['WMDB']['Forger'][$boardType][$boardId];
 		}
 		if(is_numeric($boardId)) {
 			$query = array(
@@ -155,12 +161,14 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 
 	/**
 	 * Generates a list of boards to link to
+	 *
 	 * @param string $active
+	 * @param string $boardType
 	 * @return array
 	 */
-	protected function makeBoardMenu($active = '') {
+	protected function makeBoardMenu($active = '', $boardType = 'Boards') {
 		$out = [];
-		foreach ($this->sprintConfig['WMDB']['Forger']['Boards'] as $boardId => $boardSetup) {
+		foreach ($this->sprintConfig['WMDB']['Forger'][$boardType] as $boardId => $boardSetup) {
 			$out[] = [
 				'id' => $boardId,
 				'name' => $boardSetup['Name'],

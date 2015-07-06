@@ -33,3 +33,58 @@ WMDB:
               - term: {fixed_version.name: 7.4 (Backend)}
             must_not:
               - term: {subject: wip}
+    FocusBoards:
+      Cat1595:
+        Name: CE Registration
+        Query:
+          bool:
+            must:
+              - term: {category.id: 1595}
+      Cat1594:
+        Name: Composer
+        Query:
+          bool:
+            must:
+              - term: {category.id: 1594}
+      Cat1593:
+        Name: Fluid CEs
+        Query:
+          bool:
+            must:
+              - term: {category.id: 1593}
+      Cat1599:
+        Name: Directory Hardening
+        Query:
+          bool:
+            must:
+              - term: {category.id: 1599}
+      Cat1601:
+        Name: Install Improvements
+        Query:
+          bool:
+            must:
+              - term: {category.id: 1601}
+      Cat1598:
+        Name: Linkhandler / EB
+        Query:
+          bool:
+            must:
+              - term: {category.id: 1598}
+      Cat1597:
+        Name: Migration / Extension Extration
+        Query:
+          bool:
+            must:
+              - term: {category.id: 1597}
+      Cat1596:
+        Name: Remove Prototype / Scriptacolous
+        Query:
+          bool:
+            must:
+              - term: {category.id: 1596}
+      Cat1600:
+        Name: RTE API
+        Query:
+          bool:
+            must:
+              - term: {category.id: 1600}

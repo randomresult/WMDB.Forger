@@ -40,6 +40,14 @@
                         <strong>No Sprint selected!</strong> Please select a sprint!
                     </div>
                 </div>
+                <div class="col-xs-12">
+	                <f:for each="{boardMenu}" as="boardNav">
+		                <h6>{boardNav.name}</h6>
+		                <div class="progress">
+			                <div class="progress-bar progress-bar-success" role="progressbar" style="width: {boardNav.count.percentage}%;">{boardNav.count.percentage}% done</div>
+		                </div>
+	                </f:for>
+                </div>
             </div>
         </f:else>
     </f:if>

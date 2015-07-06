@@ -1,14 +1,27 @@
 <f:layout name="Default"/>
 
 <f:section name="Title">Focus Sprint</f:section>
-<f:section name="Javascripts"></f:section>
+<f:section name="Javascripts">
+<script type="application/javascript">
+	$(function () {
+		$('[data-toggle="tooltip"]').tooltip()
+	});
+</script>
+</f:section>
 
 <f:section name="Content">
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="btn-group">
 				<f:for each="{boardMenu}" as="boardNav">
-					<f:link.action class="btn btn-default {f:if(condition: boardNav.active, then: 'active')}" controller="Sprint" action="focus" arguments="{boardId:boardNav.id}">{boardNav.name}</f:link.action>
+					<f:link.action
+							class="btn btn-default {f:if(condition: boardNav.active, then: 'active')}"
+							data="{toggle:'tooltip', placement:'top', container:'body'}"
+							title="{boardNav.count.open} open, {boardNav.count.closed} closed,  {boardNav.count.total} total"
+							controller="Sprint"
+							action="Focus"
+							arguments="{boardId:boardNav.id}"
+							>{boardNav.name} ({boardNav.count.percentage}%)</f:link.action>
 				</f:for>
 			</div>
             <f:if condition="{board}">

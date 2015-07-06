@@ -53,31 +53,31 @@ WMDB:
             must:
               - term: {category.id: 1593}
       Cat1599:
-        Name: Directory Hardening
+        Name: Hardening
         Query:
           bool:
             must:
               - term: {category.id: 1599}
       Cat1601:
-        Name: Install Improvements
+        Name: Improve Install
         Query:
           bool:
             must:
               - term: {category.id: 1601}
       Cat1598:
-        Name: Linkhandler / EB
+        Name: Linkhandler
         Query:
           bool:
             must:
               - term: {category.id: 1598}
       Cat1597:
-        Name: Migration / Extension Extration
+        Name: Migration
         Query:
           bool:
             must:
               - term: {category.id: 1597}
       Cat1596:
-        Name: Remove Prototype / Scriptacolous
+        Name: Remove Prot.aculous
         Query:
           bool:
             must:

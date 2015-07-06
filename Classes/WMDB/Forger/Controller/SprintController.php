@@ -169,13 +169,57 @@ class SprintController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	protected function makeBoardMenu($active = '', $boardType = 'Boards') {
 		$out = [];
 		foreach ($this->sprintConfig['WMDB']['Forger'][$boardType] as $boardId => $boardSetup) {
+			$resultCount = $this->getTicketByBoardQuery($boardSetup['Query']);
 			$out[] = [
 				'id' => $boardId,
 				'name' => $boardSetup['Name'],
+				'count' => $resultCount,
 				'active' => ($boardId === $active) ? true : false,
 			];
 		}
 		return $out;
+	}
+
+	/**
+	 * @param array $query
+	 * @return string
+	 */
+	protected function getTicketByBoardQuery(array $query) {
+		$fullRequest = [
+			'query' => $query,
+			'filter' => $this->queryFilters(),
+			'size' => 0,
+			'aggregations' => [
+				'status' => [
+					'terms' => [
+						'field' => 'status.id',
+					],
+				]
+			]
+		];
+		$search = $this->connection->getIndex()->createSearch($fullRequest);
+		$search->addType('issue');
+		$resultSet = $search->search();
+		$count = [
+			'open' => 0,
+			'closed' => 0,
+			'total' => 0
+		];
+		foreach ($resultSet->getAggregation('status')['buckets'] as $bucket) {
+			if($bucket['key'] === 3 || $bucket['key'] === 5 || $bucket['key'] === 6) {
+				$count['closed'] = $count['closed'] + $bucket['doc_count'];
+			} else {
+				$count['open'] = $count['open'] + $bucket['doc_count'];
+			}
+			$count['total'] = $count['total'] + $bucket['doc_count'];
+		}
+		if ($count['closed'] > 0 && $count['total'] > 0) {
+			$count['percentage'] = round($count['closed'] * 100.0 / $count['total']);
+		} else {
+			$count['percentage'] = 0;
+		}
+
+		return $count;
 	}
 
 	/**

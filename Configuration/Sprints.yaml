@@ -8,6 +8,13 @@ WMDB:
             must:
               - term: {focus.name: Stabilization Sprint}
               - term: {fixed_version.name: 6.2.14}
+      SS_6215:
+        Name: 6.2.15 Stabilisation
+        Query:
+          bool:
+            must:
+              - term: {focus.name: Stabilization Sprint}
+              - term: {fixed_version.name: 6.2.15}
       SP_74:
         Name: 7.4 Stabilisation
         Query:

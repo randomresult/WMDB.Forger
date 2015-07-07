@@ -1,13 +1,6 @@
 WMDB:
   Forger:
     Boards:
-      SS_6214:
-        Name: 6.2.14 Stabilisation
-        Query:
-          bool:
-            must:
-              - term: {focus.name: Stabilization Sprint}
-              - term: {fixed_version.name: 6.2.14}
       SS_6215:
         Name: 6.2.15 Stabilisation
         Query:

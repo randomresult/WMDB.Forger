@@ -1,36 +1,15 @@
 <f:layout name="Default"/>
 
-<f:section name="Title">Focus Sprint</f:section>
+<f:section name="Title">Focus View</f:section>
 <f:section name="Javascripts">
-<script type="application/javascript">
-	$(function () {
-		$('[data-toggle="tooltip"]').tooltip()
-	});
-</script>
+    <script type="application/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+    </script>
 </f:section>
 
 <f:section name="Content">
-	<div class="row">
-		<div class="col-xs-12">
-			<div class="btn-group">
-				<f:for each="{boardMenu}" as="boardNav">
-					<f:link.action
-							class="btn btn-default {f:if(condition: boardNav.active, then: 'active')}"
-							data="{toggle:'tooltip', placement:'top', container:'body'}"
-							title="{boardNav.count.open} open, {boardNav.count.closed} closed,  {boardNav.count.total} total"
-							controller="Sprint"
-							action="Focus"
-							arguments="{boardId:boardNav.id}"
-							>{boardNav.name} ({boardNav.count.percentage}%)</f:link.action>
-				</f:for>
-			</div>
-            <f:if condition="{board}">
-                <div class="btn-group pull-right">
-                    <button type="button" data-toggle="modal" data-target="#boardconfig" class="btn btn-info"><i class="fa fa-wrench"></i> Debug Board Config</button>
-                </div>
-            </f:if>
-		</div>
-	</div>
     <f:if condition="{board}">
         <f:then></f:then>
         <f:else>
@@ -40,17 +19,40 @@
                         <strong>No Sprint selected!</strong> Please select a sprint!
                     </div>
                 </div>
-	            <div class="col-xs-12">
-		            <f:for each="{boardMenu}" as="boardNav">
-			            <h6>{boardNav.name}</h6>
-			            <div class="progress">
-				            <div class="progress-bar progress-bar-success" role="progressbar" style="width: {boardNav.count.percentage}%;">{boardNav.count.percentage}% done</div>
-			            </div>
-		            </f:for>
-	            </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <f:for each="{boardMenu}" as="boardNav">
+                        <h6>{boardNav.name}</h6>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-success" role="progressbar" style="width: {boardNav.count.percentage}%;">{boardNav.count.percentage}% done</div>
+                        </div>
+                    </f:for>
+                </div>
             </div>
         </f:else>
     </f:if>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="btn-group">
+                <f:for each="{boardMenu}" as="boardNav">
+                    <f:link.action
+                            class="btn btn-default {f:if(condition: boardNav.active, then: 'active')}"
+                            data="{toggle:'tooltip', placement:'top', container:'body'}"
+                            title="{boardNav.count.open} open, {boardNav.count.closed} closed,  {boardNav.count.total} total"
+                            controller="Sprint"
+                            action="Focus"
+                            arguments="{boardId:boardNav.id}"
+                            >{boardNav.name} ({boardNav.count.percentage}%)</f:link.action>
+                </f:for>
+            </div>
+            <f:if condition="{board}">
+                <div class="btn-group pull-right">
+                    <button type="button" data-toggle="modal" data-target="#boardconfig" class="btn btn-info"><i class="fa fa-wrench"></i> Debug Board Config</button>
+                </div>
+            </f:if>
+        </div>
+    </div>
     <f:if condition="{board}">
         <div class="row">
             <div class="col-xs-12">
@@ -63,12 +65,12 @@
                     <div class="progress">
                         <f:for each="{progress.sections}" as="bar">
                             <div
-		                            class="progress-bar progress-bar-{bar.classes}"
-		                            role="progressbar"
-		                            aria-valuenow="60"
-		                            aria-valuemin="0"
-		                            aria-valuemax="100"
-		                            style="width: {bar.value}%;">
+                                    class="progress-bar progress-bar-{bar.classes}"
+                                    role="progressbar"
+                                    aria-valuenow="60"
+                                    aria-valuemin="0"
+                                    aria-valuemax="100"
+                                    style="width: {bar.value}%;">
                                 {bar.label}
                             </div>
                         </f:for>
@@ -79,34 +81,34 @@
         <div class="row grid-10 board">
             <f:for each="{board}" as="cards" key="metacolname">
                 <div class="col-md-2 col-sm-2 boardcolumn" id="column-{metacolname}">
-	                <f:switch expression="{metacolname}">
-		                <f:case value="Open">
-			                <h3 class="status_new"><strong><f:count subject="{cards}"/></strong> {metacolname}</h3>
-		                </f:case>
-		                <f:case value="WIP">
-			                <h3 class="status_wip"><strong><f:count subject="{cards}"/></strong> {metacolname}</h3>
-		                </f:case>
-		                <f:case value="Review">
-			                <h3 class="status_review"><strong><f:count subject="{cards}"/></strong> {metacolname}</h3>
-		                </f:case>
-		                <f:case value="Done">
-			                <h3 class="status_done"><strong><f:count subject="{cards}"/></strong> {metacolname}</h3>
-		                </f:case>
-		                <f:case value="BLOCKED">
-			                <h3 class="status_feedback"><strong><f:count subject="{cards}"/></strong> {metacolname}</h3>
-		                </f:case>
-	                </f:switch>
+                    <f:switch expression="{metacolname}">
+                        <f:case value="Open">
+                            <h3 class="status_new"><strong><f:count subject="{cards}"/></strong> {metacolname}</h3>
+                        </f:case>
+                        <f:case value="WIP">
+                            <h3 class="status_wip"><strong><f:count subject="{cards}"/></strong> {metacolname}</h3>
+                        </f:case>
+                        <f:case value="Review">
+                            <h3 class="status_review"><strong><f:count subject="{cards}"/></strong> {metacolname}</h3>
+                        </f:case>
+                        <f:case value="Done">
+                            <h3 class="status_done"><strong><f:count subject="{cards}"/></strong> {metacolname}</h3>
+                        </f:case>
+                        <f:case value="BLOCKED">
+                            <h3 class="status_feedback"><strong><f:count subject="{cards}"/></strong> {metacolname}</h3>
+                        </f:case>
+                    </f:switch>
                     <div class="cards">
-                    <f:for each="{cards}" as="card">
-                        <f:if condition="{metacolname} == 'Review'">
-                            <f:then>
-                                <f:render partial="ReviewCard" arguments="{card: card, coltype: metacolname}"/>
-                            </f:then>
-                            <f:else>
-                                <f:render partial="BoardCard" arguments="{card: card, coltype: metacolname}"/>
-                            </f:else>
-                        </f:if>
-                    </f:for>
+                        <f:for each="{cards}" as="card">
+                            <f:if condition="{metacolname} == 'Review'">
+                                <f:then>
+                                    <f:render partial="ReviewCard" arguments="{card: card, coltype: metacolname}"/>
+                                </f:then>
+                                <f:else>
+                                    <f:render partial="BoardCard" arguments="{card: card, coltype: metacolname}"/>
+                                </f:else>
+                            </f:if>
+                        </f:for>
                     </div>
                 </div>
             </f:for>

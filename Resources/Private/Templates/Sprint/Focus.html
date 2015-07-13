@@ -10,28 +10,6 @@
 </f:section>
 
 <f:section name="Content">
-    <f:if condition="{board}">
-        <f:then></f:then>
-        <f:else>
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="alert alert-info" role="alert">
-                        <strong>No Sprint selected!</strong> Please select a sprint!
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <f:for each="{boardMenu}" as="boardNav">
-                        <h6>{boardNav.name}</h6>
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-success" role="progressbar" style="width: {boardNav.count.percentage}%;">{boardNav.count.percentage}% done</div>
-                        </div>
-                    </f:for>
-                </div>
-            </div>
-        </f:else>
-    </f:if>
     <div class="row">
         <div class="col-xs-12">
             <div class="btn-group">
@@ -53,6 +31,28 @@
             </f:if>
         </div>
     </div>
+    <f:if condition="{board}">
+        <f:then></f:then>
+        <f:else>
+            <div class="row mt20">
+                <div class="col-xs-12">
+                    <div class="alert alert-info" role="alert">
+                        <strong>No Sprint selected!</strong> Please select a sprint!
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <f:for each="{boardMenu}" as="boardNav">
+                        <h6>{boardNav.name}</h6>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-success" role="progressbar" style="width: {boardNav.count.percentage}%;">{boardNav.count.percentage}% done</div>
+                        </div>
+                    </f:for>
+                </div>
+            </div>
+        </f:else>
+    </f:if>
     <f:if condition="{board}">
         <div class="row">
             <div class="col-xs-12">

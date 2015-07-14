@@ -39,7 +39,7 @@ class Overview extends AbstractGraph {
 						[
 							'range' => [
 								'updated_on' => [
-									'gte' => '2013/05/28 00:00:00'
+									'gte' => strftime('%Y/%m/%d 00:00:00', time()-((365/2) * 24 * 60 * 60))
 								]
 							]
 						]
@@ -89,6 +89,7 @@ class Overview extends AbstractGraph {
 	 */
 	protected function gerritGetOpened() {
 		$row = [];
+
 		$fullRequest = [
 			'query' => [
 				'bool' => [
@@ -96,7 +97,7 @@ class Overview extends AbstractGraph {
 						[
 							'range' => [
 								'created_on' => [
-									'gte' => '2013/05/28 00:00:00'
+									'gte' => strftime('%Y/%m/%d 00:00:00', time()-((365/2) * 24 * 60 * 60))
 								]
 							]
 						]

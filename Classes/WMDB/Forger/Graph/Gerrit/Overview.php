@@ -11,7 +11,10 @@ use Elastica as El;
  */
 class Overview extends AbstractGraph {
 
+	protected $weirdTimeThingy;
+
 	protected function getData() {
+		$this->weirdTimeThingy = strftime('%Y/%m/%d 00:00:00', time()-(((365/2)-31) * 24 * 60 * 60));
 		$this->chartData = [
 			'chartData' => $this->gerritOpenVsClosedAction(),
 			'guides' => $this->getGuides(),
@@ -39,7 +42,7 @@ class Overview extends AbstractGraph {
 						[
 							'range' => [
 								'updated_on' => [
-									'gte' => strftime('%Y/%m/%d 00:00:00', time()-((365/2) * 24 * 60 * 60))
+									'gte' => $this->weirdTimeThingy
 								]
 							]
 						]
@@ -97,7 +100,7 @@ class Overview extends AbstractGraph {
 						[
 							'range' => [
 								'created_on' => [
-									'gte' => strftime('%Y/%m/%d 00:00:00', time()-((365/2) * 24 * 60 * 60))
+									'gte' => $this->weirdTimeThingy
 								]
 							]
 						]

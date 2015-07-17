@@ -21,7 +21,7 @@
             <div id="general" class="graph">
                 <div class="row">
                     <div class="col-sm-7 column"><h3>Open Issues:</h3></div>
-                    <div class="col-sm-5 column"><h1>{openIssues}</h1></div>
+                    <div class="col-sm-5 column"><h1><f:link.action controller="gerrit" action="status">{openIssues}</f:link.action></h1></div>
                 </div>
                 <div class="row">
                     <div class="col-sm-7 column"><h3>Open Reviews:</h3></div>
